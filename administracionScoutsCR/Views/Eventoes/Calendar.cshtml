@@ -1,0 +1,96 @@
+﻿@model IEnumerable<administracionScoutsCR.Models.Evento>
+
+@{
+    ViewData["Title"] = "Calendario de Eventos";
+}
+
+
+<div class="wrapper">
+    <header>
+        <p class="current-date"></p>
+        <div class="icons">
+            <span id="prevIcon" class="leftIcon"><</span>
+            <span id="nextIcon" class="rightIcon">></span>
+        </div>
+    </header>
+    <div class="calendar">
+        <ul class="weeks">
+            <li>Domingo</li>
+            <li>Lunes</li>
+            <li>Martes</li>
+            <li>Miercoles</li>
+            <li>Jueves</li>
+            <li>Viernes</li>
+            <li>Sabado</li>
+        </ul>
+        <ul class="days"></ul>
+    </div>
+</div>
+
+<script>
+    const currentDateTitle = document.querySelector(".current-date"),
+        daysTag = document.querySelector(".days"),
+        prevNextIcons = document.querySelectorAll(".icons span");
+
+    let date = new Date(),
+        currentYear = date.getFullYear(),
+        currentMonth = date.getMonth();
+
+    const months = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+
+    const renderCalendar = () => {
+        let firstDayOfMonth = new Date(currentYear, currentMonth, 1).getDay();
+        let lastDateOfMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+        let lastDayOfMonth = new Date(currentYear, currentMonth, lastDateOfMonth).getDay();
+        let lastDateOfLastMonth = new Date(currentYear, currentMonth, 0).getDate();
+        let liDayTag = "";
+
+        for (let i = firstDayOfMonth; i > 0; i--) {
+            liDayTag += `<li class="inactive">${lastDateOfLastMonth - i + 1}</li>`;
+        }
+
+        for (let i = 1; i <= lastDateOfMonth; i++) {
+            let isToday = i === date.getDate() && currentMonth === new Date().getMonth() && currentYear === new Date().getFullYear() ? 'class="active"' : '';
+            liDayTag += `<li ${isToday} data-day="${i}">${i}</li>`;
+        }
+
+        for (let i = lastDayOfMonth; i < 6; i++) {
+            liDayTag += `<li class="inactive">${i - lastDayOfMonth + 1}</li>`;
+        }
+
+        currentDateTitle.innerText = `${months[currentMonth]} ${currentYear}`;
+        daysTag.innerHTML = liDayTag;
+
+        loadEvents();
+    };
+
+    const loadEvents = () => {
+        fetch(`/Evento/GetEventos?year=${currentYear}&month=${currentMonth + 1}`)
+            .then(response => response.json())
+            .then(events => {
+                events.forEach(event => {
+                    let eventDay = new Date(event.fecha).getDate();
+                    let dayElement = document.querySelector(`.days li[data-day='${eventDay}']`);
+                    if (dayElement) {
+                        dayElement.innerHTML += `<span>${event.titulo}</span>`;
+                    }
+                });
+            });
+    };
+
+    renderCalendar();
+
+    prevNextIcons.forEach(icon => {
+        icon.addEventListener("click", () => {
+            currentMonth = icon.id === "prevIcon" ? currentMonth - 1 : currentMonth + 1;
+            if (currentMonth < 0 || currentMonth > 11) {
+                date = new Date(currentYear, currentMonth);
+                currentYear = date.getFullYear();
+                currentMonth = date.getMonth();
+            } else {
+                date = new Date();
+            }
+            renderCalendar();
+        });
+    });
+</script>

@@ -1,3 +1,4 @@
+using administracionScoutsCR.Controllers;
 using administracionScoutsCR.Models;
 
 var builder = WebApplication.CreateBuilder(args);

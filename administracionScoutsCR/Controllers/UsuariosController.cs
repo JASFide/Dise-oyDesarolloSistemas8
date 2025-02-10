@@ -47,7 +47,12 @@ namespace administracionScoutsCR.Controllers
         // GET: Usuarios/Create
         public IActionResult Create()
         {
-            ViewData["IdSeccion"] = new SelectList(_context.Seccions, "IdSeccion", "IdSeccion");
+            ViewBag.SeccionesDisponibles = new SelectList(
+                _context.Seccions.ToList(),
+                "IdSeccion",
+                "Nombre"
+            );
+
             return View();
         }
 

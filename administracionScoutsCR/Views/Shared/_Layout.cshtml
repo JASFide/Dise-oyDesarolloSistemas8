@@ -40,24 +40,51 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Usuarios" asp-action="Index">Usuarios</a>
+                        <!-- Dropdown Usuarios -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="usuariosDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Usuarios
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="usuariosDropdown">
+                                <li><a class="dropdown-item" asp-controller="Usuarios" asp-action="Index">Lista de Usuarios</a></li>
+                                <li><a class="dropdown-item" asp-controller="Usuarios" asp-action="Create">Crear Usuario</a></li>
+                            </ul>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">Privacidad</a>
+
+
+                        <!-- Dropdown Secciones -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="seccionesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Secciones
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="seccionesDropdown">
+                                <li><a class="dropdown-item" asp-controller="Seccions" asp-action="Index">Lista de Sección</a></li>
+                                <li><a class="dropdown-item" asp-controller="Seccions" asp-action="Create">Crear Sección</a></li>
+                            </ul>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Usuarios" asp-action="Create">Crear Usuario</a>
+
+                        <!-- Dropdown Contactos de Emergencia -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="contactosDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Contactos
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="contactosDropdown">
+                                <li><a class="dropdown-item" asp-controller="ContactoEmergencia" asp-action="Create">Contacto Emergencias</a></li>
+                            </ul>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Usuarios" asp-action="Index">Usuarios</a>
+
+                        <!-- Dropdown Eventos -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="eventosDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Eventos
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="eventosDropdown">
+                                <li><a class="dropdown-item" asp-controller="Eventoes" asp-action="Index">Lista de Eventos</a></li>
+                                <li><a class="dropdown-item" asp-controller="Eventoes" asp-action="Calendar">Calendario</a></li>
+                            </ul>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Seccions" asp-action="Create">Crear Sección</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="ContactoEmergenciums" asp-action="Create">Contacto emegergencia</a>
-                        </li>
+                    </ul>
+                    li>
                     </ul>
                 </div>
             </div>

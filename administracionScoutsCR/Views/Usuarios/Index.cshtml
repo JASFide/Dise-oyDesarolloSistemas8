@@ -2,94 +2,63 @@
 
 @{
     ViewData["Title"] = "Lista de Usuarios";
-    Layout = null; // Eliminamos el layout para que sea una página independiente
 }
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-    <meta name="author" content="INSPIRO" />
-    <meta name="description" content="Themeforest Template Polo, html template">
-    <link rel="icon" type="image/png" href="~/images/favicon.png">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Lista de Usuarios - Polo</title>
-    <link href="~/css/plugins.css" rel="stylesheet">
-    <link href="~/css/style.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-</head>
-<body>
-    <div class="body-inner">
-        <section class="fullscreen" data-bg-parallax="/images/fondo.png">
-            <div class="container container-fullscreen">
-                <div class="text-middle">
-                    <div class="row">
-                        <div class="col-lg-12 center p-40 background-white b-r-6">
-                            <h3>Lista de Usuarios</h3>
-                            <p>Administra los usuarios registrados en el sistema.</p>
+<h1>Lista de Usuarios</h1>
 
-                            <!-- Botón para crear nuevo usuario -->
-                            <p>
-                                <a asp-action="Create" class="btn btn-primary">Crear Nuevo Usuario</a>
-                            </p>
+<p>
+    <a asp-action="Create" class="btn btn-primary">Crear Nuevo Usuario</a>
+</p>
 
-                            <!-- Tabla de usuarios -->
-                            <div class="table-responsive">
-                                <table class="table table-striped table-hover">
-                                    <thead class="thead-dark">
-                                        <tr>
-                                            <th>Nombre</th>
-                                            <th>Primer Apellido</th>
-                                            <th>Segundo Apellido</th>
-                                            <th>Fecha de Nacimiento</th>
-                                            <th>Tipo de Usuario</th>
-                                            <th>Estado</th>
-                                            <th>Dirección</th>
-                                            <th>Correo</th>
-                                            <th>Teléfono</th>
-                                            <th>Sección</th>
-                                            <th>Acciones</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach (var item in Model)
-                                        {
-                                            <tr>
-                                                <td>@Html.DisplayFor(modelItem => item.Nombre)</td>
-                                                <td>@Html.DisplayFor(modelItem => item.Apellido1)</td>
-                                                <td>@Html.DisplayFor(modelItem => item.Apellido2)</td>
-                                                <td>@Html.DisplayFor(modelItem => item.FechaNacimiento)</td>
-                                                <td>@Html.DisplayFor(modelItem => item.TipoUsuario)</td>
-                                                <td>@Html.DisplayFor(modelItem => item.Estado)</td>
-                                                <td>@Html.DisplayFor(modelItem => item.Direccion)</td>
-                                                <td>@Html.DisplayFor(modelItem => item.Correo)</td>
-                                                <td>@Html.DisplayFor(modelItem => item.NumeroTelefono)</td>
-                                                <td>@Html.DisplayFor(modelItem => item.IdSeccionNavigation.IdSeccion)</td>
-                                                <td>
-                                                    <a asp-action="Edit" asp-route-id="@item.IdUsuario" class="btn btn-sm btn-warning">Editar</a>
-                                                    <a asp-action="Details" asp-route-id="@item.IdUsuario" class="btn btn-sm btn-info">Detalles</a>
-                                                    <a asp-action="Delete" asp-route-id="@item.IdUsuario" class="btn btn-sm btn-danger">Eliminar</a>
-                                                    <a asp-controller="ContactoEmergenciums" asp-action="Create" asp-route-id="@item.IdUsuario" class="btn btn-sm btn-success">Agregar Contacto de Emergencia</a>
+<input type="text" id="searchInput" class="form-control mb-3" placeholder="Buscar..." onkeyup="searchTable()">
 
-                                                </td>
-                                            </tr>
-                                        }
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </div>
+<table class="table table-striped" id="usuariosTable">
+    <thead>
+        <tr>
+            <th>Nombre</th>
+            <th>Primer Apellido</th>
+            <th>Segundo Apellido</th>
+            <th>Fecha de Nacimiento</th>
+            <th>Tipo de Usuario</th>
+            <th>Estado</th>
+            <th>Sección</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Nombre</td>
+                <td>@item.Apellido1</td>
+                <td>@item.Apellido2</td>
+                <td>@item.FechaNacimiento</td>
+                <td>@item.TipoUsuario</td>
+                <td>@item.Estado</td>
+                <td>@(item.IdSeccionNavigation != null ? item.IdSeccionNavigation.Nombre : "Sin Sección")</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.IdUsuario" class="btn btn-sm btn-warning">Editar</a>
+                    <a asp-action="Details" asp-route-id="@item.IdUsuario" class="btn btn-sm btn-info">Detalles</a>
+                    <a asp-action="Delete" asp-route-id="@item.IdUsuario" class="btn btn-sm btn-danger">Eliminar</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
 
-    <!-- Scripts -->
-    <a id="scrollTop"><i class="icon-chevron-up"></i><i class="icon-chevron-up"></i></a>
-    <script src="~/js/jquery.js"></script>
-    <script src="~/js/plugins.js"></script>
-    <script src="~/js/functions.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+<script>
+    function searchTable() {
+        let input = document.getElementById("searchInput").value.toLowerCase();
+        let table = document.getElementById("usuariosTable");
+        let rows = table.getElementsByTagName("tr");
+
+        for (let i = 1; i < rows.length; i++) {
+            let cells = rows[i].getElementsByTagName("td");
+            let rowText = "";
+            for (let cell of cells) {
+                rowText += cell.textContent.toLowerCase() + " ";
+            }
+            rows[i].style.display = rowText.includes(input) ? "" : "none";
+        }
+    }
+</script>
