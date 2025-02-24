@@ -1,0 +1,24 @@
+﻿@if (User.Identity != null && User.Identity.IsAuthenticated)
+{
+    <form asp-controller="ControllerLogin" asp-action="LogOut" method="post" id="logoutform" class="navbar">
+    <ul class="nav navbar-nav navbar-right">
+        <li class="nav-item">
+            hola, @User.FindFirst("Name")?.Value
+        </li>
+            <li class="nav-item">
+                <button type="submit" class="btn btn-link navbar-btn navbar-link">Cerrar sesión</button>
+            </li>
+    </ul>
+    </form>
+}
+else
+{
+    <ul class="nav navbar-nav navbar-right">
+        <li class="nav-item">
+            <a class="nav-link" asp-area="" asp-controller="ControllerLogin" asp-action="Login">Iniciar sesión</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" asp-area="" asp-controller="Usuarios" asp-action="Create">Registrar</a>
+        </li>
+    </ul>
+}
