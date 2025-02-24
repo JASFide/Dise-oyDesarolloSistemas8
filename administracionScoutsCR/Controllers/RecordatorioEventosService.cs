@@ -20,8 +20,8 @@ public class RecordatorioEventosService : BackgroundService
         {
             using (var scope = _serviceProvider.CreateScope())
             {
-                var controller = scope.ServiceProvider.GetRequiredService<EventoesController>();
-                await controller.VerificarEventosProximos();
+              //  var controller = scope.ServiceProvider.GetRequiredService<EventoesController>();
+             //   await controller.VerificarEventosProximos();
             }
 
             await Task.Delay(TimeSpan.FromDays(1), stoppingToken); // Ejecutar cada 24 horas
