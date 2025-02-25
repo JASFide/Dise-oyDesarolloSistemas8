@@ -47,7 +47,7 @@ namespace administracionScoutsCR.Controllers
         // GET: Usuarios/Create
         public IActionResult Create()
         {
-            ViewData["IdSeccion"] = new SelectList(_context.Seccions, "IdSeccion", "IdSeccion");
+            ViewData["IdSeccion"] = new SelectList(_context.Seccions, "IdSeccion", "Nombre");
             return View();
         }
 
@@ -60,10 +60,19 @@ namespace administracionScoutsCR.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(usuario);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                var usuarioExistente = await _context.Usuarios.FirstOrDefaultAsync(u => u.Correo == usuario.Correo);
+                if (usuarioExistente != null)
+                {
+                    ModelState.AddModelError("Correo", "El correo ya está en uso.");
+                }
+                else
+                {
+                    _context.Add(usuario);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
             }
+
             ViewData["IdSeccion"] = new SelectList(_context.Seccions, "IdSeccion", "IdSeccion", usuario.IdSeccion);
             return View(usuario);
         }
