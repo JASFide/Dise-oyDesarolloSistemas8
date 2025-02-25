@@ -18,14 +18,18 @@ namespace administracionScoutsCR.Controllers
         private readonly DatabaseScoutContext _context;
         private readonly IConfiguration _configuration;
 
-       /* public EventoesController(DatabaseScoutContext context, IConfiguration configuration)
-        {
-            _context = context;
-            _configuration = configuration;
-        }*/
+		 public EventoesController(DatabaseScoutContext context, IConfiguration configuration)
+		 {
+			 _context = context;
+			 _configuration = configuration;
+		 }
+		public async Task<IActionResult> Index()
+		{
+			return View(await _context.Eventos.ToListAsync());
+		}
 
-        // Método para verificar eventos próximos en 7 días
-        public async Task<IActionResult> VerificarEventosProximos()
+		// Método para verificar eventos próximos en 7 días
+		public async Task<IActionResult> VerificarEventosProximos()
         {
             var fechaLimite = DateTime.Now.AddDays(7);
             var eventosProximos = await _context.Eventos

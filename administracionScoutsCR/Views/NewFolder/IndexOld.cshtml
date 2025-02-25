@@ -1,0 +1,73 @@
+﻿@model IEnumerable<administracionScoutsCR.Models.Evento>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Titulo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Fecha)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Lugar)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Descripcion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Encargado)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ContactoEncargado)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Titulo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Fecha)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Lugar)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Descripcion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Encargado)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ContactoEncargado)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.IdEvento">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.IdEvento">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.IdEvento">Delete</a>
+                    <form asp-action="ConfirmarAsistencia" method="post">
+                        <input type="hidden" name="idEvento" value="@item.IdEvento" />
+                        <button type="submit" class="btn btn-sm btn-success">Confirmar Asistencia</button>
+                        @if (TempData["Mensaje"] != null)
+                        {
+                            <div class="alert alert-warning">@TempData["Mensaje"]</div>
+                        }
+                    </form>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
