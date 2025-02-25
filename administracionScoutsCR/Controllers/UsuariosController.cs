@@ -47,7 +47,7 @@ namespace administracionScoutsCR.Controllers
         // GET: Usuarios/Create
         public IActionResult Create()
         {
-            ViewData["IdSeccion"] = new SelectList(_context.Seccions, "IdSeccion", "IdSeccion");
+            ViewData["IdSeccion"] = new SelectList(_context.Seccions, "IdSeccion", "Nombre");
             return View();
         }
 
@@ -60,7 +60,6 @@ namespace administracionScoutsCR.Controllers
         {
             if (ModelState.IsValid)
             {
-                // Verificar si ya existe un usuario con el mismo correo
                 var usuarioExistente = await _context.Usuarios.FirstOrDefaultAsync(u => u.Correo == usuario.Correo);
                 if (usuarioExistente != null)
                 {
