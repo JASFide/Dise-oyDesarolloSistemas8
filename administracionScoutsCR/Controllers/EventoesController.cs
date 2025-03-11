@@ -10,6 +10,7 @@ using SendGrid;
 using SendGrid.Helpers.Mail;
 using Microsoft.Extensions.Configuration;
 using System.Net.Mail;
+using static administracionScoutsCR.Models.Evento;
 
 namespace administracionScoutsCR.Controllers
 {
@@ -25,7 +26,147 @@ namespace administracionScoutsCR.Controllers
 		 }
 		public async Task<IActionResult> Index()
 		{
-			return View(await _context.Eventos.ToListAsync());
+			var eventosViewModel = new EventosViewModel
+			{
+				ListaEventos = await _context.Eventos.ToListAsync(),
+				NuevoEvento = new Evento()
+			};
+
+			return View(eventosViewModel);
+		}
+
+		public async Task<IActionResult> Test()
+		{
+		
+            return View(await _context.Eventos.ToListAsync());
+		}
+		// GET: Eventoes/Details/5
+		public async Task<IActionResult> Details(int? id)
+		{
+			if (id == null)
+			{
+				return NotFound();
+			}
+
+			var evento = await _context.Eventos
+				.FirstOrDefaultAsync(m => m.IdEvento == id);
+			if (evento == null)
+			{
+				return NotFound();
+			}
+
+			return View(evento);
+		}
+
+		// GET: Eventoes/Create
+		public IActionResult Create()
+		{
+			return View();
+		}
+
+		// POST: Eventoes/Create
+		// To protect from overposting attacks, enable the specific properties you want to bind to.
+		// For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public async Task<IActionResult> Create([Bind("IdEvento,Titulo,Fecha,Lugar,Descripcion,Encargado,ContactoEncargado")] Evento evento)
+		{
+			if (ModelState.IsValid)
+			{
+				_context.Add(evento);
+				await _context.SaveChangesAsync();
+				return RedirectToAction(nameof(Index));
+			}
+			return View(evento);
+		}
+
+		// GET: Eventoes/Edit/5
+		public async Task<IActionResult> Edit(int? id)
+		{
+			if (id == null)
+			{
+				return NotFound();
+			}
+
+			var evento = await _context.Eventos.FindAsync(id);
+			if (evento == null)
+			{
+				return NotFound();
+			}
+			return View(evento);
+		}
+
+		// POST: Eventoes/Edit/5
+		// To protect from overposting attacks, enable the specific properties you want to bind to.
+		// For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		public async Task<IActionResult> Edit(int id, [Bind("IdEvento,Titulo,Fecha,Lugar,Descripcion,Encargado,ContactoEncargado")] Evento evento)
+		{
+			if (id != evento.IdEvento)
+			{
+				return NotFound();
+			}
+
+			if (ModelState.IsValid)
+			{
+				try
+				{
+					_context.Update(evento);
+					await _context.SaveChangesAsync();
+				}
+				catch (DbUpdateConcurrencyException)
+				{
+					if (!EventoExists(evento.IdEvento))
+					{
+						return NotFound();
+					}
+					else
+					{
+						throw;
+					}
+				}
+				return RedirectToAction(nameof(Index));
+			}
+			return View(evento);
+		}
+
+		// GET: Eventoes/Delete/5
+		public async Task<IActionResult> Delete(int? id)
+		{
+			if (id == null)
+			{
+				return NotFound();
+			}
+
+			var evento = await _context.Eventos
+				.FirstOrDefaultAsync(m => m.IdEvento == id);
+			if (evento == null)
+			{
+				return NotFound();
+			}
+
+			return View(evento);
+		}
+
+		// POST: Eventoes/Delete/5
+		[HttpPost, ActionName("Delete")]
+		[ValidateAntiForgeryToken]
+		public async Task<IActionResult> DeleteConfirmed(int id)
+		{
+			var evento = await _context.Eventos.FindAsync(id);
+			if (evento != null)
+			{
+				_context.Eventos.Remove(evento);
+			}
+
+			await _context.SaveChangesAsync();
+			return RedirectToAction(nameof(Index));
+		}
+
+		private bool EventoExists(int id)
+		{
+			return _context.Eventos.Any(e => e.IdEvento == id);
 		}
 
 		// Método para verificar eventos próximos en 7 días
