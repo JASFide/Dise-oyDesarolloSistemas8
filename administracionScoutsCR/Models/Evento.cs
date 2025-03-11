@@ -20,4 +20,6 @@ public partial class Evento
     public string ContactoEncargado { get; set; } = null!;
 
     public virtual ICollection<ConfirmacionEvento> ConfirmacionEventos { get; set; } = new List<ConfirmacionEvento>();
+
+
 }

@@ -45,6 +45,12 @@ namespace administracionScoutsCR.Controllers
         // GET: Seccions/Create
         public IActionResult Create()
         {
+            ViewBag.Encargados = new SelectList(
+                _context.Usuarios.Where(u => u.TipoUsuario == "Facilitador").ToList(),
+                "IdUsuario",
+                "Nombre"
+            );
+
             return View();
         }
 
@@ -63,6 +69,7 @@ namespace administracionScoutsCR.Controllers
             }
             return View(seccion);
         }
+
 
         // GET: Seccions/Edit/5
         public async Task<IActionResult> Edit(int? id)
