@@ -28,7 +28,10 @@ namespace administracionScoutsCR.Controllers
         {
             return View(await _context.Eventos.ToListAsync());
         }
-
+        public async Task<IActionResult> Calendar()
+        {
+            return View(await _context.Eventos.ToListAsync());
+        }
 
         public async Task<IActionResult> Test()
 		{
