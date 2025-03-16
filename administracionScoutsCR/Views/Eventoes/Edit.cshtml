@@ -1,59 +1,116 @@
 ﻿@model administracionScoutsCR.Models.Evento
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Edit Event";
 }
+<div>
+    <div class="container mt-4">
+        <div class="card shadow-sm">
+            <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                <h4>Edit Event</h4>
+                <a asp-action="Index" class="btn btn-light btn-sm">
+                    <i data-feather="arrow-left"></i> Back to List
+                </a>
+            </div>
 
-<h1>Edit</h1>
+            <div class="card-body">
+                <form asp-action="Edit">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <input type="hidden" asp-for="IdEvento" />
 
-<h4>Evento</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="IdEvento" />
-            <div class="form-group">
-                <label asp-for="Titulo" class="control-label"></label>
-                <input asp-for="Titulo" class="form-control" />
-                <span asp-validation-for="Titulo" class="text-danger"></span>
+                    <!-- Accordion -->
+                    <div class="accordion" id="editEventAccordion">
+
+                        <!-- Basic Information -->
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingOne">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne">
+                                    <i data-feather="info" class="me-2"></i> Event Information
+                                </button>
+                            </h2>
+                            <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#editEventAccordion">
+                                <div class="accordion-body">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label asp-for="Titulo" class="form-label">Title</label>
+                                            <input asp-for="Titulo" class="form-control" />
+                                            <span asp-validation-for="Titulo" class="text-danger"></span>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label asp-for="Fecha" class="form-label">Date</label>
+                                            <input asp-for="Fecha" type="date" class="form-control" />
+                                            <span asp-validation-for="Fecha" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Location & Description -->
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingTwo">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo">
+                                    <i data-feather="map-pin" class="me-2"></i> Location & Description
+                                </button>
+                            </h2>
+                            <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#editEventAccordion">
+                                <div class="accordion-body">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label asp-for="Lugar" class="form-label">Location</label>
+                                            <input asp-for="Lugar" class="form-control" />
+                                            <span asp-validation-for="Lugar" class="text-danger"></span>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label asp-for="Descripcion" class="form-label">Description</label>
+                                            <textarea asp-for="Descripcion" class="form-control" rows="3"></textarea>
+                                            <span asp-validation-for="Descripcion" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Organizer Details -->
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingThree">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree">
+                                    <i data-feather="user" class="me-2"></i> Organizer Information
+                                </button>
+                            </h2>
+                            <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#editEventAccordion">
+                                <div class="accordion-body">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label asp-for="Encargado" class="form-label">Organizer</label>
+                                            <input asp-for="Encargado" class="form-control" />
+                                            <span asp-validation-for="Encargado" class="text-danger"></span>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <label asp-for="ContactoEncargado" class="form-label">Contact</label>
+                                            <input asp-for="ContactoEncargado" class="form-control" />
+                                            <span asp-validation-for="ContactoEncargado" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div> <!-- End Accordion -->
+                    <!-- Buttons -->
+                    <div class="mt-4 text-end">
+                        <a asp-action="Index" class="btn btn-outline-secondary me-2">Cancel</a>
+                        <button type="submit" class="btn btn-primary">Save Event</button>
+                    </div>
+                </form>
             </div>
-            <div class="form-group">
-                <label asp-for="Fecha" class="control-label"></label>
-                <input asp-for="Fecha" class="form-control" />
-                <span asp-validation-for="Fecha" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Lugar" class="control-label"></label>
-                <input asp-for="Lugar" class="form-control" />
-                <span asp-validation-for="Lugar" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Descripcion" class="control-label"></label>
-                <input asp-for="Descripcion" class="form-control" />
-                <span asp-validation-for="Descripcion" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Encargado" class="control-label"></label>
-                <input asp-for="Encargado" class="form-control" />
-                <span asp-validation-for="Encargado" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ContactoEncargado" class="control-label"></label>
-                <input asp-for="ContactoEncargado" class="form-control" />
-                <span asp-validation-for="ContactoEncargado" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }
