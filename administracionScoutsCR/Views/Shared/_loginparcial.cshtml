@@ -1,24 +1,63 @@
 ﻿@if (User.Identity != null && User.Identity.IsAuthenticated)
 {
-    <form asp-controller="ControllerLogin" asp-action="LogOut" method="post" id="logoutform" class="navbar">
-    <ul class="nav navbar-nav navbar-right">
-        <li class="nav-item">
-            hola, @User.FindFirst("Name")?.Value
-        </li>
-            <li class="nav-item">
-                <button type="submit" class="btn btn-link navbar-btn navbar-link">Cerrar sesión</button>
-            </li>
-    </ul>
-    </form>
+    <li class="nav-item dropdown has-arrow main-drop">
+        <a href="javascript:void(0);" class="dropdown-toggle nav-link userset" data-bs-toggle="dropdown">
+            <span class="user-info">
+                <span class="user-letter">
+                    <img src="~/assets/img/profiles/avatar1.jpg" alt="" class="img-fluid">
+                </span>
+                <span class="user-detail">
+                    <span class="user-name">@User.FindFirst("Name")?.Value</span>
+                    <span class="user-role">Super Admin</span> @* Change role dynamically if needed *@
+                </span>
+            </span>
+        </a>
+        <div class="dropdown-menu menu-drop-user">
+            <div class="profilename">
+                <div class="profileset">
+                    <span class="user-img">
+                        <img src="~/assets/img/profiles/avatar1.jpg" alt="">
+                        <span class="status online"></span>
+                    </span>
+                    <div class="profilesets">
+                        <h6>@User.FindFirst("Name")?.Value</h6>
+                        <h5>Super Admin</h5> @* Change role dynamically if needed *@
+                    </div>
+                </div>
+                <hr class="m-0">
+                <a class="dropdown-item" href="@Url.Action("Profile", "Usuarios")">
+                    <i class="me-2" data-feather="user"></i> Mi Perfil
+                </a>
+                <a class="dropdown-item" href="@Url.Action("Settings", "Usuarios")">
+                    <i class="me-2" data-feather="settings"></i> Configuración
+                </a>
+                <hr class="m-0">
+                <form asp-controller="ControllerLogin" asp-action="LogOut" method="post" id="logoutform">
+                    <button type="submit" class="dropdown-item logout pb-0">
+                        <img src="~/assets/img/icons/log-out.svg" class="me-2" alt="img"> Cerrar sesión
+                    </button>
+                </form>
+            </div>
+        </div>
+    </li>
 }
 else
 {
-    <ul class="nav navbar-nav navbar-right">
-        <li class="nav-item">
-            <a class="nav-link" asp-area="" asp-controller="ControllerLogin" asp-action="Login">Iniciar sesión</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" asp-area="" asp-controller="Usuarios" asp-action="Create">Registrar</a>
-        </li>
-    </ul>
+    <li>
+        <div class="page-btn">
+            <a class="btn btn-secondary" asp-controller="ControllerLogin" asp-action="Login">
+                <i data-feather="log-in" class="me-2"></i>Iniciar sesión
+            </a>
+        </div>
+    </li>
+    
+    <li>
+        <div class="page-btn">
+            <a class="btn btn-primary" asp-controller="Usuarios" asp-action="Create">
+                <i data-feather="user-plus" class="me-2"></i>Registrar
+            </a>
+        </div>
+    </li>
+    
 }
+
