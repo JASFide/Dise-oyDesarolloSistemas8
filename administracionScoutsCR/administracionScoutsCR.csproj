@@ -617,7 +617,7 @@
     <None Include="wwwroot\assets\img\login.jpg" />
     <None Include="wwwroot\assets\img\logo-small.png" />
     <None Include="wwwroot\assets\img\logo-white.png" />
-    <None Include="wwwroot\assets\img\logo.png" />
+    <None Include="wwwroot\assets\img\logoOLD.png" />
     <None Include="wwwroot\assets\img\media\media-01.jpg" />
     <None Include="wwwroot\assets\img\media\media-02.jpg" />
     <None Include="wwwroot\assets\img\media\media-03.jpg" />

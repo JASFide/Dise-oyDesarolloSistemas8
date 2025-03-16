@@ -24,18 +24,13 @@ namespace administracionScoutsCR.Controllers
 			 _context = context;
 			 _configuration = configuration;
 		 }
-		public async Task<IActionResult> Index()
-		{
-			var eventosViewModel = new EventosViewModel
-			{
-				ListaEventos = await _context.Eventos.ToListAsync(),
-				NuevoEvento = new Evento()
-			};
+        public async Task<IActionResult> Index()
+        {
+            return View(await _context.Eventos.ToListAsync());
+        }
 
-			return View(eventosViewModel);
-		}
 
-		public async Task<IActionResult> Test()
+        public async Task<IActionResult> Test()
 		{
 		
             return View(await _context.Eventos.ToListAsync());
@@ -58,30 +53,32 @@ namespace administracionScoutsCR.Controllers
 			return View(evento);
 		}
 
-		// GET: Eventoes/Create
-		public IActionResult Create()
-		{
-			return View();
-		}
+        // GET: Eventoes/Create
+        // GET: Eventoes1/Create
+        public IActionResult Create()
+        {
+            return View();
+        }
 
-		// POST: Eventoes/Create
-		// To protect from overposting attacks, enable the specific properties you want to bind to.
-		// For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-		[HttpPost]
-		[ValidateAntiForgeryToken]
-		public async Task<IActionResult> Create([Bind("IdEvento,Titulo,Fecha,Lugar,Descripcion,Encargado,ContactoEncargado")] Evento evento)
-		{
-			if (ModelState.IsValid)
-			{
-				_context.Add(evento);
-				await _context.SaveChangesAsync();
-				return RedirectToAction(nameof(Index));
-			}
-			return View(evento);
-		}
+        // POST: Eventoes1/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create([Bind("IdEvento,Titulo,Fecha,Lugar,Descripcion,Encargado,ContactoEncargado")] Evento evento)
+        {
+            if (ModelState.IsValid)
+            {
+                _context.Add(evento);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            return View(evento);
+        }
 
-		// GET: Eventoes/Edit/5
-		public async Task<IActionResult> Edit(int? id)
+
+        // GET: Eventoes/Edit/5
+        public async Task<IActionResult> Edit(int? id)
 		{
 			if (id == null)
 			{
