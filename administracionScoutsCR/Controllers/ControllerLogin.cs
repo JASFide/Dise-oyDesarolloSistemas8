@@ -36,6 +36,7 @@ namespace administracionScoutsCR.Controllers
 
                 if (usuario != null)
                 {
+
                     // Crear lista de claims
                     var claims = new List<Claim>
             {
@@ -50,6 +51,8 @@ namespace administracionScoutsCR.Controllers
 
                     // Iniciar sesión
                     HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimsPrincipal);
+
+
 
                     return RedirectToAction("SecurePage");
                 }

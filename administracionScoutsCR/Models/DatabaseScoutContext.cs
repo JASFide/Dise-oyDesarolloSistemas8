@@ -49,7 +49,6 @@ public partial class DatabaseScoutContext : DbContext
 
             entity.ToTable("ConfirmacionEvento");
 
-            entity.Property(e => e.IdConfirmacionEvento).ValueGeneratedNever();
             entity.Property(e => e.Asistencia)
                 .HasMaxLength(50)
                 .IsUnicode(false);
@@ -118,6 +117,7 @@ public partial class DatabaseScoutContext : DbContext
                 .HasMaxLength(50)
                 .IsUnicode(false);
         });
+
 
         modelBuilder.Entity<Insignia>(entity =>
         {
@@ -206,7 +206,7 @@ public partial class DatabaseScoutContext : DbContext
         {
             entity.HasKey(e => e.IdUsuarioxContactoEmergencia).HasName("PK__Usuariox__EBAD584FA589C63B");
 
-            entity.Property(e => e.IdUsuarioxContactoEmergencia).ValueGeneratedNever();
+  
 
             entity.HasOne(d => d.IdContactoEmergenciaNavigation).WithMany(p => p.UsuarioxContactoEmergencia)
                 .HasForeignKey(d => d.IdContactoEmergencia)
@@ -223,7 +223,7 @@ public partial class DatabaseScoutContext : DbContext
 
             entity.ToTable("UsuarioxEtapa");
 
-            entity.Property(e => e.IdUsuarioEtapa).ValueGeneratedNever();
+      
 
             entity.HasOne(d => d.IdEtapaNavigation).WithMany(p => p.UsuarioxEtapas)
                 .HasForeignKey(d => d.IdEtapa)
@@ -240,7 +240,7 @@ public partial class DatabaseScoutContext : DbContext
         {
             entity.HasKey(e => e.IdUsuarioxInsignias).HasName("PK__Usuariox__C499478003211EB8");
 
-            entity.Property(e => e.IdUsuarioxInsignias).ValueGeneratedNever();
+  
             entity.Property(e => e.Estado)
                 .HasMaxLength(50)
                 .IsUnicode(false);
