@@ -1,5 +1,5 @@
 ﻿CREATE TABLE [dbo].[ConfirmacionEvento] (
-    [IdConfirmacionEvento] INT          NOT NULL,
+    [IdConfirmacionEvento] INT        IDENTITY (1, 1) NOT NULL,
     [Asistencia]           VARCHAR (50) NOT NULL,
     [IdEvento]             INT          NOT NULL,
     [IdUsuario]            INT          NOT NULL,
