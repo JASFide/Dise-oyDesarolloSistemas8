@@ -8,7 +8,8 @@
                 </span>
                 <span class="user-detail">
                     <span class="user-name">@User.FindFirst("Name")?.Value</span>
-                    <span class="user-role">Super Admin</span> @* Change role dynamically if needed *@
+             
+                    <span class="user-role">@User.FindFirst("IdUsuario")?.Value</span> @* Change role dynamically if needed *@
                 </span>
             </span>
         </a>
