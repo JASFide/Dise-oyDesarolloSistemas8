@@ -1,53 +1,95 @@
-﻿@model IEnumerable<administracionScoutsCR.Models.Seccion>
+﻿@model List<administracionScoutsCR.Models.Seccion>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Secciones";
 }
 
-<h1>Index</h1>
+<body>
+    <div class="content">
+        <div class="page-header">
+            <div class="add-item d-flex">
+                <div class="page-title">
+                    <h4>Secciones</h4>
+                    <h6>Lista de secciones creadas</h6>
+                </div>
+            </div>
+            <ul class="table-top-head">
+                <li>
+                    <a data-bs-toggle="tooltip" data-bs-placement="top" title="Pdf">
+                        <img src="assets/img/icons/pdf.svg" alt="img">
+                    </a>
+                </li>
+                <li>
+                    <a data-bs-toggle="tooltip" data-bs-placement="top" title="Excel">
+                        <img src="assets/img/icons/excel.svg" alt="img">
+                    </a>
+                </li>
+                <li>
+                    <a data-bs-toggle="tooltip" data-bs-placement="top" title="Print">
+                        <i data-feather="printer" class="feather-rotate-ccw"></i>
+                    </a>
+                </li>
+                <li>
+                    <a data-bs-toggle="tooltip" data-bs-placement="top" title="Refresh">
+                        <i data-feather="rotate-ccw" class="feather-rotate-ccw"></i>
+                    </a>
+                </li>
+                <li>
+                    <a data-bs-toggle="tooltip" data-bs-placement="top" title="Collapse" id="collapse-header">
+                        <i data-feather="chevron-up" class="feather-chevron-up"></i>
+                    </a>
+                </li>
+                <div class="page-btn">
+                    <a class="btn btn-added" asp-controller="Seccions" asp-action="Create">
+                        <i data-feather="plus-circle" class="me-2"></i> Crear una nueva Sección
+                    </a>
+                </div>
+            </ul>
+        </div>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Nombre)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EdadMinima)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.EdadMaxima)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.JefeSeccion)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Nombre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EdadMinima)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EdadMaxima)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.JefeSeccion)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.IdSeccion">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.IdSeccion">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.IdSeccion">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+        <!-- Tabla de Secciones -->
+        <div class="card table-list-card">
+            <div class="card-body pb-0">
+                <div class="table-responsive">
+                    <table class="table table-striped" id="seccionesTable">
+                        <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Edad Mínima</th>
+                                <th>Edad Máxima</th>
+                                <th>Jefe de Sección</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@item.Nombre</td>
+                                    <td>@item.EdadMinima años</td>
+                                    <td>@item.EdadMaxima años</td>
+                                    <td>@item.JefeSeccion</td>
+                                    <td>
+                                        <a asp-action="Edit" asp-route-id="@item.IdSeccion" class="btn btn-sm btn-warning">Editar</a>
+                                        <a asp-action="Details" asp-route-id="@item.IdSeccion" class="btn btn-sm btn-info">Detalles</a>
+                                        <a asp-action="Delete" asp-route-id="@item.IdSeccion" class="btn btn-sm btn-danger">Eliminar</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts necesarios -->
+    <script src="assets/js/jquery-3.7.1.min.js"></script>
+    <script src="assets/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/feather.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            feather.replace();
+        });
+    </script>
+</body>

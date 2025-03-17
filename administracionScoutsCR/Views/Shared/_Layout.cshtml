@@ -74,6 +74,14 @@
 
 <body>
 
+
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+            <h1 class="display-4">Bienvenidos a los Scouts de Costa Rica</h1>
+            <p class="lead">Construyendo un mundo mejor a través del escultismo.</p>
+        </div>
+    </div>
+
 	<div id="global-loader">
 		<div class="whirly-loader"> </div>
 	</div>
@@ -149,6 +157,7 @@
 		<!-- /Header -->
 
 		<!-- Sidebar -->
+		<!-- Sidebar -->
 		<div class="sidebar" id="sidebar">
 			<div class="sidebar-inner slimscroll">
 				<div id="sidebar-menu" class="sidebar-menu">
@@ -188,37 +197,35 @@
 							<h6 class="submenu-hdr">Evento</h6>
 							<ul>
 								<li><a class="dropdown-item" asp-controller="Eventoes" asp-action="Index"><i data-feather="box"></i>Lista de Eventos</a></li>
-								<li><a class="dropdown-item" asp-controller="Eventoes" asp-action="Create"><i data-feather="box"></i>Nuevo Evento</a></li>
+								<li><a class="dropdown-item" asp-controller="Eventoes" asp-action="Create"><i data-feather="plus-circle"></i>Nuevo Evento</a></li>
 							</ul>
 						</li>
 						<li class="submenu-open">
 							<h6 class="submenu-hdr">Etapas</h6>
 							<ul>
-								<li><a class="dropdown-item" asp-controller="Etapa" asp-action="Index"><i data-feather="box"></i>Lista de Etapas</a></li>
-								<li><a class="dropdown-item" asp-controller="Etapa" asp-action="Create"><i data-feather="box"></i>Nuevo Etapas</a></li>
-							</ul>
-						</li>
-						<li class="submenu-open">
-							<h6 class="submenu-hdr">Insignias</h6>
-							<ul>
-								<li><a class="dropdown-item" asp-controller="Insignias" asp-action="Index"><i data-feather="box"></i>Lista de Insignias</a></li>
-								<li><a class="dropdown-item" asp-controller="Insignias" asp-action="Create"><i data-feather="box"></i>Nueva Insignias</a></li>
+								<li><a class="dropdown-item" asp-controller="Etapas" asp-action="Index"><i data-feather="layers"></i>Lista de Etapas</a></li>
+								<li><a class="dropdown-item" asp-controller="Etapas" asp-action="Create"><i data-feather="plus-circle"></i>Nueva Etapa</a></li>
 							</ul>
 						</li>
 						<li class="submenu-open">
 							<h6 class="submenu-hdr">Evento</h6>
 							<ul>
-								<li><a class="dropdown-item" asp-controller="Eventoes" asp-action="Index"><i data-feather="box"></i>Lista de Eventos</a></li>
-								<li><a class="dropdown-item" asp-controller="Eventoes" asp-action="Create"><i data-feather="box"></i>Nuevo Evento</a></li>
-								<li><a class="dropdown-item" asp-controller="Eventoes" asp-action="Test"><i data-feather="box"></i>Tests</a></li>
+								<li><a class="dropdown-item" asp-controller="Insignias" asp-action="Index"><i data-feather="award"></i>Lista de Insignias</a></li>
+								<li><a class="dropdown-item" asp-controller="Insignias" asp-action="Create"><i data-feather="plus-circle"></i>Nueva Insignia</a></li>
 							</ul>
 						</li>
 						<li class="submenu-open">
-							<h6 class="submenu-hdr">Evento</h6>
+							<h6 class="submenu-hdr">Secciones</h6>
 							<ul>
-								<li><a class="dropdown-item" asp-controller="Eventoes" asp-action="Index"><i data-feather="box"></i>Lista de Eventos</a></li>
-								<li><a class="dropdown-item" asp-controller="Eventoes" asp-action="Create"><i data-feather="box"></i>Nuevo Evento</a></li>
-								<li><a class="dropdown-item" asp-controller="Eventoes" asp-action="Test"><i data-feather="box"></i>Tests</a></li>
+								<li><a class="dropdown-item" asp-controller="Seccions" asp-action="Index"><i data-feather="grid"></i>Lista de Secciones</a></li>
+								<li><a class="dropdown-item" asp-controller="Seccions" asp-action="Create"><i data-feather="plus-circle"></i>Nueva Secci�n</a></li>
+							</ul>
+						</li>
+						<li class="submenu-open">
+							<h6 class="submenu-hdr">Contacto de Emergencia</h6>
+							<ul>
+								<li><a class="dropdown-item" asp-controller="ContactoEmergenciums" asp-action="Index"><i data-feather="phone"></i>Lista de Contactos</a></li>
+								<li><a class="dropdown-item" asp-controller="ContactoEmergenciums" asp-action="Create"><i data-feather="plus-circle"></i>Nuevo Contacto</a></li>
 							</ul>
 						</li>
 						<li class="submenu-open">
@@ -1440,6 +1447,7 @@
 	<script src="~/assets/js/jquery-ui.min.js"></script>
 	<script src="~/assets/plugins/fullcalendar/fullcalendar.min.js"></script>
 	<script src="~/assets/plugins/fullcalendar/jquery.fullcalendar.js"></script>
+
 
 
 </body>
