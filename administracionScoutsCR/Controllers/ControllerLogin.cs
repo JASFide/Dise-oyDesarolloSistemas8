@@ -33,12 +33,13 @@ namespace administracionScoutsCR.Controllers
                 var usuario= _context.Usuarios.Where(x => x.Correo == model.Correo && x.Contrasena== model.Contrasena).FirstOrDefault();
                 if (usuario != null)
                 {
-                 
+                    String IdLocal = Convert.ToString(usuario.IdUsuario);
 					//succes
 					var claims = new List<Claim>
                     {
-                        new Claim(ClaimTypes.Name , usuario.Correo ),
+                        new Claim(ClaimTypes.Name , usuario.Correo, IdLocal ),
                         new Claim("Name", usuario.Nombre),
+                        new Claim("IdUsuario",IdLocal),
                     };
                     var claimsIdentity = new ClaimsIdentity(claims,CookieAuthenticationDefaults.AuthenticationScheme);
                     HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
