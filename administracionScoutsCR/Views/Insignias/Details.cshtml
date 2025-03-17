@@ -1,0 +1,125 @@
+﻿@model administracionScoutsCR.Models.Insignia
+
+@{
+    ViewData["Title"] = "Detalles de Insignia";
+}
+
+<div>
+    <div class="content">
+        <div class="page-header">
+            <div class="page-title">
+                <h4>Detalles de la Insignia</h4>
+                <h6>Información completa de la insignia</h6>
+            </div>
+        </div>
+
+        <!-- Insignia Details Section -->
+        <div class="row">
+            <div class="col-lg-8 col-sm-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="insignia-details">
+                            <ul class="event-bar">
+                                <li>
+                                    <h4>Nombre</h4>
+                                    <h6>@Html.DisplayFor(model => model.Nombre)</h6>
+                                </li>
+                                <li>
+                                    <h4>Sección</h4>
+                                    <h6>@Html.DisplayFor(model => model.Seccion)</h6>
+                                </li>
+                                <li>
+                                    <h4>Tipo</h4>
+                                    <h6>@Html.DisplayFor(model => model.Tipo)</h6>
+                                </li>
+                                <li>
+                                    <h4>Estado</h4>
+                                    <h6>@Html.DisplayFor(model => model.Estado)</h6>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Side Panel (Placeholder for Insignia Image) -->
+            <div class="col-lg-4 col-sm-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="insignia-image">
+                            <img src="~/assets/img/insignias/insignia_default.jpg" alt="Imagen de la Insignia" class="img-fluid">
+                            <h4>Imagen de la Insignia</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Requisitos de la Insignia -->
+        <div class="row mt-4">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Requisitos para Obtener esta Insignia</h5>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Descripción</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (Model.ReqInsignia != null && Model.ReqInsignia.Any())
+                                {
+                                    @foreach (var req in Model.ReqInsignia)
+                                    {
+                                        <tr>
+                                            <td>@req.Descripcion</td>
+                                            <td>
+                                                <a asp-controller="ReqInsignias" asp-action="Edit" asp-route-id="@req.IdReqInsignia" class="btn btn-sm btn-warning">Editar</a>
+                                                <a asp-controller="ReqInsignias" asp-action="Details" asp-route-id="@req.IdReqInsignia" class="btn btn-sm btn-info">Detalles</a>
+                                                <a asp-controller="ReqInsignias" asp-action="Delete" asp-route-id="@req.IdReqInsignia" class="btn btn-sm btn-danger">Eliminar</a>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td colspan="2" class="text-center text-muted">No hay requisitos registrados para esta insignia.</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                        <div class="text-center">
+                            <a asp-controller="ReqInsignias" asp-action="Create" asp-route-id="@Model.IdInsignia" class="btn btn-primary">
+                                <i data-feather="plus-circle" class="me-2"></i>Agregar Nuevo Requisito
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="row mt-3">
+            <div class="col-lg-12 text-center">
+                <a asp-action="Edit" asp-route-id="@Model?.IdInsignia" class="btn btn-warning me-2">Editar</a>
+                <a asp-action="Index" class="btn btn-secondary">Volver a la Lista</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Customization Sidebar -->
+<div class="customizer-links" id="setdata">
+    <ul class="sticky-sidebar">
+        <li class="sidebar-icons">
+            <a href="#" class="navigation-add" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-original-title="Configuraciones">
+                <i data-feather="settings" class="feather-five"></i>
+            </a>
+        </li>
+    </ul>
+</div>

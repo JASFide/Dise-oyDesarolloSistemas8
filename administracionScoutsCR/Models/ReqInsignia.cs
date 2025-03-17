@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace administracionScoutsCR.Models;
 
-public partial class ReqInsignium
+public partial class ReqInsignia
 {
     public int IdReqInsignia { get; set; }
 

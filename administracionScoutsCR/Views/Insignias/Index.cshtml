@@ -1,0 +1,72 @@
+﻿@model List<administracionScoutsCR.Models.Insignia>
+
+@{
+	ViewData["Title"] = "Insignias";
+}
+
+<body>
+	<div class="content">
+		<div class="page-header">
+			<div class="add-item d-flex">
+				<div class="page-title">
+					<h4>Insignias</h4>
+					<h6>Lista de Insignias Registradas</h6>
+				</div>
+			</div>
+			<ul class="table-top-head">
+				<li>
+					<a data-bs-toggle="tooltip" data-bs-placement="top" title="PDF"><img src="assets/img/icons/pdf.svg" alt="PDF"></a>
+				</li>
+				<li>
+					<a data-bs-toggle="tooltip" data-bs-placement="top" title="Excel"><img src="assets/img/icons/excel.svg" alt="Excel"></a>
+				</li>
+				<li>
+					<a data-bs-toggle="tooltip" data-bs-placement="top" title="Imprimir"><i data-feather="printer"></i></a>
+				</li>
+				<li>
+					<a data-bs-toggle="tooltip" data-bs-placement="top" title="Actualizar"><i data-feather="rotate-ccw"></i></a>
+				</li>
+				<div class="page-btn">
+					<a class="btn btn-added" asp-action="Create">
+						<i data-feather="plus-circle" class="me-2"></i>Agregar Nueva Insignia
+					</a>
+				</div>
+			</ul>
+		</div>
+
+		<!-- Table List -->
+		<div class="card table-list-card">
+			<div class="card-body pb-0">
+				<div class="table-responsive">
+					<table class="table table-striped" id="insigniasTable">
+						<thead>
+							<tr>
+								<th>Nombre</th>
+								<th>Sección</th>
+								<th>Tipo</th>
+								<th>Estado</th>
+								<th>Acciones</th>
+							</tr>
+						</thead>
+						<tbody>
+							@foreach (var item in Model)
+							{
+								<tr>
+									<td>@item.Nombre</td>
+									<td>@item.Seccion</td>
+									<td>@item.Tipo</td>
+									<td>@item.Estado</td>
+									<td>
+										<a asp-action="Edit" asp-route-id="@item.IdInsignia" class="btn btn-sm btn-warning">Editar</a>
+										<a asp-action="Details" asp-route-id="@item.IdInsignia" class="btn btn-sm btn-info">Detalles</a>
+										<a asp-action="Delete" asp-route-id="@item.IdInsignia" class="btn btn-sm btn-danger">Eliminar</a>
+									</td>
+								</tr>
+							}
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
