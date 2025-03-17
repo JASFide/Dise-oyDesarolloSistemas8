@@ -1,84 +1,65 @@
 ﻿@model administracionScoutsCR.Models.Usuario
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Detalles del Usuario";
 }
 
-<h1>Edit</h1>
-
-<h4>Usuario</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="IdUsuario" />
-            <div class="form-group">
-                <label asp-for="Nombre" class="control-label"></label>
-                <input asp-for="Nombre" class="form-control" />
-                <span asp-validation-for="Nombre" class="text-danger"></span>
+<h1 class="mb-4 text-primary">Detalles del Usuario</h1>
+<div class="card shadow-lg border-0">
+    <div class="card-header bg-primary text-white">
+        <h5 class="mb-0">Información del Usuario</h5>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label class="form-label fw-bold">ID Usuario</label>
+                <input type="text" class="form-control" value="@Model.IdUsuario" disabled>
             </div>
-            <div class="form-group">
-                <label asp-for="Apellido1" class="control-label"></label>
-                <input asp-for="Apellido1" class="form-control" />
-                <span asp-validation-for="Apellido1" class="text-danger"></span>
+            <div class="col-md-6 mb-3">
+                <label class="form-label fw-bold">Nombre</label>
+                <input type="text" class="form-control" value="@Model.Nombre" disabled>
             </div>
-            <div class="form-group">
-                <label asp-for="Apellido2" class="control-label"></label>
-                <input asp-for="Apellido2" class="form-control" />
-                <span asp-validation-for="Apellido2" class="text-danger"></span>
+            <div class="col-md-6 mb-3">
+                <label class="form-label fw-bold">Primer Apellido</label>
+                <input type="text" class="form-control" value="@Model.Apellido1" disabled>
             </div>
-            <div class="form-group">
-                <label asp-for="FechaNacimiento" class="control-label"></label>
-                <input asp-for="FechaNacimiento" class="form-control" />
-                <span asp-validation-for="FechaNacimiento" class="text-danger"></span>
+            <div class="col-md-6 mb-3">
+                <label class="form-label fw-bold">Segundo Apellido</label>
+                <input type="text" class="form-control" value="@Model.Apellido2" disabled>
             </div>
-            <div class="form-group">
-                <label asp-for="TipoUsuario" class="control-label"></label>
-                <input asp-for="TipoUsuario" class="form-control" />
-                <span asp-validation-for="TipoUsuario" class="text-danger"></span>
+            <div class="col-md-6 mb-3">
+                <label class="form-label fw-bold">Fecha de Nacimiento</label>
+                <input type="text" class="form-control" value="@Model.FechaNacimiento.ToString("dd/MM/yyyy")" disabled>
             </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Estado" /> @Html.DisplayNameFor(model => model.Estado)
-                </label>
+            <div class="col-md-6 mb-3">
+                <label class="form-label fw-bold">Tipo de Usuario</label>
+                <input type="text" class="form-control" value="@Model.TipoUsuario" disabled>
             </div>
-            <div class="form-group">
-                <label asp-for="IdSeccion" class="control-label"></label>
-                <select asp-for="IdSeccion" class="form-control" asp-items="ViewBag.IdSeccion"></select>
-                <span asp-validation-for="IdSeccion" class="text-danger"></span>
+            <div class="col-md-6 mb-3">
+                <label class="form-label fw-bold">Estado</label>
+                <input type="text" class="form-control" value="@(Model.Estado ? "Activo" : "Inactivo")" disabled>
             </div>
-            <div class="form-group">
-                <label asp-for="Direccion" class="control-label"></label>
-                <input asp-for="Direccion" class="form-control" />
-                <span asp-validation-for="Direccion" class="text-danger"></span>
+            <div class="col-md-6 mb-3">
+                <label class="form-label fw-bold">Sección</label>
+                <input type="text" class="form-control" value="@(Model.IdSeccionNavigation != null ? Model.IdSeccionNavigation.Nombre : "N/A")" disabled>
             </div>
-            <div class="form-group">
-                <label asp-for="Correo" class="control-label"></label>
-                <input asp-for="Correo" class="form-control" />
-                <span asp-validation-for="Correo" class="text-danger"></span>
+            <div class="col-md-6 mb-3">
+                <label class="form-label fw-bold">Dirección</label>
+                <textarea class="form-control" rows="2" disabled>@Model.Direccion</textarea>
             </div>
-            <div class="form-group">
-                <label asp-for="NumeroTelefono" class="control-label"></label>
-                <input asp-for="NumeroTelefono" class="form-control" />
-                <span asp-validation-for="NumeroTelefono" class="text-danger"></span>
+            <div class="col-md-6 mb-3">
+                <label class="form-label fw-bold">Correo</label>
+                <input type="email" class="form-control" value="@Model.Correo" disabled>
             </div>
-            <div class="form-group">
-                <label asp-for="Contrasena" class="control-label"></label>
-                <input asp-for="Contrasena" class="form-control" />
-                <span asp-validation-for="Contrasena" class="text-danger"></span>
+            <div class="col-md-6 mb-3">
+                <label class="form-label fw-bold">Número de Teléfono</label>
+                <input type="text" class="form-control" value="@Model.NumeroTelefono" disabled>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
+    </div>
+    <div class="card-footer text-end">
+        <a asp-action="Index" class="btn btn-secondary">
+            <i class="bi bi-arrow-left"></i> Volver a la lista
+        </a>
     </div>
 </div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}

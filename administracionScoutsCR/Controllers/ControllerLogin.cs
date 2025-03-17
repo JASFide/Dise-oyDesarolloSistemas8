@@ -30,29 +30,41 @@ namespace administracionScoutsCR.Controllers
         {
             if (ModelState.IsValid)
             {
-                var usuario= _context.Usuarios.Where(x => x.Correo == model.Correo && x.Contrasena== model.Contrasena).FirstOrDefault();
+                var usuario = _context.Usuarios
+                    .Where(x => x.Correo == model.Correo && x.Contrasena == model.Contrasena)
+                    .FirstOrDefault();
+
                 if (usuario != null)
                 {
-                    String IdLocal = Convert.ToString(usuario.IdUsuario);
-					//succes
-					var claims = new List<Claim>
-                    {
-                        new Claim(ClaimTypes.Name , usuario.Correo, IdLocal ),
-                        new Claim("Name", usuario.Nombre),
-                        new Claim("IdUsuario",IdLocal),
-                    };
-                    var claimsIdentity = new ClaimsIdentity(claims,CookieAuthenticationDefaults.AuthenticationScheme);
-                    HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
+
+                    // Crear lista de claims
+                    var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.Name, usuario.Correo),
+                new Claim("Name", usuario.Nombre),
+                new Claim("IdUsuario", usuario.IdUsuario.ToString()) // Agregar IdUsuario como string
+            };
+
+                    // Crear identidad de claims y autenticación
+                    var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                    var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
+
+                    // Iniciar sesión
+                    HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimsPrincipal);
+
+
+
                     return RedirectToAction("SecurePage");
                 }
-                else 
+                else
                 {
                     ModelState.AddModelError("", "Usuario o contraseña no coinciden");
                 }
             }
             return View();
         }
-     
+
+
         public IActionResult LogOut()
         {
             HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
