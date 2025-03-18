@@ -15,7 +15,7 @@
             </div>
             <ul class="table-top-head">
                 <li>
-                    <a data-bs-toggle="tooltip" data-bs-placement="top" title="Pdf"><img src="assets/img/icons/pdf.svg" alt="img"></a>
+                    <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="top" title="Print" onclick="printPage()"><i data-feather="printer" class="feather-rotate-ccw"></i></a>
                 </li>
                 <li>
                     <a data-bs-toggle="tooltip" data-bs-placement="top" title="Excel"><img src="assets/img/icons/excel.svg" alt="img"></a>
@@ -69,3 +69,8 @@
         </div>
     </div>
 </body>
+<script>
+    function printPage() {
+        window.print();
+    }
+</script>
