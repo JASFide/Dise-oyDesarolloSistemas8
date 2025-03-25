@@ -1,9 +1,11 @@
 ﻿@model List<administracionScoutsCR.Models.Evento>
+
 @{
-	ViewData["Title"] = "Index";
+    ViewData["Title"] = "Eventos";
 }
 
 <body>
+<<<<<<< Updated upstream
 	<div class="content" >
 		<div class="page-header">
 			<div class="add-item d-flex">
@@ -33,60 +35,143 @@
 					<a class="btn btn-added" asp-controller="Eventoes" asp-action="Create"><i data-feather="plus-circle" class="me-2"></i>Crear un nuevo Evento</a>
 				</div>
 			</ul>
+=======
+    <div class="content">
+        <div class="page-header">
+            <div class="add-item d-flex">
+                <div class="page-title">
+                    <h4>Eventos</h4>
+                    <h6>Eventos creados</h6>
+                </div>
+            </div>
+            <ul class="table-top-head">
+                <li>
+                    <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="top" title="Print" onclick="printPage()">
+                        <i data-feather="printer" class="feather-rotate-ccw"></i>
+                    </a>
+                </li>
+                <li>
+                    <div class="page-btn">
+                        <a class="btn btn-added" asp-controller="Eventoes" asp-action="Create">
+                            <i data-feather="plus-circle" class="me-2"></i>Crear un nuevo Evento
+                        </a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+>>>>>>> Stashed changes
 
-		</div>
-		<!-- /product list -->
-		<div class="card table-list-card">
-			<div class="card-body pb-0">
-	
-				<!-- /Filter -->
+        <!-- Tabla de eventos -->
+        <div class="card table-list-card">
+            <div class="card-body pb-0">
+                <div class="table-responsive">
+                    <table class="table table-striped" id="eventosTable">
+                        <thead>
+                            <tr>
+                                <th>Título</th>
+                                <th>Fecha</th>
+                                <th>Lugar</th>
+                                <th>Confirmados</th>
+                                <th>Acciones</th>
+                                <th style="width: 50px;"></th> <!-- Espacio para icono de eliminar -->
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                bool usuarioConfirmado = ViewBag.UsuarioConfirmaciones != null &&
+                                ViewBag.UsuarioConfirmaciones.ContainsKey(item.IdEvento) &&
+                                ViewBag.UsuarioConfirmaciones[item.IdEvento];
 
-				<!-- /Filter -->
-				<div class="table-responsive">
-					<table class="table table-striped" id="eventosTable">
-						<thead>
-							<tr>
-								<th>Título</th>
-								<th>Fecha</th>
-								<th>Lugar</th>
-								<th>Descripción</th>
-								<th>Encargado</th>
-								<th>Contacto Encargado</th>
-								<th>Acciones</th>
-							</tr>
-						</thead>
-						<tbody>
-							@foreach (var item in Model) 
-							{
-								<tr>
-									<td>@item.Titulo</td>
-									<td>@item.Fecha</td>
-									<td>@item.Lugar</td>
-									<td>@item.Descripcion</td>
-									<td>@item.Encargado</td>
-									<td>@item.ContactoEncargado</td>
-									<td>
-										<a asp-action="Edit" asp-route-id="@item.IdEvento" class="btn btn-sm btn-warning">Editar</a>
-										<a asp-action="Details" asp-route-id="@item.IdEvento" class="btn btn-sm btn-info">Detalles</a>
-										<a asp-action="Delete" asp-route-id="@item.IdEvento" class="btn btn-sm btn-danger">Eliminar</a>
-										<form asp-action="ConfirmarAsistencia" method="post" class="d-inline">
-											<input type="hidden" name="idEvento" value="@item.IdEvento" />
-											<button type="submit" class="btn btn-sm btn-success">Confirmar Asistencia</button>
-										</form>
-										@if (TempData["Mensaje"] != null)
-										{
-											<div class="alert alert-warning mt-2">@TempData["Mensaje"]</div>
-										}
-									</td>
-								</tr>
-							}
-						</tbody>
-					</table>
-				</div>
-			</div>
-		</div>
-	<!-- /Main Wrapper -->
+                                int confirmados = ViewBag.Confirmaciones != null && ViewBag.Confirmaciones.ContainsKey(item.IdEvento)
+                                ? ViewBag.Confirmaciones[item.IdEvento]
+                                : 0;
 
+                                <tr id="evento-@item.IdEvento">
+                                    <td>@item.Titulo</td>
+                                    <td>@item.Fecha.ToShortDateString()</td>
+                                    <td>@item.Lugar</td>
+                                    <td>
+                                        <span id="confirmados-@item.IdEvento" class="badge @(confirmados > 0 ? "bg-success" : "bg-secondary")">
+                                            @confirmados personas
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <a asp-action="Details" asp-route-id="@item.IdEvento" class="btn btn-sm btn-info">Detalles</a>
 
+<<<<<<< Updated upstream
 		<!-- /Add Leave -->
 </body>
+=======
+                                        <!-- Botón de Confirmar Asistencia -->
+                                        <button id="btn-confirmar-@item.IdEvento"
+                                                class="btn btn-sm @(usuarioConfirmado ? "btn-danger" : "btn-success")"
+                                                onclick="toggleAsistencia(@item.IdEvento, @(usuarioConfirmado.ToString().ToLower()))">
+                                            @(usuarioConfirmado ? "Cancelar Asistencia" : "Confirmar Asistencia")
+                                        </button>
+                                    </td>
+
+                                    <!-- Icono de Eliminar Evento -->
+                                    <td class="text-end">
+                                        <form asp-action="Delete" asp-route-id="@item.IdEvento" method="post" class="d-inline"
+                                              onsubmit="return confirm('¿Estás seguro de eliminar este evento?');">
+                                            <button type="submit" class="btn btn-link text-danger p-0" data-bs-toggle="tooltip" title="Eliminar">
+                                                <i data-feather="trash-2"></i>
+                                            </button>
+                                        </form>
+                                    </td>
+
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+<script>
+    function toggleAsistencia(idEvento, isConfirmed) {
+        let action = isConfirmed ? "EliminarConfirmacion" : "ConfirmarAsistencia";
+        let mensaje = `¿Estás seguro de que deseas ${isConfirmed ? "cancelar" : "confirmar"} tu asistencia?`;
+
+        if (confirm(mensaje)) {
+            fetch(`/Eventoes/${action}?idEvento=${idEvento}`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        let btn = document.getElementById(`btn-confirmar-${idEvento}`);
+                        let confirmadosBadge = document.getElementById(`confirmados-${idEvento}`);
+
+                        if (data.confirmado) {
+                            btn.innerText = "Cancelar Asistencia";
+                            btn.classList.remove("btn-success");
+                            btn.classList.add("btn-danger");
+                        } else {
+                            btn.innerText = "Confirmar Asistencia";
+                            btn.classList.remove("btn-danger");
+                            btn.classList.add("btn-success");
+                        }
+
+                        // Update count
+                        confirmadosBadge.innerText = `${data.totalConfirmados} personas`;
+                        confirmadosBadge.classList.remove("bg-success", "bg-secondary");
+                        confirmadosBadge.classList.add(data.totalConfirmados > 0 ? "bg-success" : "bg-secondary");
+
+                        // Update button click action
+                        btn.setAttribute("onclick", `toggleAsistencia(${idEvento}, ${data.confirmado})`);
+                    } else {
+                        alert("Error al actualizar la asistencia.");
+                    }
+                })
+                .catch(error => console.error("Error:", error));
+        }
+    }
+</script>
+>>>>>>> Stashed changes
