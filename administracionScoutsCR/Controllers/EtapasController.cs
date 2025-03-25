@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using administracionScoutsCR.Models;
+using static System.Collections.Specialized.BitVector32;
 
 namespace administracionScoutsCR.Controllers
 {
@@ -41,6 +42,7 @@ namespace administracionScoutsCR.Controllers
 
             return View(etapa);
         }
+
 
         // GET: Etapas/Create
         public IActionResult Create()

@@ -25,11 +25,28 @@ namespace administracionScoutsCR.Controllers
 			_context = context;
 			_configuration = configuration;
 		}
-		public async Task<IActionResult> Index()
-		{
-			return View(await _context.Eventos.ToListAsync());
-		}
-		public async Task<IActionResult> Calendar()
+        public async Task<IActionResult> Index()
+        {
+            int? usuarioId = ObtenerUsuarioId();
+
+            var eventos = await _context.Eventos
+                .Include(e => e.ConfirmacionEventos)
+                .ToListAsync();
+
+            // Contar confirmaciones por evento
+            ViewBag.Confirmaciones = eventos.ToDictionary(e => e.IdEvento, e => e.ConfirmacionEventos.Count);
+
+            // Verificar si el usuario ha confirmado su asistencia
+            ViewBag.UsuarioConfirmaciones = usuarioId == null
+                ? new Dictionary<int, bool>()
+                : eventos.ToDictionary(
+                    e => e.IdEvento,
+                    e => e.ConfirmacionEventos.Any(c => c.IdUsuario == usuarioId.Value)
+                );
+
+            return View(eventos);
+        }
+        public async Task<IActionResult> Calendar()
 		{
 			return View(await _context.Eventos.ToListAsync());
 		}
@@ -39,27 +56,47 @@ namespace administracionScoutsCR.Controllers
 
 			return View(await _context.Eventos.ToListAsync());
 		}
-		// GET: Eventoes/Details/5
-		public async Task<IActionResult> Details(int? id)
-		{
-			if (id == null)
-			{
-				return NotFound();
-			}
+        // GET: Eventoes/Details/5
+        public async Task<IActionResult> Details(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
 
-			var evento = await _context.Eventos
-				.FirstOrDefaultAsync(m => m.IdEvento == id);
-			if (evento == null)
-			{
-				return NotFound();
-			}
+            var evento = await _context.Eventos
+                .Include(e => e.ConfirmacionEventos)
+                .ThenInclude(c => c.IdUsuarioNavigation)
+                .FirstOrDefaultAsync(e => e.IdEvento == id);
 
-			return View(evento);
-		}
+            if (evento == null)
+            {
+                return NotFound();
+            }
 
-		// GET: Eventoes/Create
-		// GET: Eventoes1/Create
-		public IActionResult Create()
+            // Depuración: Muestra cuántos usuarios confirmaron asistencia
+            Console.WriteLine($"Evento ID: {id} - Confirmaciones encontradas: {evento.ConfirmacionEventos.Count}");
+
+            var confirmedUsers = evento.ConfirmacionEventos
+                .Where(c => c.Asistencia.Trim().ToLower() == "confirmado") // Asegura que coincida con el texto correcto
+                .Select(c => c.IdUsuarioNavigation)
+                .ToList();
+
+            // Depuración: Imprimir los usuarios confirmados
+            foreach (var user in confirmedUsers)
+            {
+                Console.WriteLine($"Usuario confirmado: {user.Nombre} {user.Apellido1}");
+            }
+
+            ViewBag.ConfirmedUsers = confirmedUsers;
+
+            return View(evento);
+        }
+
+
+        // GET: Eventoes/Create
+        // GET: Eventoes1/Create
+        public IActionResult Create()
 		{
 			return View();
 		}
@@ -210,31 +247,52 @@ namespace administracionScoutsCR.Controllers
 			var response = await client.SendEmailAsync(msg);
 		}
 
-		[HttpPost]
-		public async Task<IActionResult> ConfirmarAsistencia(int idEvento)
-		{
-			var usuarioId = ObtenerUsuarioId();
+        [HttpPost]
+        public async Task<IActionResult> ConfirmarAsistencia(int idEvento)
+        {
+            int? usuarioId = ObtenerUsuarioId();
+            if (usuarioId == null)
+            {
+                return Json(new { success = false, message = "Usuario no autenticado." });
+            }
 
-			var confirmacionExistente = await _context.ConfirmacionEventos
-				.FirstOrDefaultAsync(c => c.IdEvento == idEvento && c.IdUsuario == usuarioId);
+            var confirmacion = new ConfirmacionEvento
+            {
+                IdEvento = idEvento,
+                IdUsuario = usuarioId.Value,
+                Asistencia = "Confirmado"
+            };
 
-			if (confirmacionExistente == null)
-			{
-				var confirmacion = new ConfirmacionEvento
-				{
-					IdEvento = idEvento,
-					IdUsuario = usuarioId,
-					Asistencia = "Confirmado"
-				};
+            _context.ConfirmacionEventos.Add(confirmacion);
+            await _context.SaveChangesAsync();
 
-				_context.ConfirmacionEventos.Add(confirmacion);
-				await _context.SaveChangesAsync();
-			}
+            int totalConfirmados = _context.ConfirmacionEventos.Count(c => c.IdEvento == idEvento);
+            return Json(new { success = true, confirmado = true, totalConfirmados });
+        }
 
-			return RedirectToAction("Index");
-		}
+        [HttpPost]
+        public async Task<IActionResult> EliminarConfirmacion(int idEvento)
+        {
+            int? usuarioId = ObtenerUsuarioId();
+            if (usuarioId == null)
+            {
+                return Json(new { success = false, message = "Usuario no autenticado." });
+            }
 
-		private int ObtenerUsuarioId()
+            var confirmacion = await _context.ConfirmacionEventos
+                .FirstOrDefaultAsync(c => c.IdEvento == idEvento && c.IdUsuario == usuarioId);
+
+            if (confirmacion != null)
+            {
+                _context.ConfirmacionEventos.Remove(confirmacion);
+                await _context.SaveChangesAsync();
+            }
+
+            int totalConfirmados = _context.ConfirmacionEventos.Count(c => c.IdEvento == idEvento);
+            return Json(new { success = true, confirmado = false, totalConfirmados });
+        }
+
+        private int ObtenerUsuarioId()
         {
             return int.Parse(User.Claims.FirstOrDefault(c => c.Type == "IdUsuario")?.Value);
         }
