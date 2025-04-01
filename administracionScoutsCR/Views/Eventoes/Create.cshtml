@@ -23,7 +23,7 @@
             </div>
 
             <!-- Formulario de creación de evento -->
-            <form asp-action="Create" method="post">
+            <form asp-action="Create" method="post" enctype="multipart/form-data">
                 <div class="card">
                     <div class="card-body add-product pb-0">
                         <div class="accordion-card-one accordion" id="accordionExample">
@@ -87,6 +87,15 @@
                                                     <label asp-for="Descripcion" class="form-label">Descripción</label>
                                                     <textarea asp-for="Descripcion" class="form-control" rows="3" placeholder="Descripción del evento"></textarea>
                                                     <span asp-validation-for="Descripcion" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-6 col-sm-12">
+                                                <div class="mb-3">
+                                                    <label asp-for="ImagenEvento" class="form-label">Imagen del Evento</label>
+                                                    <input asp-for="ImagenEvento" type="file" class="form-control" accept="image/*" />
+                                                    <span asp-validation-for="ImagenEvento" class="text-danger"></span>
                                                 </div>
                                             </div>
                                         </div>

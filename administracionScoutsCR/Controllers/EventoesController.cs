@@ -50,12 +50,6 @@ namespace administracionScoutsCR.Controllers
 		{
 			return View(await _context.Eventos.ToListAsync());
 		}
-
-		public async Task<IActionResult> Test()
-		{
-
-			return View(await _context.Eventos.ToListAsync());
-		}
         // GET: Eventoes/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -73,20 +67,10 @@ namespace administracionScoutsCR.Controllers
             {
                 return NotFound();
             }
-
-            // Depuración: Muestra cuántos usuarios confirmaron asistencia
-            Console.WriteLine($"Evento ID: {id} - Confirmaciones encontradas: {evento.ConfirmacionEventos.Count}");
-
             var confirmedUsers = evento.ConfirmacionEventos
                 .Where(c => c.Asistencia.Trim().ToLower() == "confirmado") // Asegura que coincida con el texto correcto
                 .Select(c => c.IdUsuarioNavigation)
                 .ToList();
-
-            // Depuración: Imprimir los usuarios confirmados
-            foreach (var user in confirmedUsers)
-            {
-                Console.WriteLine($"Usuario confirmado: {user.Nombre} {user.Apellido1}");
-            }
 
             ViewBag.ConfirmedUsers = confirmedUsers;
 
@@ -101,25 +85,52 @@ namespace administracionScoutsCR.Controllers
 			return View();
 		}
 
-		// POST: Eventoes1/Create
-		// To protect from overposting attacks, enable the specific properties you want to bind to.
-		// For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-		[HttpPost]
-		[ValidateAntiForgeryToken]
-		public async Task<IActionResult> Create([Bind("IdEvento,Titulo,Fecha,Lugar,Descripcion,Encargado,ContactoEncargado")] Evento evento)
-		{
-			if (ModelState.IsValid)
-			{
-				_context.Add(evento);
-				await _context.SaveChangesAsync();
-				return RedirectToAction(nameof(Index));
-			}
-			return View(evento);
-		}
+        // POST: Eventoes1/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(Evento evento)
+        {
+            try
+            {
+                if (ModelState.IsValid)
+                {
+                    if (evento.ImagenEvento != null && evento.ImagenEvento.Length > 0)
+                    {
+                        var folderPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "uploads", "eventos");
+
+                        if (!Directory.Exists(folderPath))
+                            Directory.CreateDirectory(folderPath);
+
+                        var fileName = $"{Guid.NewGuid()}_{Path.GetFileName(evento.ImagenEvento.FileName)}";
+                        var filePath = Path.Combine(folderPath, fileName);
+
+                        using (var stream = new FileStream(filePath, FileMode.Create))
+                        {
+                            await evento.ImagenEvento.CopyToAsync(stream);
+                        }
+
+                        evento.RutaImagen = $"/uploads/eventos/{fileName}";
+                    }
+
+                    _context.Add(evento);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+                }
+
+                return View(evento);
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", "Ocurrió un error al guardar el evento: " + ex.Message);
+                return View(evento);
+            }
+        }
 
 
-		// GET: Eventoes/Edit/5
-		public async Task<IActionResult> Edit(int? id)
+        // GET: Eventoes/Edit/5
+        public async Task<IActionResult> Edit(int? id)
 		{
 			if (id == null)
 			{
