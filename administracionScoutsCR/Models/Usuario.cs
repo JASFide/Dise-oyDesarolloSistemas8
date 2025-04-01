@@ -19,7 +19,7 @@ public partial class Usuario
 
     public bool Estado { get; set; }
 
-    public int? IdSeccion { get; set; }
+    public int IdSeccion { get; set; }
 
     public string Direccion { get; set; } = null!;
 
@@ -29,9 +29,13 @@ public partial class Usuario
 
     public string Contrasena { get; set; } = null!;
 
+    public int? IdRole { get; set; }
+
     public virtual ICollection<ConfirmacionEvento> ConfirmacionEventos { get; set; } = new List<ConfirmacionEvento>();
 
-    public virtual Seccion? IdSeccionNavigation { get; set; } = null!;
+    public virtual Role? IdRoleNavigation { get; set; }
+
+    public virtual Seccion IdSeccionNavigation { get; set; } = null!;
 
     public virtual ICollection<UsuarioxContactoEmergencium> UsuarioxContactoEmergencia { get; set; } = new List<UsuarioxContactoEmergencium>();
 
