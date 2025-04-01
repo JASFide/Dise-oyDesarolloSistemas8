@@ -15,7 +15,7 @@ public partial class DatabaseScoutContext : DbContext
         : base(options)
     {
     }
-
+    public virtual DbSet<Role> Role { get; set; } = default!;
     public virtual DbSet<ConfirmacionEvento> ConfirmacionEventos { get; set; }
 
     public virtual DbSet<ContactoEmergencium> ContactoEmergencia { get; set; }
@@ -46,6 +46,21 @@ public partial class DatabaseScoutContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<Role>(entity =>
+        {
+            entity.HasKey(e => e.Id)
+                .HasName("PK_Role");
+            entity.ToTable("Role");
+            entity.Property(e => e.Nombre)
+                .IsRequired()
+                .HasMaxLength(50)
+                .IsUnicode(false);
+
+            entity.HasMany(e => e.Usuarios)
+                .WithOne(u => u.IdRoleNavigation)
+                .HasForeignKey(u => u.IdRole)
+                .HasConstraintName("FK_Usuario_Roles");
+        });
         modelBuilder.Entity<ConfirmacionEvento>(entity =>
         {
             entity.HasKey(e => e.IdConfirmacionEvento).HasName("PK__Confirma__F2F2F9E04E542794");
@@ -264,5 +279,7 @@ public partial class DatabaseScoutContext : DbContext
 
     partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
 
-public DbSet<administracionScoutsCR.Models.Role> Role { get; set; } = default!;
+
+
+
 }

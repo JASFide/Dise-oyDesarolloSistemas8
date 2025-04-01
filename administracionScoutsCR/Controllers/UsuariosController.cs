@@ -21,7 +21,8 @@ namespace administracionScoutsCR.Controllers
         // GET: Usuarios
         public async Task<IActionResult> Index()
         {
-            var databaseScoutContext = _context.Usuarios.Include(u => u.IdSeccionNavigation);
+            var databaseScoutContext = _context.Usuarios.Include(u => u.IdSeccionNavigation).Include(u => u.IdRoleNavigation);
+
             return View(await databaseScoutContext.ToListAsync());
         }
 
@@ -46,18 +47,24 @@ namespace administracionScoutsCR.Controllers
 
         // GET: Usuarios/Create
         public IActionResult Create()
+
         {
+
             ViewBag.SeccionesDisponibles = new SelectList(_context.Seccions, "IdSeccion", "Nombre");
 
+            ViewBag.Role = new SelectList(_context.Role, "Id", "Nombre");
+
             return View();
+
         }
+
 
         // POST: Usuarios/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdUsuario,Nombre,Apellido1,Apellido2,FechaNacimiento,TipoUsuario,Estado,IdSeccion,Direccion,Correo,NumeroTelefono,Contrasena")] Usuario usuario)
+        public async Task<IActionResult> Create([Bind("IdUsuario,Nombre,Apellido1,Apellido2,FechaNacimiento,TipoUsuario,Estado,IdSeccion,Direccion,Correo,NumeroTelefono,Contrasena,IdRole")] Usuario usuario)
         {
             if (ModelState.IsValid)
             {
@@ -74,7 +81,8 @@ namespace administracionScoutsCR.Controllers
                 }
             }
 
-            ViewData["IdSeccion"] = new SelectList(_context.Seccions, "IdSeccion", "IdSeccion", usuario.IdSeccion);
+            ViewData["IdSeccion"] = new SelectList(_context.Seccions, "IdSeccion", "Nombre", usuario.IdSeccion);
+            ViewBag.Roles = new SelectList(_context.Role, "Id", "Nombre", usuario.IdRole);
             return View(usuario);
         }
 
