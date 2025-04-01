@@ -11,11 +11,13 @@
     [Correo]          VARCHAR (50)  NOT NULL,
     [NumeroTelefono]  VARCHAR (50)  NOT NULL,
     [Contrasena]      VARCHAR (255) NOT NULL,
-    [IdRole]          INT           NULL,
+    [IdRole]          INT           NOT NULL,
     PRIMARY KEY CLUSTERED ([IdUsuario] ASC),
-    CONSTRAINT [FK_Usuario_Role] FOREIGN KEY ([IdRole]) REFERENCES [dbo].[Role] ([Id]),
+    CONSTRAINT [FK_Usuario_Role] FOREIGN KEY ([IdRole]) REFERENCES [dbo].[Role] ([Id]), 
     CONSTRAINT [FK_Usuario_Seccion] FOREIGN KEY ([IdSeccion]) REFERENCES [dbo].[Seccion] ([IdSeccion])
 );
+
+
 
 
 

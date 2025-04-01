@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
+using administracionScoutsCR.Models;
 
 namespace administracionScoutsCR.Models;
 
@@ -262,4 +263,6 @@ public partial class DatabaseScoutContext : DbContext
     }
 
     partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+
+public DbSet<administracionScoutsCR.Models.Role> Role { get; set; } = default!;
 }
