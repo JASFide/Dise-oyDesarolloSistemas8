@@ -36,6 +36,7 @@ namespace administracionScoutsCR.Controllers
 
             var usuario = await _context.Usuarios
                 .Include(u => u.IdSeccionNavigation)
+                .Include(u => u.IdRoleNavigation)
                 .FirstOrDefaultAsync(m => m.IdUsuario == id);
             if (usuario == null)
             {
