@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+﻿using administracionScoutsCR.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -16,9 +17,9 @@ using System.Diagnostics.Metrics;
 namespace administracionScoutsCR.Controllers
 {
     public class EventoesController : Controller
-    {
-        private readonly DatabaseScoutContext _context;
-        private readonly IConfiguration _configuration;
+	{
+		private readonly DatabaseScoutContext _context;
+		private readonly IConfiguration _configuration;
 
         public EventoesController(DatabaseScoutContext context, IConfiguration configuration)
         {

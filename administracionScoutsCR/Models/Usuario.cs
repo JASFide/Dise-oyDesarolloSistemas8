@@ -31,6 +31,8 @@ public partial class Usuario
 
     public virtual ICollection<ConfirmacionEvento> ConfirmacionEventos { get; set; } = new List<ConfirmacionEvento>();
 
+    public virtual Role IdRoleNavigation { get; set; } = null!;
+
     public virtual Seccion? IdSeccionNavigation { get; set; } = null!;
 
     public virtual ICollection<UsuarioxContactoEmergencium> UsuarioxContactoEmergencia { get; set; } = new List<UsuarioxContactoEmergencium>();
