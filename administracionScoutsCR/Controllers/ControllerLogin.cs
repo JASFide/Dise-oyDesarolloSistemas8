@@ -36,14 +36,18 @@ namespace administracionScoutsCR.Controllers
 
                 if (usuario != null)
                 {
+                    // Obtener el nombre del rol asociado al IdRole
+                    var rol = _context.Role
+                        .FirstOrDefault(r => r.Id == usuario.IdRole);
 
                     // Crear lista de claims
                     var claims = new List<Claim>
-            {
-                new Claim(ClaimTypes.Name, usuario.Correo),
-                new Claim("Name", usuario.Nombre),
-                new Claim("IdUsuario", usuario.IdUsuario.ToString()) // Agregar IdUsuario como string
-            };
+    {
+        new Claim(ClaimTypes.Name, usuario.Correo),
+        new Claim("Name", usuario.Nombre),
+        new Claim("IdUsuario", usuario.IdUsuario.ToString()),
+        new Claim("IdRole", usuario.IdRole.ToString()) // Asignar el nombre del rol
+    };
 
                     // Crear identidad de claims y autenticación
                     var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);

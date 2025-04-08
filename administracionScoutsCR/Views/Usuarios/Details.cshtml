@@ -5,116 +5,87 @@
 }
 
 <h1 class="mb-4 text-primary text-center">Detalles del Usuario</h1>
+<<div class="content">
+    <div class="page-header">
+        <div class="page-title">
+            <h4>Detalles del Usuario - @Model.Nombre @Model.Apellido1</h4>
+            <h6>Información completa del perfil</h6>
+        </div>
+    </div>
 
-<div class="container bg-light p-5">
-    <!-- Fondo gris para la página -->
     <div class="row">
-        <!-- Tarjeta: Nombre Completo -->
-        <div class="col-md-6 mb-4">
-            <div class="card shadow-lg border-0 bg-light">
-                <div class="card-header bg-info text-white">
-                    <h5 class="mb-0">Nombre Completo</h5>
-                </div>
+        <!-- Información del usuario -->
+        <div class="col-lg-8 col-sm-12">
+            <div class="card">
                 <div class="card-body">
-                    <p class="mb-0">@Model.Nombre @Model.Apellido1 @Model.Apellido2</p>
+                    <div class="insignia-details">
+                        <ul class="event-bar">
+                            <li>
+                                <h4>ID Usuario</h4>
+                                <h6 class="p-2 rounded" style="background-color: #e9ecef;">@Model.IdUsuario</h6>
+                            </li>
+                            <li>
+                                <h4>Nombre Completo</h4>
+                                <h6 class="p-2 rounded" style="background-color: #e9ecef;">@Model.Nombre @Model.Apellido1 @Model.Apellido2</h6>
+                            </li>
+                            <li>
+                                <h4>Fecha de Nacimiento</h4>
+                                <h6 class="p-2 rounded" style="background-color: #e9ecef;">@Model.FechaNacimiento.ToString("dd/MM/yyyy")</h6>
+                            </li>
+                            <li>
+                                <h4>Tipo de Usuario</h4>
+                                <h6 class="p-2 rounded" style="background-color: #e9ecef;">@Model.TipoUsuario</h6>
+                            </li>
+                            <li>
+                                <h4>Estado</h4>
+                                <h6 class="p-2 rounded" style="background-color: #e9ecef;">@(Model.Estado ? "Activo" : "Inactivo")</h6>
+                            </li>
+                            <li>
+                                <h4>Sección</h4>
+                                <h6 class="p-2 rounded" style="background-color: #e9ecef;">@(Model.IdSeccionNavigation != null ? Model.IdSeccionNavigation.Nombre : "N/A")</h6>
+                            </li>
+                            <li>
+                                <h4>Correo</h4>
+                                <h6 class="p-2 rounded" style="background-color: #e9ecef;">@Model.Correo</h6>
+                            </li>
+                            <li>
+                                <h4>Teléfono</h4>
+                                <h6 class="p-2 rounded" style="background-color: #e9ecef;">@Model.NumeroTelefono</h6>
+                            </li>
+                            <li>
+                                <h4>Rol</h4>
+                                <h6 class="p-2 rounded" style="background-color: #e9ecef;">@(Model.IdRoleNavigation != null ? Model.IdRoleNavigation.Nombre : "N/A")</h6>
+                            </li>
+                            <li>
+                                <h4>Dirección</h4>
+                                <h6 class="p-2 rounded" style="background-color: #e9ecef;">@Model.Direccion</h6>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- Tarjeta: Fecha de Nacimiento -->
-        <div class="col-md-6 mb-4">
-            <div class="card shadow-lg border-0 bg-light">
-                <div class="card-header bg-info text-white">
-                    <h5 class="mb-0">Fecha de Nacimiento</h5>
-                </div>
-                <div class="card-body">
-                    <p class="mb-0">@Model.FechaNacimiento.ToString("dd/MM/yyyy")</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Tarjeta: Tipo de Usuario -->
-        <div class="col-md-6 mb-4">
-            <div class="card shadow-lg border-0 bg-light">
-                <div class="card-header bg-info text-white">
-                    <h5 class="mb-0">Tipo de Usuario</h5>
-                </div>
-                <div class="card-body">
-                    <p class="mb-0">@Model.TipoUsuario</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Tarjeta: Estado -->
-        <div class="col-md-6 mb-4">
-            <div class="card shadow-lg border-0 bg-light">
-                <div class="card-header bg-info text-white">
-                    <h5 class="mb-0">Estado</h5>
-                </div>
-                <div class="card-body">
-                    <span class="badge @(Model.Estado ? "bg-success" : "bg-danger")">
-                        @(Model.Estado ? "Activo" : "Inactivo")
-                    </span>
-                </div>
-            </div>
-        </div>
-
-        <!-- Tarjeta: Sección -->
-        <div class="col-md-6 mb-4">
-            <div class="card shadow-lg border-0 bg-light">
-                <div class="card-header bg-info text-white">
-                    <h5 class="mb-0">Sección</h5>
-                </div>
-                <div class="card-body">
-                    <p class="mb-0">@((Model.IdSeccionNavigation != null) ? Model.IdSeccionNavigation.Nombre : "N/A")</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Tarjeta: Dirección -->
-        <div class="col-md-6 mb-4">
-            <div class="card shadow-lg border-0 bg-light">
-                <div class="card-header bg-info text-white">
-                    <h5 class="mb-0">Dirección</h5>
-                </div>
-                <div class="card-body">
-                    <p class="mb-0">@Model.Direccion</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Tarjeta: Correo Electrónico -->
-        <div class="col-md-6 mb-4">
-            <div class="card shadow-lg border-0 bg-light">
-                <div class="card-header bg-info text-white">
-                    <h5 class="mb-0">Correo Electrónico</h5>
-                </div>
-                <div class="card-body">
-                    <p class="mb-0">@Model.Correo</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- Tarjeta: Número de Teléfono -->
-        <div class="col-md-6 mb-4">
-            <div class="card shadow-lg border-0 bg-light">
-                <div class="card-header bg-info text-white">
-                    <h5 class="mb-0">Número de Teléfono</h5>
-                </div>
-                <div class="card-body">
-                    <p class="mb-0">@Model.NumeroTelefono</p>
+        <!-- Panel lateral: Imagen de perfil -->
+        <div class="col-lg-4 col-sm-12">
+            <div class="card">
+                <div class="card-body text-center">
+                    <img src="~/assets/img/usuarios/usuario_default.jpg" alt="Foto de Perfil" class="img-fluid rounded-circle mb-3" style="max-width: 150px;">
+                    <h5 class="mt-2">Foto de Perfil</h5>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- Botones de acción -->
-    <div class="text-center mt-4">
-        <a asp-action="Edit" asp-route-id="@Model?.IdUsuario" class="btn btn-warning">
-            <i class="bi bi-pencil-square"></i> Editar
-        </a>
-        <a asp-action="Index" class="btn btn-secondary">
-            <i class="bi bi-arrow-left"></i> Volver a la lista
-        </a>
+    <div class="row mt-3">
+        <div class="col-lg-12 text-center">
+            <a asp-action="Edit" asp-route-id="@Model?.IdUsuario" class="btn btn-warning me-2">
+                <i data-feather="edit"></i> Editar
+            </a>
+            <a asp-action="Index" class="btn btn-secondary">
+                <i data-feather="arrow-left-circle"></i> Volver a la lista
+            </a>
+        </div>
     </div>
 </div>
