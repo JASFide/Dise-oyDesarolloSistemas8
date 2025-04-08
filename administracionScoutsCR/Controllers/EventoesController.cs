@@ -209,7 +209,7 @@ namespace administracionScoutsCR.Controllers
 
                 foreach (var correo in usuariosConfirmados)
                 {
-                    await EnviarCorreoRecordatorio(correo, evento);
+                 //   await EnviarCorreoRecordatorio(correo, evento);
                 }
             }
 
