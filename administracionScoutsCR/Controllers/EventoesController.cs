@@ -118,14 +118,13 @@ namespace administracionScoutsCR.Controllers
                     await _context.SaveChangesAsync();
                     return RedirectToAction(nameof(Index));
                 }
-
-                return View(evento);
             }
             catch (Exception ex)
             {
-                ModelState.AddModelError("", "Ocurrió un error al guardar el evento: " + ex.Message);
-                return View(evento);
+                ModelState.AddModelError("", "Error al guardar el evento: " + ex.Message);
             }
+
+            return View(evento);
         }
 
 
