@@ -1,3 +1,4 @@
+@using System.Security.Claims
 @if (User.Identity != null && User.Identity.IsAuthenticated)
 {
     <li class="nav-item dropdown has-arrow main-drop">
@@ -9,10 +10,9 @@
                 <span class="user-detail">
                     <span class="user-name">@User.FindFirst("Name")?.Value</span>
 
-                    <span class="user-role">Super Admin</span> @* Change role dynamically if needed *@
+                   <span class="user-role">@User.FindFirst(ClaimTypes.Role)?.Value</span
+      
                     <span class="user-id">ID: @User.FindFirst("IdUsuario")?.Value</span>
-
-
                 </span>
             </span>
         </a>

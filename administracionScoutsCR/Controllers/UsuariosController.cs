@@ -82,7 +82,7 @@ namespace administracionScoutsCR.Controllers
             }
 
             ViewData["IdSeccion"] = new SelectList(_context.Seccions, "IdSeccion", "Nombre", usuario.IdSeccion);
-            ViewBag.Roles = new SelectList(_context.Role, "Id", "Nombre", usuario.IdRole);
+            ViewData["IdRole"] = new SelectList(_context.Role, "Id", "Nombre", usuario.IdRole);
             return View(usuario);
         }
 
