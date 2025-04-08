@@ -46,14 +46,61 @@
                 </div>
             </div>
 
-            <!-- Right Side Panel (Placeholder for Event Image) -->
+            <!-- Right Side Panel (Event Image) -->
             <div class="col-lg-4 col-sm-12">
                 <div class="card">
-                    <div class="card-body">
-                        <div class="event-image text-center">
-                            <img src="~/assets/img/eventos/evento_default.jpg" alt="Imagen del Evento" class="img-fluid rounded">
-                            <h4 class="mt-2">Imagen del Evento</h4>
+                    <div class="card-body text-center">
+                        <div class="event-image">
+                            <img src="@(string.IsNullOrEmpty(Model.RutaImagen) ? Url.Content("~/assets/img/eventos/evento_default.jpg") : Url.Content(Model.RutaImagen))"
+                                 alt="Imagen del Evento"
+                                 class="img-fluid rounded mb-2"
+                                 style="max-height: 300px; object-fit: contain;" />
+                            <h5>Imagen del Evento</h5>
                         </div>
+                    </div>
+                </div>
+            </div>
+
+        <!-- Lista de Asistentes Confirmados -->
+        <div class="row mt-4">
+            <div class="col-lg-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h5>Asistentes Confirmados</h5>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Nombre</th>
+                                    <th>Correo Electrónico</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @if (ViewBag.ConfirmedUsers != null && ViewBag.ConfirmedUsers.Count > 0)
+                                {
+                                    @foreach (var user in ViewBag.ConfirmedUsers)
+                                    {
+                                        <tr>
+                                            <td>@user.Nombre @user.Apellido1</td>
+                                            <td>@user.Correo</td>
+                                            <td>
+                                                <a asp-controller="Usuarios" asp-action="Details" asp-route-id="@user.IdUsuario" class="btn btn-sm btn-info">
+                                                    Ver Perfil
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    }
+                                }
+                                else
+                                {
+                                    <tr>
+                                        <td colspan="3" class="text-center text-muted">No hay asistentes confirmados para este evento.</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>

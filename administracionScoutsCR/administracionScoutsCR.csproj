@@ -622,7 +622,7 @@
     <None Include="wwwroot\assets\img\layout-rtl.png" />
     <None Include="wwwroot\assets\img\login-user.png" />
     <None Include="wwwroot\assets\img\login.jpg" />
-    <None Include="wwwroot\assets\img\logo-smallOLD.png" />
+    <None Include="wwwroot\assets\img\logo-small.png" />
     <None Include="wwwroot\assets\img\logo-whiteOld.png" />
     <None Include="wwwroot\assets\img\logoOLD.png" />
     <None Include="wwwroot\assets\img\media\media-01.jpg" />
@@ -1725,6 +1725,10 @@
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="8.0.7" />
     <PackageReference Include="SendGrid" Version="9.29.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\uploads\eventos\" />
   </ItemGroup>
 
 </Project>

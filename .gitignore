@@ -366,8 +366,5 @@ administracionScoutsCR/Models/DatabaseScoutContext.cs
 administracionScoutsCR/appsettings.json
 administracionScoutsCR/Models/DatabaseScoutContext.cs
 administracionScoutsCR/Models/DatabaseScoutContext.cs
-SqlSchemaCompare1.scmp
-<<<<<<< Updated upstream
-*.scmp
-=======
->>>>>>> Stashed changes
+ScoutDatabase/ScoutDatabase.sqlproj
+

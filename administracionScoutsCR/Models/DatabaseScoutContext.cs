@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
+using administracionScoutsCR.Models;
 
 namespace administracionScoutsCR.Models;
 
@@ -14,7 +15,7 @@ public partial class DatabaseScoutContext : DbContext
         : base(options)
     {
     }
-
+    public virtual DbSet<Role> Role { get; set; } = default!;
     public virtual DbSet<ConfirmacionEvento> ConfirmacionEventos { get; set; }
 
     public virtual DbSet<ContactoEmergencium> ContactoEmergencia { get; set; }
@@ -41,11 +42,25 @@ public partial class DatabaseScoutContext : DbContext
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
 
 
-        => optionsBuilder.UseSqlServer("Server=LocalHost;Database=DatabaseScout;Trusted_Connection=True;TrustServerCertificate=True;");
-
+        => optionsBuilder.UseSqlServer("Server=LocalHost;Database=Scoutdatabase;Trusted_Connection=True;TrustServerCertificate=True;");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<Role>(entity =>
+        {
+            entity.HasKey(e => e.Id)
+                .HasName("PK_Role");
+            entity.ToTable("Role");
+            entity.Property(e => e.Nombre)
+                .IsRequired()
+                .HasMaxLength(50)
+                .IsUnicode(false);
+
+            entity.HasMany(e => e.Usuarios)
+                .WithOne(u => u.IdRoleNavigation)
+                .HasForeignKey(u => u.IdRole)
+                .HasConstraintName("FK_Usuario_Roles");
+        });
         modelBuilder.Entity<ConfirmacionEvento>(entity =>
         {
             entity.HasKey(e => e.IdConfirmacionEvento).HasName("PK__Confirma__F2F2F9E04E542794");
@@ -119,6 +134,11 @@ public partial class DatabaseScoutContext : DbContext
             entity.Property(e => e.Titulo)
                 .HasMaxLength(50)
                 .IsUnicode(false);
+            entity.Property(e => e.RutaImagen)
+                .HasColumnName("RutaImagen")
+                .HasColumnType("varchar(max)")
+                .IsUnicode(false)
+                .IsRequired(false); // o .IsRequired() si lo haces obligatorio
         });
 
 
@@ -263,4 +283,8 @@ public partial class DatabaseScoutContext : DbContext
     }
 
     partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+
+
+
+
 }

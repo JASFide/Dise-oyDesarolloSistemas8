@@ -6,6 +6,7 @@
     [Descripcion]       VARCHAR (50) NOT NULL,
     [Encargado]         VARCHAR (50) NOT NULL,
     [ContactoEncargado] VARCHAR (50) NOT NULL,
+    [RutaImagen] VARCHAR(MAX) NULL, 
     PRIMARY KEY CLUSTERED ([IdEvento] ASC)
 );
 

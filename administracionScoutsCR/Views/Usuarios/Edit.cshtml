@@ -1,65 +1,67 @@
 ﻿@model administracionScoutsCR.Models.Usuario
 
 @{
-    ViewData["Title"] = "Detalles del Usuario";
+    ViewData["Title"] = "Editar";
 }
 
-<h1 class="mb-4 text-primary">Detalles del Usuario</h1>
-<div class="card shadow-lg border-0">
-    <div class="card-header bg-primary text-white">
-        <h5 class="mb-0">Información del Usuario</h5>
-    </div>
-    <div class="card-body">
-        <div class="row">
-            <div class="col-md-6 mb-3">
-                <label class="form-label fw-bold">ID Usuario</label>
-                <input type="text" class="form-control" value="@Model.IdUsuario" disabled>
-            </div>
-            <div class="col-md-6 mb-3">
-                <label class="form-label fw-bold">Nombre</label>
-                <input type="text" class="form-control" value="@Model.Nombre" disabled>
-            </div>
-            <div class="col-md-6 mb-3">
-                <label class="form-label fw-bold">Primer Apellido</label>
-                <input type="text" class="form-control" value="@Model.Apellido1" disabled>
-            </div>
-            <div class="col-md-6 mb-3">
-                <label class="form-label fw-bold">Segundo Apellido</label>
-                <input type="text" class="form-control" value="@Model.Apellido2" disabled>
-            </div>
-            <div class="col-md-6 mb-3">
-                <label class="form-label fw-bold">Fecha de Nacimiento</label>
-                <input type="text" class="form-control" value="@Model.FechaNacimiento.ToString("dd/MM/yyyy")" disabled>
-            </div>
-            <div class="col-md-6 mb-3">
-                <label class="form-label fw-bold">Tipo de Usuario</label>
-                <input type="text" class="form-control" value="@Model.TipoUsuario" disabled>
-            </div>
-            <div class="col-md-6 mb-3">
-                <label class="form-label fw-bold">Estado</label>
-                <input type="text" class="form-control" value="@(Model.Estado ? "Activo" : "Inactivo")" disabled>
-            </div>
-            <div class="col-md-6 mb-3">
-                <label class="form-label fw-bold">Sección</label>
-                <input type="text" class="form-control" value="@(Model.IdSeccionNavigation != null ? Model.IdSeccionNavigation.Nombre : "N/A")" disabled>
-            </div>
-            <div class="col-md-6 mb-3">
-                <label class="form-label fw-bold">Dirección</label>
-                <textarea class="form-control" rows="2" disabled>@Model.Direccion</textarea>
-            </div>
-            <div class="col-md-6 mb-3">
-                <label class="form-label fw-bold">Correo</label>
-                <input type="email" class="form-control" value="@Model.Correo" disabled>
-            </div>
-            <div class="col-md-6 mb-3">
-                <label class="form-label fw-bold">Número de Teléfono</label>
-                <input type="text" class="form-control" value="@Model.NumeroTelefono" disabled>
+@using (Html.BeginForm("Edit", "Usuarios", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <h1 class="mb-4 text-primary">Detalles del Usuario</h1>
+    <div class="card shadow-lg border-0">
+        <div class="card-header bg-primary text-white">
+            <h5 class="mb-0">Información del Usuario</h5>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <!-- Campo ID, normalmente no se edita -->
+                <div class="col-md-6 mb-3">
+                    <label class="form-label fw-bold">ID Usuario</label>
+                    <input type="text" class="form-control" value="@Model.IdUsuario" disabled>
+                    @Html.HiddenFor(model => model.IdUsuario)
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label fw-bold">Nombre</label>
+                    <input type="text" class="form-control" name="Nombre" value="@Model.Nombre">
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label fw-bold">Primer Apellido</label>
+                    <input type="text" class="form-control" name="Apellido1" value="@Model.Apellido1">
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label fw-bold">Segundo Apellido</label>
+                    <input type="text" class="form-control" name="Apellido2" value="@Model.Apellido2">
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label fw-bold">Fecha de Nacimiento</label>
+                    <!-- Se usa input type="date" y el formato "yyyy-MM-dd" -->
+                    <input type="date" class="form-control" name="FechaNacimiento" value="@Model.FechaNacimiento.ToString("yyyy-MM-dd")">
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label fw-bold">Tipo de Usuario</label>
+                    <input type="text" class="form-control" name="TipoUsuario" value="@Model.TipoUsuario">
+                </div>
+       
+                <div class="col-md-6 mb-3">
+                    <label class="form-label fw-bold">Dirección</label>
+                    <textarea class="form-control" rows="2" name="Direccion">@Model.Direccion</textarea>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label fw-bold">Correo</label>
+                    <input type="email" class="form-control" name="Correo" value="@Model.Correo">
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label fw-bold">Número de Teléfono</label>
+                    <input type="text" class="form-control" name="NumeroTelefono" value="@Model.NumeroTelefono">
+                </div>
             </div>
         </div>
+        <div class="card-footer text-end">
+            <a asp-action="Index" class="btn btn-secondary">
+                <i class="bi bi-arrow-left"></i> Volver a la lista
+            </a>
+            <button type="submit" class="btn btn-primary">Guardar cambios</button>
+        </div>
     </div>
-    <div class="card-footer text-end">
-        <a asp-action="Index" class="btn btn-secondary">
-            <i class="bi bi-arrow-left"></i> Volver a la lista
-        </a>
-    </div>
-</div>
+}

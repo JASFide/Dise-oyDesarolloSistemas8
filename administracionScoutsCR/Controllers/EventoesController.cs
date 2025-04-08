@@ -216,23 +216,6 @@ namespace administracionScoutsCR.Controllers
             return Ok("Correos enviados para eventos próximos.");
         }
 
-        private async Task EnviarCorreoRecordatorio(string destinatario, Evento evento)
-        {
-            var apiKey = _configuration["SendGrid:ApiKey"];
-            var fromEmail = _configuration["SendGrid:FromEmail"];
-
-            var client = new SendGridClient(apiKey);
-            var from = new EmailAddress(fromEmail, "ScoutsCR");
-            var subject = $"Recordatorio: {evento.Titulo} en 7 días";
-            var to = new EmailAddress(destinatario);
-            var plainTextContent = $"Hola, te recordamos que el evento '{evento.Titulo}' se llevará a cabo el {evento.Fecha}. ¡No faltes!";
-            var htmlContent = $"<strong>Hola,</strong><br><br>Te recordamos que el evento <b>{evento.Titulo}</b> se llevará a cabo el <b>{evento.Fecha}</b>.<br>¡No faltes!";
-            var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
-
-            var response = await client.SendEmailAsync(msg);
-        }
-
-
         [HttpPost]
         public async Task<IActionResult> ConfirmarAsistencia(int idEvento)
         {
@@ -245,7 +228,7 @@ namespace administracionScoutsCR.Controllers
             var confirmacion = new ConfirmacionEvento
             {
                 IdEvento = idEvento,
-                IdUsuario = usuarioId,
+                IdUsuario = usuarioId.Value,
                 Asistencia = "Confirmado"
             };
 

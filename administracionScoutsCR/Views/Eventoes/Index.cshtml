@@ -5,40 +5,6 @@
 }
 
 <body>
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-	<div class="content" >
-		<div class="page-header">
-			<div class="add-item d-flex">
-				<div class="page-title">
-					<h4>Eventos</h4>
-					<h6>Eventos creados
-					</h6>
-				</div>
-			</div>
-			<ul class="table-top-head">
-				<li>
-					<a data-bs-toggle="tooltip" data-bs-placement="top" title="Pdf"><img src="assets/img/icons/pdf.svg" alt="img"></a>
-				</li>
-				<li>
-					<a data-bs-toggle="tooltip" data-bs-placement="top" title="Excel"><img src="assets/img/icons/excel.svg" alt="img"></a>
-				</li>
-				<li>
-					<a data-bs-toggle="tooltip" data-bs-placement="top" title="Print"><i data-feather="printer" class="feather-rotate-ccw"></i></a>
-				</li>
-				<li>
-					<a data-bs-toggle="tooltip" data-bs-placement="top" title="Refresh"><i data-feather="rotate-ccw" class="feather-rotate-ccw"></i></a>
-				</li>
-				<li>
-					<a data-bs-toggle="tooltip" data-bs-placement="top" title="Collapse" id="collapse-header"><i data-feather="chevron-up" class="feather-chevron-up"></i></a>
-				</li>
-				<div class="page-btn">
-					<a class="btn btn-added" asp-controller="Eventoes" asp-action="Create"><i data-feather="plus-circle" class="me-2"></i>Crear un nuevo Evento</a>
-				</div>
-			</ul>
-=======
-=======
->>>>>>> Stashed changes
     <div class="content">
         <div class="page-header">
             <div class="add-item d-flex">
@@ -62,10 +28,6 @@
                 </li>
             </ul>
         </div>
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
 
         <!-- Tabla de eventos -->
         <div class="card table-list-card">
@@ -105,39 +67,6 @@
                                     <td>
                                         <a asp-action="Details" asp-route-id="@item.IdEvento" class="btn btn-sm btn-info">Detalles</a>
 
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-		<!-- /Add Leave -->
-=======
-                                        <!-- Botón de Confirmar Asistencia -->
-                                        <button id="btn-confirmar-@item.IdEvento"
-                                                class="btn btn-sm @(usuarioConfirmado ? "btn-danger" : "btn-success")"
-                                                onclick="toggleAsistencia(@item.IdEvento, @(usuarioConfirmado.ToString().ToLower()))">
-                                            @(usuarioConfirmado ? "Cancelar Asistencia" : "Confirmar Asistencia")
-                                        </button>
-                                    </td>
-
-                                    <!-- Icono de Eliminar Evento -->
-                                    <td class="text-end">
-                                        <form asp-action="Delete" asp-route-id="@item.IdEvento" method="post" class="d-inline"
-                                              onsubmit="return confirm('¿Estás seguro de eliminar este evento?');">
-                                            <button type="submit" class="btn btn-link text-danger p-0" data-bs-toggle="tooltip" title="Eliminar">
-                                                <i data-feather="trash-2"></i>
-                                            </button>
-                                        </form>
-                                    </td>
-
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
->>>>>>> Stashed changes
-</body>
-=======
                                         <!-- Botón de Confirmar Asistencia -->
                                         <button id="btn-confirmar-@item.IdEvento"
                                                 class="btn btn-sm @(usuarioConfirmado ? "btn-danger" : "btn-success")"
@@ -209,7 +138,3 @@
         }
     }
 </script>
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes

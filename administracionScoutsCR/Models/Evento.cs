@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace administracionScoutsCR.Models;
 
@@ -20,6 +19,9 @@ public partial class Evento
     public string ContactoEncargado { get; set; } = null!;
 
     public virtual ICollection<ConfirmacionEvento> ConfirmacionEventos { get; set; } = new List<ConfirmacionEvento>();
+    public string? RutaImagen { get; set; }
 
+    [NotMapped]
+    public IFormFile? ImagenEvento { get; set; }
 
 }

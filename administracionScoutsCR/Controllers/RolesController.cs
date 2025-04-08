@@ -6,26 +6,25 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using administracionScoutsCR.Models;
-using static System.Collections.Specialized.BitVector32;
 
 namespace administracionScoutsCR.Controllers
 {
-    public class EtapasController : Controller
+    public class RolesController : Controller
     {
         private readonly DatabaseScoutContext _context;
 
-        public EtapasController(DatabaseScoutContext context)
+        public RolesController(DatabaseScoutContext context)
         {
             _context = context;
         }
 
-        // GET: Etapas
+        // GET: Roles
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Etapas.ToListAsync());
+            return View(await _context.Role.ToListAsync());
         }
 
-        // GET: Etapas/Details/5
+        // GET: Roles/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -33,40 +32,39 @@ namespace administracionScoutsCR.Controllers
                 return NotFound();
             }
 
-            var etapa = await _context.Etapas
-                .FirstOrDefaultAsync(m => m.IdEtapa == id);
-            if (etapa == null)
+            var role = await _context.Role
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (role == null)
             {
                 return NotFound();
             }
 
-            return View(etapa);
+            return View(role);
         }
 
-
-        // GET: Etapas/Create
+        // GET: Roles/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Etapas/Create
+        // POST: Roles/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdEtapa,Nombre,Seccion,Estado")] Etapa etapa)
+        public async Task<IActionResult> Create([Bind("Id,Nombre")] Role role)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(etapa);
+                _context.Add(role);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(etapa);
+            return View(role);
         }
 
-        // GET: Etapas/Edit/5
+        // GET: Roles/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -74,22 +72,22 @@ namespace administracionScoutsCR.Controllers
                 return NotFound();
             }
 
-            var etapa = await _context.Etapas.FindAsync(id);
-            if (etapa == null)
+            var role = await _context.Role.FindAsync(id);
+            if (role == null)
             {
                 return NotFound();
             }
-            return View(etapa);
+            return View(role);
         }
 
-        // POST: Etapas/Edit/5
+        // POST: Roles/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdEtapa,Nombre,Seccion,Estado")] Etapa etapa)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Nombre")] Role role)
         {
-            if (id != etapa.IdEtapa)
+            if (id != role.Id)
             {
                 return NotFound();
             }
@@ -98,12 +96,12 @@ namespace administracionScoutsCR.Controllers
             {
                 try
                 {
-                    _context.Update(etapa);
+                    _context.Update(role);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!EtapaExists(etapa.IdEtapa))
+                    if (!RoleExists(role.Id))
                     {
                         return NotFound();
                     }
@@ -114,10 +112,10 @@ namespace administracionScoutsCR.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(etapa);
+            return View(role);
         }
 
-        // GET: Etapas/Delete/5
+        // GET: Roles/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -125,34 +123,34 @@ namespace administracionScoutsCR.Controllers
                 return NotFound();
             }
 
-            var etapa = await _context.Etapas
-                .FirstOrDefaultAsync(m => m.IdEtapa == id);
-            if (etapa == null)
+            var role = await _context.Role
+                .FirstOrDefaultAsync(m => m.Id == id);
+            if (role == null)
             {
                 return NotFound();
             }
 
-            return View(etapa);
+            return View(role);
         }
 
-        // POST: Etapas/Delete/5
+        // POST: Roles/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var etapa = await _context.Etapas.FindAsync(id);
-            if (etapa != null)
+            var role = await _context.Role.FindAsync(id);
+            if (role != null)
             {
-                _context.Etapas.Remove(etapa);
+                _context.Role.Remove(role);
             }
 
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool EtapaExists(int id)
+        private bool RoleExists(int id)
         {
-            return _context.Etapas.Any(e => e.IdEtapa == id);
+            return _context.Role.Any(e => e.Id == id);
         }
     }
 }

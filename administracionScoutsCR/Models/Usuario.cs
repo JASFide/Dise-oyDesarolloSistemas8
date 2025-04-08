@@ -29,9 +29,11 @@ public partial class Usuario
 
     public string Contrasena { get; set; } = null!;
 
+    public int? IdRole { get; set; }
+
     public virtual ICollection<ConfirmacionEvento> ConfirmacionEventos { get; set; } = new List<ConfirmacionEvento>();
 
-    public virtual Role IdRoleNavigation { get; set; } = null!;
+    public virtual Role? IdRoleNavigation { get; set; } = null!;
 
     public virtual Seccion? IdSeccionNavigation { get; set; } = null!;
 

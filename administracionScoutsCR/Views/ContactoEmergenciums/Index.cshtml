@@ -1,47 +1,76 @@
 ﻿@model IEnumerable<administracionScoutsCR.Models.ContactoEmergencium>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Contacto de Emergencia";
 }
 
-<h1>Index</h1>
+<body>
+    <div class="content">
+        <div class="page-header">
+            <div class="add-item d-flex">
+                <div class="page-title">
+                    <h4>Contacto de Emergencia</h4>
+                    <h6>Lista de contactos registrados</h6>
+                </div>
+            </div>
+            <ul class="table-top-head">
+                <li>
+                    <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="top" title="Print" onclick="printPage()"><i data-feather="printer" class="feather-rotate-ccw"></i></a>
+                </li>
+                <li>
+                    <a data-bs-toggle="tooltip" data-bs-placement="top" title="Excel"><img src="assets/img/icons/excel.svg" alt="img"></a>
+                </li>
+                <li>
+                    <a data-bs-toggle="tooltip" data-bs-placement="top" title="Print"><i data-feather="printer" class="feather-rotate-ccw"></i></a>
+                </li>
+                <li>
+                    <a data-bs-toggle="tooltip" data-bs-placement="top" title="Refresh"><i data-feather="rotate-ccw" class="feather-rotate-ccw"></i></a>
+                </li>
+                <li>
+                    <a data-bs-toggle="tooltip" data-bs-placement="top" title="Collapse" id="collapse-header"><i data-feather="chevron-up" class="feather-chevron-up"></i></a>
+                </li>
+                <div class="page-btn">
+                    <a class="btn btn-added" asp-controller="ContactoEmergenciums" asp-action="Create"><i data-feather="plus-circle" class="me-2"></i>Agregar Contacto</a>
+                </div>
+            </ul>
+        </div>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Nombre)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Parentesco)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.NumeroContacto)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Nombre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Parentesco)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NumeroContacto)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.IdContactoEmergencia">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.IdContactoEmergencia">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.IdContactoEmergencia">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+        <!-- Lista de Contactos -->
+        <div class="card table-list-card">
+            <div class="card-body pb-0">
+                <div class="table-responsive">
+                    <table class="table table-striped" id="contactosTable">
+                        <thead>
+                            <tr>
+                                <th>Nombre</th>
+                                <th>Parentesco</th>
+                                <th>Número de Contacto</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td>@item.Nombre</td>
+                                    <td>@item.Parentesco</td>
+                                    <td>@item.NumeroContacto</td>
+                                    <td>
+                                        <a asp-action="Edit" asp-route-id="@item.IdContactoEmergencia" class="btn btn-sm btn-warning">Editar</a>
+                                        <a asp-action="Details" asp-route-id="@item.IdContactoEmergencia" class="btn btn-sm btn-info">Detalles</a>
+                                        <a asp-action="Delete" asp-route-id="@item.IdContactoEmergencia" class="btn btn-sm btn-danger">Eliminar</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    function printPage() {
+        window.print();
+    }
+</script>
