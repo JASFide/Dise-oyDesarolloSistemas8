@@ -134,6 +134,11 @@ public partial class DatabaseScoutContext : DbContext
             entity.Property(e => e.Titulo)
                 .HasMaxLength(50)
                 .IsUnicode(false);
+            entity.Property(e => e.RutaImagen)
+                .HasColumnName("RutaImagen")
+                .HasColumnType("varchar(max)")
+                .IsUnicode(false)
+                .IsRequired(false); // o .IsRequired() si lo haces obligatorio
         });
 
 
