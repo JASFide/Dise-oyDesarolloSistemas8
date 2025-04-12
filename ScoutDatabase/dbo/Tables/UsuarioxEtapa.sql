@@ -1,5 +1,5 @@
 ﻿CREATE TABLE [dbo].[UsuarioxEtapa] (
-    [IdUsuarioEtapa] INT NOT NULL,
+    [IdUsuarioEtapa] INT IDENTITY (1, 1) NOT NULL,
     [IdUsuario]      INT NOT NULL,
     [IdEtapa]        INT NOT NULL,
     PRIMARY KEY CLUSTERED ([IdUsuarioEtapa] ASC),

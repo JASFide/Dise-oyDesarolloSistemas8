@@ -60,59 +60,6 @@
                     </div>
                 </div>
             </div>
-
-        <!-- Lista de Asistentes Confirmados -->
-        <div class="row mt-4">
-            <div class="col-lg-12">
-                <div class="card">
-                    <div class="card-header">
-                        <h5>Asistentes Confirmados</h5>
-                    </div>
-                    <div class="card-body">
-                        <table class="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th>Nombre</th>
-                                    <th>Correo Electrónico</th>
-                                    <th>Acciones</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @if (ViewBag.ConfirmedUsers != null && ViewBag.ConfirmedUsers.Count > 0)
-                                {
-                                    @foreach (var user in ViewBag.ConfirmedUsers)
-                                    {
-                                        <tr>
-                                            <td>@user.Nombre @user.Apellido1</td>
-                                            <td>@user.Correo</td>
-                                            <td>
-                                                <a asp-controller="Usuarios" asp-action="Details" asp-route-id="@user.IdUsuario" class="btn btn-sm btn-info">
-                                                    Ver Perfil
-                                                </a>
-                                            </td>
-                                        </tr>
-                                    }
-                                }
-                                else
-                                {
-                                    <tr>
-                                        <td colspan="3" class="text-center text-muted">No hay asistentes confirmados para este evento.</td>
-                                    </tr>
-                                }
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        </div>
-        @if (ViewBag.ConfirmedUsers == null)
-        {
-            <p class="text-danger">❌ Error: ViewBag.ConfirmedUsers es nulo</p>
-        }
-        else if (ViewBag.ConfirmedUsers.Count == 0)
-        {
-            <p class="text-warning">⚠️ No hay asistentes confirmados.</p>
-        }
         <!-- Lista de Asistentes Confirmados -->
         <div class="row mt-4">
             <div class="col-lg-12">

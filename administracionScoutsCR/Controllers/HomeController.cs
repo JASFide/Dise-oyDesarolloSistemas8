@@ -1,9 +1,8 @@
+// HomeController.cs
 using administracionScoutsCR.Models;
 using Microsoft.AspNetCore.Mvc;
-using System.Diagnostics;
-using administracionScoutsCR.Models;
 using Microsoft.EntityFrameworkCore;
-
+using System.Diagnostics;
 
 namespace administracionScoutsCR.Controllers
 {
@@ -50,13 +49,17 @@ namespace administracionScoutsCR.Controllers
                 .Include(c => c.IdEventoNavigation)
                 .ToListAsync();
 
-            var insignias = await _context.Insignias
-                .Where(i => i.Estado.ToLower() == "en progreso")
-                .ToListAsync(); // Aqu� deber�as filtrar por usuario si hay una relaci�n
+            var insignias = await _context.UsuarioxInsignia
+                .Where(x => x.IdUsuario == usuarioId && x.Estado.ToLower() == "en progreso")
+                .Include(x => x.IdInsigniaNavigation)
+                .Select(x => x.IdInsigniaNavigation)
+                .ToListAsync();
 
-            var etapas = await _context.Etapas
-                .Where(e => e.Seccion == usuario.IdSeccionNavigation.Nombre)
-                .ToListAsync(); // Igual, ajust� seg�n la relaci�n real con el usuario
+            var etapas = await _context.UsuarioxEtapas
+                .Where(x => x.IdUsuario == usuarioId)
+                .Include(x => x.IdEtapaNavigation)
+                .Select(x => x.IdEtapaNavigation)
+                .ToListAsync();
 
             ViewBag.Usuario = usuario;
             ViewBag.Eventos = eventosConfirmados;
@@ -65,5 +68,6 @@ namespace administracionScoutsCR.Controllers
 
             return View();
         }
+
     }
 }

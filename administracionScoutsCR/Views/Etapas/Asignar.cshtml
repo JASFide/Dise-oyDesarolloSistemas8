@@ -1,0 +1,51 @@
+﻿@model administracionScoutsCR.Models.UsuarioxEtapa
+
+@{
+    ViewData["Title"] = "Asignar Etapa";
+}
+
+<div class="content">
+    <div class="page-header">
+        <div class="page-title">
+            <h4>Asignar Etapa</h4>
+            <h6>Asociar una etapa a un usuario</h6>
+        </div>
+    </div>
+
+    <form asp-action="Asignar" method="post">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-6 col-sm-12">
+                        <div class="mb-3">
+                            <label asp-for="IdUsuario" class="form-label">Usuario</label>
+                            <select asp-for="IdUsuario" class="form-control" asp-items="ViewBag.Usuarios"></select>
+                            <span asp-validation-for="IdUsuario" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6 col-sm-12">
+                        <div class="mb-3">
+                            <label asp-for="IdEtapa" class="form-label">Etapa</label>
+                            <select asp-for="IdEtapa" class="form-control" asp-items="ViewBag.Etapas"></select>
+                            <span asp-validation-for="IdEtapa" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col-lg-12 text-center">
+                        <button type="submit" class="btn btn-primary">Asignar Etapa</button>
+                        <a asp-action="Index" class="btn btn-secondary ms-2">Cancelar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

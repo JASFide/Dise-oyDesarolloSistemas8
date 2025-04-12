@@ -160,18 +160,6 @@ public partial class DatabaseScoutContext : DbContext
                 .IsFixedLength();
         });
 
-        modelBuilder.Entity<ReqInsignia>(entity =>
-        {
-            entity.HasKey(e => e.IdReqInsignia).HasName("PK__ReqInsig__63856F5906174F79");
-
-            entity.Property(e => e.Descripcion)
-                .HasMaxLength(50)
-                .IsUnicode(false);
-
-            entity.HasOne(d => d.IdInsigniasNavigation).WithMany(p => p.ReqInsignia)
-                .HasForeignKey(d => d.IdInsignias)
-                .HasConstraintName("FK_ReqInsignia_Insignias");
-        });
 
         modelBuilder.Entity<Seccion>(entity =>
         {
@@ -227,18 +215,23 @@ public partial class DatabaseScoutContext : DbContext
 
         modelBuilder.Entity<UsuarioxContactoEmergencium>(entity =>
         {
-            entity.HasKey(e => e.IdUsuarioxContactoEmergencia).HasName("PK__Usuariox__EBAD584FA589C63B");
+            entity.HasKey(e => e.IdUsuarioxContactoEmergencia)
+                  .HasName("PK__Usuariox__EBAD584FA589C63B");
 
-  
+            entity.Property(e => e.IdUsuarioxContactoEmergencia)
+                  .UseIdentityColumn(); 
 
-            entity.HasOne(d => d.IdContactoEmergenciaNavigation).WithMany(p => p.UsuarioxContactoEmergencia)
+            entity.HasOne(d => d.IdContactoEmergenciaNavigation)
+                .WithMany(p => p.UsuarioxContactoEmergencia)
                 .HasForeignKey(d => d.IdContactoEmergencia)
                 .HasConstraintName("FK_UsuarioxContactoEmergencia_ContactoEmergencia");
 
-            entity.HasOne(d => d.IdUsuarioNavigation).WithMany(p => p.UsuarioxContactoEmergencia)
+            entity.HasOne(d => d.IdUsuarioNavigation)
+                .WithMany(p => p.UsuarioxContactoEmergencia)
                 .HasForeignKey(d => d.IdUsuario)
                 .HasConstraintName("FK_UsuarioxContactoEmergencia_Usuario");
         });
+
 
         modelBuilder.Entity<UsuarioxEtapa>(entity =>
         {
@@ -257,6 +250,19 @@ public partial class DatabaseScoutContext : DbContext
                 .HasForeignKey(d => d.IdUsuario)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_UsuarioxEtapa_Usuario");
+        });
+
+        modelBuilder.Entity<ReqInsignia>(entity =>
+        {
+            entity.HasKey(e => e.IdReqInsignia).HasName("PK__ReqInsig__63856F5906174F79");
+
+            entity.Property(e => e.Descripcion)
+                .HasMaxLength(50)
+                .IsUnicode(false);
+
+            entity.HasOne(d => d.IdInsigniasNavigation).WithMany(p => p.ReqInsignia)
+                .HasForeignKey(d => d.IdInsignias)
+                .HasConstraintName("FK_ReqInsignia_Insignias");
         });
 
         modelBuilder.Entity<UsuarioxInsignium>(entity =>

@@ -60,30 +60,33 @@
     </div>
 
     <!-- Etapas Actuales -->
-    <div class="row">
+    <div class="row mt-4">
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-header">
-                    <h5>Etapas Actuales</h5>
+                    <h5>Etapas Asignadas</h5>
                 </div>
                 <div class="card-body">
-                    @if (etapas != null && etapas.Count > 0)
+                    @if (ViewBag.Etapas != null && ((List<Etapa>)ViewBag.Etapas).Count > 0)
                     {
                         <ul class="list-group">
-                            @foreach (var etapa in etapas)
+                            @foreach (var etapa in ViewBag.Etapas as List<Etapa>)
                             {
-                                <li class="list-group-item">@etapa.Nombre</li>
+                                <li class="list-group-item">
+                                    <strong>@etapa.Nombre</strong> - Sección: @etapa.Seccion | Estado: @etapa.Estado
+                                </li>
                             }
                         </ul>
                     }
                     else
                     {
-                        <p class="text-muted">Aún no tienes etapas asignadas.</p>
+                        <p class="text-muted">Aún no se te ha asignado ninguna etapa.</p>
                     }
                 </div>
             </div>
         </div>
     </div>
+
 
     <!-- Insignias en Progreso -->
     <div class="row">

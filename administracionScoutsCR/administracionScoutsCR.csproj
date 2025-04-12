@@ -1728,6 +1728,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Views\UsuarioEtapa\" />
     <Folder Include="wwwroot\uploads\eventos\" />
   </ItemGroup>
 
