@@ -147,6 +147,46 @@ namespace administracionScoutsCR.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+        // GET: UsuarioContactoEmergencia/Asignar
+        public IActionResult Asignar(int? idContacto = null)
+        {
+            ViewBag.Usuarios = new SelectList(_context.Usuarios, "IdUsuario", "Nombre");
+            ViewBag.Contactos = new SelectList(_context.ContactoEmergencia, "IdContactoEmergencia", "Nombre", idContacto);
+
+            var modelo = new UsuarioxContactoEmergencium();
+            if (idContacto.HasValue)
+            {
+                modelo.IdContactoEmergencia = idContacto.Value;
+            }
+
+            return View(modelo);
+        }
+
+        // POST: UsuarioContactoEmergencia/Asignar
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Asignar([Bind("IdUsuario,IdContactoEmergencia")] UsuarioxContactoEmergencium asignacion)
+        {
+            if (ModelState.IsValid)
+            {
+                var yaExiste = await _context.UsuarioxContactoEmergencia
+                    .AnyAsync(x => x.IdUsuario == asignacion.IdUsuario && x.IdContactoEmergencia == asignacion.IdContactoEmergencia);
+
+                if (!yaExiste)
+                {
+                    _context.UsuarioxContactoEmergencia.Add(asignacion);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction("Details", "ContactoEmergenciums", new { id = asignacion.IdContactoEmergencia });
+                }
+
+                ModelState.AddModelError("", "Este contacto de emergencia ya está asignado al usuario.");
+            }
+
+            ViewBag.Usuarios = new SelectList(_context.Usuarios, "IdUsuario", "Nombre", asignacion.IdUsuario);
+            ViewBag.Contactos = new SelectList(_context.ContactoEmergencia, "IdContactoEmergencia", "Nombre", asignacion.IdContactoEmergencia);
+
+            return View(asignacion);
+        }
 
         private bool ContactoEmergenciumExists(int id)
         {

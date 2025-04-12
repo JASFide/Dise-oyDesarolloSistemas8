@@ -1,5 +1,5 @@
 ﻿CREATE TABLE [dbo].[UsuarioxContactoEmergencia] (
-    [IdUsuarioxContactoEmergencia] INT NOT NULL,
+    [IdUsuarioxContactoEmergencia] INT IDENTITY (1, 1) NOT NULL,
     [IdUsuario]                    INT NULL,
     [IdContactoEmergencia]         INT NULL,
     PRIMARY KEY CLUSTERED ([IdUsuarioxContactoEmergencia] ASC),

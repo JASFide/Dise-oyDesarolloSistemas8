@@ -1,0 +1,51 @@
+﻿@model administracionScoutsCR.Models.UsuarioxContactoEmergencium
+
+@{
+    ViewData["Title"] = "Asignar Contacto de Emergencia";
+}
+
+<div class="content">
+    <div class="page-header">
+        <div class="page-title">
+            <h4>Asignar Contacto de Emergencia</h4>
+            <h6>Asocia un contacto de emergencia a un usuario</h6>
+        </div>
+    </div>
+
+    <form asp-action="Asignar" method="post">
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-lg-6 col-sm-12">
+                        <div class="mb-3">
+                            <label asp-for="IdUsuario" class="form-label">Usuario</label>
+                            <select asp-for="IdUsuario" class="form-control" asp-items="ViewBag.Usuarios"></select>
+                            <span asp-validation-for="IdUsuario" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6 col-sm-12">
+                        <div class="mb-3">
+                            <label asp-for="IdContactoEmergencia" class="form-label">Contacto de Emergencia</label>
+                            <select asp-for="IdContactoEmergencia" class="form-control" asp-items="ViewBag.Contactos"></select>
+                            <span asp-validation-for="IdContactoEmergencia" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-12 text-center">
+                        <button type="submit" class="btn btn-primary">Asignar</button>
+                        <a asp-controller="ContactoEmergenciums" asp-action="Index" class="btn btn-secondary ms-2">Cancelar</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
