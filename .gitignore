@@ -368,3 +368,4 @@ administracionScoutsCR/Models/DatabaseScoutContext.cs
 administracionScoutsCR/Models/DatabaseScoutContext.cs
 ScoutDatabase/ScoutDatabase.sqlproj
 
+*.sqlproj
