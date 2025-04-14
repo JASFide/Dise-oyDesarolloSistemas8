@@ -1,8 +1,103 @@
-﻿<div>
-		
-				
+﻿<style>
+    .carousel-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+        border: 2px solid #ccc;
+        border-radius: 10px;
+        background-color: #f9f9f9;
+    }
 
-		</div>
+        .carousel-container img {
+            height: 300px; /* altura reducida */
+            object-fit: cover;
+            border: 2px solid #555; /* borde gris oscuro */
+            border-radius: 5px;
+        }
+</style>
+
+<div class="content">
+    <div class="carousel-container mb-5 shadow-sm">
+        <div id="carouselScouts" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner rounded">
+                <div class="carousel-item active">
+                    <img src="images/100Aniversario_BoyScouts_Sabana__22022015_IMG_9331-1020x680.jpg"
+                         class="d-block w-100" alt="Campamento Scout">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5>Explora la naturaleza</h5>
+                        <p>Descubre aventuras en cada rincón del bosque.</p>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="images/490296803_1099151878906862_5292062199158374008_n.jpg"
+                         class="d-block w-100" alt="Scouts Unidos">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5>Trabajo en equipo</h5>
+                        <p>El verdadero espíritu scout es la unidad.</p>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <img src="images/insignias.jpg"
+                         class="d-block w-100" alt="Insignias Scout">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5>Logros e insignias</h5>
+                        <p>Recompensa el esfuerzo con méritos y orgullo.</p>
+                    </div>
+                </div>
+            </div>
+
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselScouts" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon bg-dark rounded-circle p-2" aria-hidden="true"></span>
+                <span class="visually-hidden">Anterior</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselScouts" data-bs-slide="next">
+                <span class="carousel-control-next-icon bg-dark rounded-circle p-2" aria-hidden="true"></span>
+                <span class="visually-hidden">Siguiente</span>
+            </button>
+        </div>
+    </div>
+
+
+    <div class="page-header">
+        <div class="d-flex justify-content-between align-items-center">
+            <div class="page-title">
+                <h2 class="text-primary"> Bienvenidos a Scouts CR</h2>
+                <p class="text-muted">Explora, aprende y crece con la comunidad scout.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card shadow rounded border-0">
+                <div class="card-body">
+                    <h5 class="card-title text-success"> Historia</h5>
+                    <p class="card-text">Conoce la hjstoria de los scout en costa rica.</p>
+                    <a asp-controller="Home" asp-action="Historia" class="btn btn-outline-success btn-sm">Ir a historia</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card shadow rounded border-0">
+                <div class="card-body">
+                    <h5 class="card-title text-info"> Actividades</h5>
+                    <p class="card-text">Organiza y visualiza las actividades planificadas por sección.</p>
+                    <a href="/Actividades" class="btn btn-outline-info btn-sm">Ver Actividades</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card shadow rounded border-0">
+                <div class="card-body">
+                    <h5 class="card-title text-warning"> Secciones</h5>
+                    <p class="card-text">Gestiona las secciones y sus integrantes fácilmente.</p>
+                    <a href="/Secciones" class="btn btn-outline-warning btn-sm">Ver Secciones</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
 <script src="assets/js/jquery-3.7.1.min.js"></script>
 
 <!-- Feather Icon JS -->
@@ -35,3 +130,4 @@
 <!-- Custom JS -->
 <script src="assets/js/theme-script.js"></script>
 <script src="assets/js/script.js"></script>
+

@@ -1,35 +1,81 @@
 ﻿@model administracionScoutsCR.Models.LoginViewmodel
 
 @{
-    ViewData["Title"] = "Login";
+    ViewData["Title"] = "Iniciar Sesión";
 }
 
-<h1>Login</h1>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Login">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-
-            <div class="form-group">
-                <label asp-for="Correo" class="control-label"></label>
-                <input asp-for="Correo" class="form-control" />
-                <span asp-validation-for="Correo" class="text-danger"></span>
+<div class="content">
+    <div class="page-header">
+        <div class="add-item d-flex justify-content-center">
+            <div class="page-title bg-white bg-opacity-75 p-4 rounded shadow" style="max-width: 600px; width: 100%;">
+                <h4 class="text-dark">Iniciar Sesión</h4>
+                <h6 class="text-muted">Accede con tu cuenta</h6>
             </div>
-
-            <div class="form-group">
-                <label asp-for="Contrasena" class="control-label"></label>
-                <input asp-for="Contrasena" type="password" class="form-control" />
-                <span asp-validation-for="Contrasena" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <input type="submit" value="Login" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
     </div>
+
+    <form asp-action="Login" method="post">
+        <div class="card">
+            <div class="card-body add-product pb-0">
+                <div class="accordion-card-one accordion" id="accordionLogin">
+                    <div class="accordion-item">
+                        <div class="accordion-header" id="headingLogin">
+                            <div class="accordion-button" data-bs-toggle="collapse" data-bs-target="#collapseLogin" aria-controls="collapseLogin">
+                                <div class="addproduct-icon">
+                                    <h5>
+                                        <i data-feather="lock" class="add-info"></i>
+                                        <span>Credenciales de Acceso</span>
+                                    </h5>
+                                    <a href="javascript:void(0);">
+                                        <i data-feather="chevron-down" class="chevron-down-add"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="collapseLogin" class="accordion-collapse collapse show" aria-labelledby="headingLogin" data-bs-parent="#accordionLogin">
+                            <div class="accordion-body">
+                                <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+                                <div class="row">
+                                    <div class="col-lg-6 col-sm-12">
+                                        <div class="mb-3">
+                                            <label asp-for="Correo" class="form-label">Correo Electrónico</label>
+                                            <input asp-for="Correo" class="form-control" placeholder="Ingrese su correo" />
+                                            <span asp-validation-for="Correo" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-sm-12">
+                                        <div class="mb-3">
+                                            <label asp-for="Contrasena" class="form-label">Contraseña</label>
+                                            <input asp-for="Contrasena" type="password" class="form-control" placeholder="Ingrese su contraseña" />
+                                            <span asp-validation-for="Contrasena" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="mb-3">
+                                            <button type="submit" class="btn btn-primary me-2">
+                                                <i data-feather="log-in" class="me-2"></i>Iniciar Sesión
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div> <!-- accordion-body -->
+                        </div> <!-- collapseLogin -->
+                    </div> <!-- accordion-item -->
+                </div> <!-- accordion-card-one -->
+            </div> <!-- card-body -->
+        </div> <!-- card -->
+    </form>
 </div>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+    <script>
+        feather.replace(); // Para que los íconos de Feather se muestren correctamente
+    </script>
 }

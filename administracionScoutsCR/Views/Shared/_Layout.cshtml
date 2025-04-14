@@ -1,6 +1,8 @@
 @{
 	ViewData["Title"] = "Home Page";
 }
+@using Microsoft.AspNetCore.Authorization
+@inject IAuthorizationService AuthorizationService
 <!DOCTYPE html>
 <html lang="en">
 
@@ -175,6 +177,7 @@
 			<div class="sidebar-inner slimscroll">
 				<div id="sidebar-menu" class="sidebar-menu">
 					<ul class="no-padding-list">
+						
 						<li class="submenu-open">
 							<h6 class="submenu-hdr">Usuario</h6>
 							<ul>
@@ -182,34 +185,48 @@
 								<li><a asp-controller="Usuarios" asp-action="Create"><i data-feather="plus-circle"></i><span>Nuevo Usuario</span></a></li>
 							</ul>
 						</li>
+						@if (User.IsInRole("Receptor"))
+						{
 						<li class="submenu-open">
 							<h6 class="submenu-hdr">Evento</h6>
 							<ul>
 								<li ><a asp-controller="Eventoes" asp-action="Index"><i data-feather="box"></i><span>Lista de Eventos</span></a></li>
 								<li ><a asp-controller="Eventoes" asp-action="Create"><i data-feather="plus-circle"></i><span>Nuevo Evento</span></a></li>
+								
 							</ul>
-						</li>
+						</li> }
 						<li class="submenu-open">
 							<h6 class="submenu-hdr">Etapas</h6>
 							<ul>
 								<li><a asp-controller="Etapas" asp-action="Index"><i data-feather="layers"></i><span>Lista de Etapas</span></a></li>
-								<li><a asp-controller="Etapas" asp-action="Create"><i data-feather="plus-circle"></i><span>Nueva Etapa</span></a></li>
+								@if (User.IsInRole("Receptor"))
+								{
+									<li><a asp-controller="Etapas" asp-action="Create"><i data-feather="plus-circle"></i><span>Nueva Etapa</span></a></li>
+								}
 							</ul>
 						</li>
 						<li class="submenu-open">
 							<h6 class="submenu-hdr">Insignias</h6>
 							<ul>
 								<li><a asp-controller="Insignias" asp-action="Index"><i data-feather="award"></i><span>Lista de Insignias</span></a></li>
-								<li><a asp-controller="Insignias" asp-action="Create"><i data-feather="plus-circle"></i><span>Nueva Insignia</span></a></li>
+								@if (User.IsInRole("Receptor"))
+								{
+									<li><a asp-controller="Insignias" asp-action="Create"><i data-feather="plus-circle"></i><span>Nueva Insignia</span></a></li>
+								}
 							</ul>
 						</li>
 						<li class="submenu-open">
 							<h6 class="submenu-hdr">Secciones</h6>
 							<ul>
 								<li><a asp-controller="Seccions" asp-action="Index"><i data-feather="grid"></i><span>Lista de Secciones</span></a></li>
-								<li><a asp-controller="Seccions" asp-action="Create"><i data-feather="plus-circle"></i><span>Nueva Seccion</span></a></li>
+								@if (User.IsInRole("Receptor"))
+								{
+									<li><a asp-controller="Seccions" asp-action="Create"><i data-feather="plus-circle"></i><span>Nueva Seccion</span></a></li>
+								}
 							</ul>
 						</li>
+						@if (User.IsInRole("Receptor"))
+						{
 						<li class="submenu-open">
 							<h6 class="submenu-hdr">Contacto de Emergencia</h6>
 							<ul>
@@ -217,7 +234,7 @@
 								<li><a asp-controller="ContactoEmergenciums" asp-action="Create"><i data-feather="plus-circle"></i><span>Nuevo Contacto</span></a></li>
 							</ul>
 						</li>
-				
+						}
 
 					
 					</ul>
