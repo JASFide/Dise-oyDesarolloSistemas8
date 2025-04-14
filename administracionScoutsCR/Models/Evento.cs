@@ -22,7 +22,6 @@ public partial class Evento
     public string? RutaImagen { get; set; }
 
     [NotMapped]
-    public required IFormFile ImagenEvento { get; set; }  // Optional if you pass it directly as parameter
-
+    public IFormFile? ImagenEvento { get; set; }
 
 }
