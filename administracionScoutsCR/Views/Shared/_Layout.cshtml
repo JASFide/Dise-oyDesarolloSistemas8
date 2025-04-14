@@ -188,6 +188,13 @@
 						@if (User.IsInRole("Receptor"))
 						{
 						<li class="submenu-open">
+							<h6 class="submenu-hdr">Roles</h6>
+							<ul>
+								<li><a asp-controller="Roles" asp-action="Index"><i data-feather="shield"></i><span>Lista de Roles</span></a></li>
+								<li><a asp-controller="Roles" asp-action="Create"><i data-feather="plus-circle"></i><span>Nuevo Rol</span></a></li>
+							</ul>
+						</li>
+						<li class="submenu-open">
 							<h6 class="submenu-hdr">Evento</h6>
 							<ul>
 								<li ><a asp-controller="Eventoes" asp-action="Index"><i data-feather="box"></i><span>Lista de Eventos</span></a></li>

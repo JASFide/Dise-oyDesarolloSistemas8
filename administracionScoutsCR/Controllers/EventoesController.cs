@@ -302,9 +302,17 @@ namespace administracionScoutsCR.Controllers
             return Json(new { success = true, confirmado = false, totalConfirmados });
         }
 
-        private int ObtenerUsuarioId()
+        private int? ObtenerUsuarioId()
         {
-            return int.Parse(User.Claims.FirstOrDefault(c => c.Type == "IdUsuario")?.Value);
+            var claim = User.Claims.FirstOrDefault(c => c.Type == "IdUsuario");
+
+            if (claim != null && int.TryParse(claim.Value, out int userId))
+            {
+                return userId;
+            }
+
+            // Opcional: log o manejo personalizado
+            return null; // O lanzar excepción si es requerido
         }
     }
 }
