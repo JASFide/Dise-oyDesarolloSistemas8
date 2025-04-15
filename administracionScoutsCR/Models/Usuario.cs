@@ -17,7 +17,7 @@ public partial class Usuario
 
     public string TipoUsuario { get; set; } = null!;
 
-    public bool Estado { get; set; }
+    public bool Estado { get; set; } = true;
 
     public int? IdSeccion { get; set; }
 

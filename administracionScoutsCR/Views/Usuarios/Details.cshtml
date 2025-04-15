@@ -4,8 +4,7 @@
     ViewData["Title"] = "Detalles del Usuario";
 }
 
-<h1 class="mb-4 text-primary text-center">Detalles del Usuario</h1>
-<<div class="content">
+<div class="content">
     <div class="page-header">
         <div class="page-title">
             <h4>Detalles del Usuario - @Model.Nombre @Model.Apellido1</h4>
@@ -14,64 +13,86 @@
     </div>
 
     <div class="row">
-        <!-- Información del usuario -->
-        <div class="col-lg-8 col-sm-12">
+        <div class="col-lg-12 col-sm-12">
             <div class="card">
                 <div class="card-body">
                     <div class="insignia-details">
                         <ul class="event-bar">
                             <li>
                                 <h4>ID Usuario</h4>
-                                <h6 class="p-2 rounded" style="background-color: #e9ecef;">@Model.IdUsuario</h6>
+                                <h6 class="p-2 rounded bg-light">@Model.IdUsuario</h6>
                             </li>
                             <li>
                                 <h4>Nombre Completo</h4>
-                                <h6 class="p-2 rounded" style="background-color: #e9ecef;">@Model.Nombre @Model.Apellido1 @Model.Apellido2</h6>
+                                <h6 class="p-2 rounded bg-light">@Model.Nombre @Model.Apellido1 @Model.Apellido2</h6>
                             </li>
                             <li>
                                 <h4>Fecha de Nacimiento</h4>
-                                <h6 class="p-2 rounded" style="background-color: #e9ecef;">@Model.FechaNacimiento.ToString("dd/MM/yyyy")</h6>
+                                <h6 class="p-2 rounded bg-light">@Model.FechaNacimiento.ToString("dd/MM/yyyy")</h6>
                             </li>
                             <li>
                                 <h4>Tipo de Usuario</h4>
-                                <h6 class="p-2 rounded" style="background-color: #e9ecef;">@Model.TipoUsuario</h6>
+                                <h6 class="p-2 rounded bg-light">@Model.TipoUsuario</h6>
                             </li>
                             <li>
                                 <h4>Estado</h4>
-                                <h6 class="p-2 rounded" style="background-color: #e9ecef;">@(Model.Estado ? "Activo" : "Inactivo")</h6>
+                                <h6 class="p-2 rounded bg-light">@(Model.Estado ? "Activo" : "Inactivo")</h6>
                             </li>
                             <li>
                                 <h4>Sección</h4>
-                                <h6 class="p-2 rounded" style="background-color: #e9ecef;">@(Model.IdSeccionNavigation != null ? Model.IdSeccionNavigation.Nombre : "N/A")</h6>
+                                <h6 class="p-2 rounded bg-light">@(Model.IdSeccionNavigation != null ? Model.IdSeccionNavigation.Nombre : "N/A")</h6>
                             </li>
                             <li>
                                 <h4>Correo</h4>
-                                <h6 class="p-2 rounded" style="background-color: #e9ecef;">@Model.Correo</h6>
+                                <h6 class="p-2 rounded bg-light">@Model.Correo</h6>
                             </li>
                             <li>
                                 <h4>Teléfono</h4>
-                                <h6 class="p-2 rounded" style="background-color: #e9ecef;">@Model.NumeroTelefono</h6>
+                                <h6 class="p-2 rounded bg-light">@Model.NumeroTelefono</h6>
                             </li>
                             <li>
                                 <h4>Rol</h4>
-                                <h6 class="p-2 rounded" style="background-color: #e9ecef;">@(Model.IdRoleNavigation != null ? Model.IdRoleNavigation.Nombre : "N/A")</h6>
+                                <h6 class="p-2 rounded bg-light">@(Model.IdRoleNavigation != null ? Model.IdRoleNavigation.Nombre : "N/A")</h6>
                             </li>
                             <li>
                                 <h4>Dirección</h4>
-                                <h6 class="p-2 rounded" style="background-color: #e9ecef;">@Model.Direccion</h6>
+                                <h6 class="p-2 rounded bg-light">@Model.Direccion</h6>
                             </li>
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 
-        <!-- Panel lateral: Imagen de perfil -->
-        <div class="col-lg-4 col-sm-12">
+    <!-- Lista de Contactos de Emergencia -->
+    <div class="row mt-4">
+        <div class="col-lg-12">
             <div class="card">
-                <div class="card-body text-center">
-                    <img src="~/assets/img/usuarios/usuario_default.jpg" alt="Foto de Perfil" class="img-fluid rounded-circle mb-3" style="max-width: 150px;">
-                    <h5 class="mt-2">Foto de Perfil</h5>
+                <div class="card-header">
+                    <h5>Contactos de Emergencia</h5>
+                </div>
+                <div class="card-body">
+                    @if (Model.UsuarioxContactoEmergencia != null && Model.UsuarioxContactoEmergencia.Any())
+                    {
+                        <ul class="list-group">
+                            @foreach (var contacto in Model.UsuarioxContactoEmergencia)
+                            {
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <strong>@contacto.IdContactoEmergenciaNavigation?.Nombre</strong> -
+                                        @contacto.IdContactoEmergenciaNavigation?.Parentesco
+                                        <div class="text-muted small">@contacto.IdContactoEmergenciaNavigation?.NumeroContacto</div>
+                                    </div>
+                                    <a asp-controller="ContactoEmergenciums" asp-action="Details" asp-route-id="@contacto.IdContactoEmergencia" class="btn btn-sm btn-outline-primary">Ver</a>
+                                </li>
+                            }
+                        </ul>
+                    }
+                    else
+                    {
+                        <p class="text-muted">No hay contactos de emergencia registrados.</p>
+                    }
                 </div>
             </div>
         </div>
@@ -89,3 +110,9 @@
         </div>
     </div>
 </div>
+
+@section Scripts {
+    <script>
+        feather.replace();
+    </script>
+}

@@ -33,6 +33,7 @@ namespace administracionScoutsCR.Controllers
             }
 
             var seccion = await _context.Seccions
+                .Include(s => s.Usuarios)
                 .FirstOrDefaultAsync(m => m.IdSeccion == id);
             if (seccion == null)
             {
