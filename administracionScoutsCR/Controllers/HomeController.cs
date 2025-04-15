@@ -66,6 +66,8 @@ namespace administracionScoutsCR.Controllers
             ViewBag.Insignias = insignias;
             ViewBag.Etapas = etapas;
 
+            return View();
+        }
         public IActionResult Historia()
         {
             return View();
