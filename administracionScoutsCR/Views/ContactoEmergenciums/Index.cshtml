@@ -20,6 +20,11 @@
                 <li>
                     <a data-bs-toggle="tooltip" data-bs-placement="top" title="Excel"><img src="assets/img/icons/excel.svg" alt="img"></a>
                 </li>
+    <li>
+        <a href="javascript:void(0);" onclick="exportarAPdf()" data-bs-toggle="tooltip" data-bs-placement="top" title="Exportar a PDF">
+            <img src="assets/img/icons/pdf.svg" alt="PDF" />
+        </a>
+    </li>
                 <li>
                     <a data-bs-toggle="tooltip" data-bs-placement="top" title="Print"><i data-feather="printer" class="feather-rotate-ccw"></i></a>
                 </li>
@@ -70,6 +75,8 @@
     </div>
 </body>
 <script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="~/js/site.js"></script>
     function printPage() {
         window.print();
     }

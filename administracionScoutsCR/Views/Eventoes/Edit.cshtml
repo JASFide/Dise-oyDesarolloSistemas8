@@ -1,15 +1,15 @@
 ﻿@model administracionScoutsCR.Models.Evento
 
 @{
-    ViewData["Title"] = "Edit Event";
+    ViewData["Title"] = "Editar Evento";
 }
 <div>
     <div class="container mt-4">
         <div class="card shadow-sm">
             <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
-                <h4>Edit Event</h4>
+                <h4>Editar Evento</h4>
                 <a asp-action="Index" class="btn btn-light btn-sm">
-                    <i data-feather="arrow-left"></i> Back to List
+                    <i data-feather="arrow-left"></i> Regresar a la Lista
                 </a>
             </div>
 
@@ -25,19 +25,19 @@
                         <div class="accordion-item">
                             <h2 class="accordion-header" id="headingOne">
                                 <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne">
-                                    <i data-feather="info" class="me-2"></i> Event Information
+                                    <i data-feather="info" class="me-2"></i> Informacion Del Evento
                                 </button>
                             </h2>
                             <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#editEventAccordion">
                                 <div class="accordion-body">
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <label asp-for="Titulo" class="form-label">Title</label>
+                                            <label asp-for="Titulo" class="form-label">Titulo</label>
                                             <input asp-for="Titulo" class="form-control" />
                                             <span asp-validation-for="Titulo" class="text-danger"></span>
                                         </div>
                                         <div class="col-md-6">
-                                            <label asp-for="Fecha" class="form-label">Date</label>
+                                            <label asp-for="Fecha" class="form-label">Fecha</label>
                                             <input asp-for="Fecha" type="date" class="form-control" />
                                             <span asp-validation-for="Fecha" class="text-danger"></span>
                                         </div>
@@ -50,19 +50,19 @@
                         <div class="accordion-item">
                             <h2 class="accordion-header" id="headingTwo">
                                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo">
-                                    <i data-feather="map-pin" class="me-2"></i> Location & Description
+                                    <i data-feather="map-pin" class="me-2"></i> Ubicacion & Descripcion
                                 </button>
                             </h2>
                             <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#editEventAccordion">
                                 <div class="accordion-body">
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <label asp-for="Lugar" class="form-label">Location</label>
+                                            <label asp-for="Lugar" class="form-label">Ubicacion</label>
                                             <input asp-for="Lugar" class="form-control" />
                                             <span asp-validation-for="Lugar" class="text-danger"></span>
                                         </div>
                                         <div class="col-md-6">
-                                            <label asp-for="Descripcion" class="form-label">Description</label>
+                                            <label asp-for="Descripcion" class="form-label">Descripcion</label>
                                             <textarea asp-for="Descripcion" class="form-control" rows="3"></textarea>
                                             <span asp-validation-for="Descripcion" class="text-danger"></span>
                                         </div>
@@ -75,19 +75,19 @@
                         <div class="accordion-item">
                             <h2 class="accordion-header" id="headingThree">
                                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree">
-                                    <i data-feather="user" class="me-2"></i> Organizer Information
+                                    <i data-feather="user" class="me-2"></i> Informacion del Organizador
                                 </button>
                             </h2>
                             <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#editEventAccordion">
                                 <div class="accordion-body">
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <label asp-for="Encargado" class="form-label">Organizer</label>
+                                            <label asp-for="Encargado" class="form-label">Organizador</label>
                                             <input asp-for="Encargado" class="form-control" />
                                             <span asp-validation-for="Encargado" class="text-danger"></span>
                                         </div>
                                         <div class="col-md-6">
-                                            <label asp-for="ContactoEncargado" class="form-label">Contact</label>
+                                            <label asp-for="ContactoEncargado" class="form-label">Contacto</label>
                                             <input asp-for="ContactoEncargado" class="form-control" />
                                             <span asp-validation-for="ContactoEncargado" class="text-danger"></span>
                                         </div>
@@ -99,8 +99,8 @@
                     </div> <!-- End Accordion -->
                     <!-- Buttons -->
                     <div class="mt-4 text-end">
-                        <a asp-action="Index" class="btn btn-outline-secondary me-2">Cancel</a>
-                        <button type="submit" class="btn btn-primary">Save Event</button>
+                        <a asp-action="Index" class="btn btn-outline-secondary me-2">Cancelar</a>
+                        <button type="submit" class="btn btn-primary">Guardar Evento</button>
                     </div>
                 </form>
             </div>

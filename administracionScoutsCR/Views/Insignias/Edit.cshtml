@@ -1,49 +1,73 @@
 ﻿@model administracionScoutsCR.Models.Insignia
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Editar Insignia";
 }
 
-<h1>Edit</h1>
+<div class="container mt-4">
+    <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+            <h4>Editar Insignia</h4>
+            <a asp-action="Index" class="btn btn-light btn-sm">
+                <i data-feather="arrow-left"></i> Regresar a la Lista
+            </a>
+        </div>
 
-<h4>Insignia</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="IdInsignia" />
-            <div class="form-group">
-                <label asp-for="Nombre" class="control-label"></label>
-                <input asp-for="Nombre" class="form-control" />
-                <span asp-validation-for="Nombre" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Seccion" class="control-label"></label>
-                <input asp-for="Seccion" class="form-control" />
-                <span asp-validation-for="Seccion" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Tipo" class="control-label"></label>
-                <input asp-for="Tipo" class="form-control" />
-                <span asp-validation-for="Tipo" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Estado" class="control-label"></label>
-                <input asp-for="Estado" class="form-control" />
-                <span asp-validation-for="Estado" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+        <div class="card-body">
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="IdInsignia" />
+
+                <div class="accordion" id="editInsigniaAccordion">
+
+                    <!-- Información de la Insignia -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingInsignia">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseInsignia">
+                                <i data-feather="award" class="me-2"></i> Información de la Insignia
+                            </button>
+                        </h2>
+                        <div id="collapseInsignia" class="accordion-collapse collapse show" data-bs-parent="#editInsigniaAccordion">
+                            <div class="accordion-body">
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label asp-for="Nombre" class="form-label">Nombre</label>
+                                        <input asp-for="Nombre" class="form-control" />
+                                        <span asp-validation-for="Nombre" class="text-danger"></span>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label asp-for="Seccion" class="form-label">Sección</label>
+                                        <input asp-for="Seccion" class="form-control" />
+                                        <span asp-validation-for="Seccion" class="text-danger"></span>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label asp-for="Tipo" class="form-label">Tipo</label>
+                                        <input asp-for="Tipo" class="form-control" />
+                                        <span asp-validation-for="Tipo" class="text-danger"></span>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label asp-for="Estado" class="form-label">Estado</label>
+                                        <input asp-for="Estado" class="form-control" />
+                                        <span asp-validation-for="Estado" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div> <!-- /accordion -->
+                <!-- Botones -->
+                <div class="mt-4 text-end">
+                    <a asp-action="Index" class="btn btn-outline-secondary me-2">Cancelar</a>
+                    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }

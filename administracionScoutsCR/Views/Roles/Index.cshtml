@@ -1,35 +1,74 @@
 ﻿@model IEnumerable<administracionScoutsCR.Models.Role>
 
 @{
-    ViewData["Title"] = "Index";
+	ViewData["Title"] = "Roles";
 }
 
-<h1>Index</h1>
+<body>
+	<div class="content">
+		<div class="page-header">
+			<div class="add-item d-flex">
+				<div class="page-title">
+					<h4>Roles</h4>
+					<h6>Lista de Roles Registrados</h6>
+				</div>
+			</div>
+			<ul class="table-top-head">
+				<li>
+					<a data-bs-toggle="tooltip" data-bs-placement="top" title="PDF">
+						<img src="assets/img/icons/pdf.svg" alt="PDF">
+					</a>
+				</li>
+				<li>
+					<a data-bs-toggle="tooltip" data-bs-placement="top" title="Excel">
+						<img src="assets/img/icons/excel.svg" alt="Excel">
+					</a>
+				</li>
+				<li>
+					<a data-bs-toggle="tooltip" data-bs-placement="top" title="Imprimir">
+						<i data-feather="printer"></i>
+					</a>
+				</li>
+				<li>
+					<a data-bs-toggle="tooltip" data-bs-placement="top" title="Actualizar">
+						<i data-feather="rotate-ccw"></i>
+					</a>
+				</li>
+				<div class="page-btn">
+					<a class="btn btn-added" asp-action="Create">
+						<i data-feather="plus-circle" class="me-2"></i>Agregar Nuevo Rol
+					</a>
+				</div>
+			</ul>
+		</div>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Nombre)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Nombre)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+		<!-- Tabla de Roles -->
+		<div class="card table-list-card">
+			<div class="card-body pb-0">
+				<div class="table-responsive">
+					<table class="table table-striped" id="rolesTable">
+						<thead>
+							<tr>
+								<th>Nombre</th>
+								<th>Acciones</th>
+							</tr>
+						</thead>
+						<tbody>
+							@foreach (var item in Model)
+							{
+								<tr>
+									<td>@item.Nombre</td>
+									<td>
+										<a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-warning">Editar</a>
+										<a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-info">Detalles</a>
+										<a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger">Eliminar</a>
+									</td>
+								</tr>
+							}
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>

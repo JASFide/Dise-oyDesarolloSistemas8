@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using administracionScoutsCR.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace administracionScoutsCR.Controllers
 {
@@ -19,6 +20,7 @@ namespace administracionScoutsCR.Controllers
         }
 
         // GET: Usuarios
+        
         public async Task<IActionResult> Index()
         {
             var databaseScoutContext = _context.Usuarios.Include(u => u.IdSeccionNavigation).Include(u => u.IdRoleNavigation);

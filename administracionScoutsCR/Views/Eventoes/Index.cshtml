@@ -65,25 +65,19 @@
                                         </span>
                                     </td>
                                     <td>
-                                        <a asp-action="Details" asp-route-id="@item.IdEvento" class="btn btn-sm btn-info">Detalles</a>
+                                            <a asp-action="Details" asp-route-id="@item.IdEvento" class="btn btn-sm btn-info">Detalles</a>
+                                            <a asp-action="Edit" asp-route-id="@item.IdEvento" class="btn btn-sm btn-warning">Editar</a>
 
-                                        <!-- Botón de Confirmar Asistencia -->
-                                        <button id="btn-confirmar-@item.IdEvento"
-                                                class="btn btn-sm @(usuarioConfirmado ? "btn-danger" : "btn-success")"
-                                                onclick="toggleAsistencia(@item.IdEvento, @(usuarioConfirmado.ToString().ToLower()))">
+                                            <button id="btn-confirmar-@item.IdEvento"
+                                                    class="btn btn-sm @(usuarioConfirmado ? "btn-danger" : "btn-success")"
+                                                    onclick="toggleAsistencia(@item.IdEvento, @(usuarioConfirmado.ToString().ToLower()))">
                                             @(usuarioConfirmado ? "Cancelar Asistencia" : "Confirmar Asistencia")
-                                        </button>
-                                    </td>
-
-                                    <!-- Icono de Eliminar Evento -->
-                                    <td class="text-end">
-                                        <form asp-action="Delete" asp-route-id="@item.IdEvento" method="post" class="d-inline"
-                                              onsubmit="return confirm('¿Estás seguro de eliminar este evento?');">
-                                            <button type="submit" class="btn btn-link text-danger p-0" data-bs-toggle="tooltip" title="Eliminar">
-                                                <i data-feather="trash-2"></i>
                                             </button>
-                                        </form>
-                                    </td>
+                                        </td>
+
+                                        <td class="text-end">
+    <a asp-action="Delete" asp-route-id="@item.IdEvento" class="btn btn-sm btn-danger">Eliminar</a>
+</td>
 
                                 </tr>
                             }

@@ -4,139 +4,164 @@
     ViewData["Title"] = "Crear Usuario";
 }
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-    <title>Crear Usuario</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body {
-            background-color: #f1f1f1;
-            font-size: 0.9rem;
-        }
-        .container {
-            max-width: 500px;
-        }
-        .card-custom {
-            background-color: #ffffff;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            padding: 15px;
-        }
-       .form-control {
-            background-color: #e9ecef;
-            height: calc(2rem + 2px);
-            font-size: 0.9rem;
-        }
-        .form-group {
-            margin-bottom: 0.5rem;
-        }
-        .btn-sm-custom {
-            font-size: 0.8rem;
-            padding: 0.25rem 0.5rem;
-        }
-
-        h3 {
-            font-size: 1.5rem;
-        }
-
-        p {
-            font-size: 0.9rem;
-        }
-    </style>
-</head>
 <body>
-    <div class="container mt-4">
-        <div class="card-custom">
-            <h3 class="mb-2">Crear Nuevo Usuario</h3>
-            <p class="mb-3">Ingrese la información del usuario a continuación.</p>
+    <div>
+        <div class="content">
+            <div class="page-header">
+                <div class="add-item d-flex">
+                    <div class="page-title">
+                        <h4>Nuevo Usuario</h4>
+                        <h6>Crear un nuevo usuario</h6>
+                    </div>
+                </div>
+                <ul class="table-top-head">
+                    <li>
+                        <div class="page-btn">
+                            <a asp-action="Index" class="btn btn-secondary">
+                                <i data-feather="arrow-left" class="me-2"></i>Volver a la lista
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
             <form asp-action="Create" method="post">
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="card">
+                    <div class="card-body add-product pb-0">
+                        <div class="accordion-card-one accordion" id="accordionExample">
+                            <div class="accordion-item">
+                                <div class="accordion-header" id="headingOne">
+                                    <div class="accordion-button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-controls="collapseOne">
+                                        <div class="addproduct-icon">
+                                            <h5>
+                                                <i data-feather="info" class="add-info"></i>
+                                                <span>Información del Usuario</span>
+                                            </h5>
+                                            <a href="javascript:void(0);">
+                                                <i data-feather="chevron-down" class="chevron-down-add"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                    <div class="accordion-body">
+                                        <div class="row">
+                                            <div class="col-lg-6 col-sm-12">
+                                                <div class="mb-3">
+                                                    <label asp-for="Nombre" class="form-label">Nombre</label>
+                                                    <input asp-for="Nombre" class="form-control" placeholder="Ingrese el nombre del usuario" />
+                                                    <span asp-validation-for="Nombre" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6 col-sm-12">
+                                                <div class="mb-3">
+                                                    <label asp-for="Apellido1" class="form-label">Primer Apellido</label>
+                                                    <input asp-for="Apellido1" class="form-control" placeholder="Ingrese el primer apellido del usuario" />
+                                                    <span asp-validation-for="Apellido1" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                        </div>
 
-                <div class="form-group">
-                    <label asp-for="Nombre" class="form-label"></label>
-                    <input asp-for="Nombre" class="form-control" placeholder="Nombre" />
-                    <span asp-validation-for="Nombre" class="text-danger"></span>
-                </div>
+                                        <div class="row">
+                                            <div class="col-lg-6 col-sm-12">
+                                                <div class="mb-3">
+                                                    <label asp-for="Apellido2" class="form-label">Segundo Apellido</label>
+                                                    <input asp-for="Apellido2" class="form-control" placeholder="Ingrese el segundo apellido del usuario" />
+                                                    <span asp-validation-for="Apellido2" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6 col-sm-12">
+                                                <div class="mb-3">
+                                                    <label asp-for="FechaNacimiento" class="form-label">Fecha de Nacimiento</label>
+                                                    <input asp-for="FechaNacimiento" type="date" class="form-control" placeholder="Seleccione la fecha de nacimiento del usuario" />
+                                                    <span asp-validation-for="FechaNacimiento" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                        </div>
 
-                <div class="form-group">
-                    <label asp-for="Apellido1" class="form-label">Primer Apellido</label>
-                    <input asp-for="Apellido1" class="form-control" placeholder="Primer Apellido" />
-                    <span asp-validation-for="Apellido1" class="text-danger"></span>
-                </div>
+                                        <div class="row">
+                                            <div class="col-lg-6 col-sm-12">
+                                                <div class="mb-3">
+                                                    <label asp-for="TipoUsuario" class="form-label">Tipo de Usuario</label>
+                                                    <input asp-for="TipoUsuario" class="form-control" placeholder="Ingrese el tipo de usuario" />
+                                                    <span asp-validation-for="TipoUsuario" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6 col-sm-12">
+                                                <div class="mb-3">
+                                                    <label asp-for="IdSeccion" class="form-label">Sección</label>
+                                                    <select asp-for="IdSeccion" class="form-control" asp-items="ViewBag.SeccionesDisponibles">
+                                                        <option value="">Seleccione una sección</option>
+                                                    </select>
+                                                    <span asp-validation-for="IdSeccion" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                        </div>
 
-                <div class="form-group">
-                    <label asp-for="Apellido2" class="form-label">Segundo Apellido</label>
-                    <input asp-for="Apellido2" class="form-control" placeholder="Segundo Apellido" />
-                    <span asp-validation-for="Apellido2" class="text-danger"></span>
-                </div>
+                                        <div class="row">
+                                            <div class="col-lg-6 col-sm-12">
+                                                <div class="mb-3">
+                                                    <label asp-for="IdRole" class="form-label">Rol</label>
+                                                    <select asp-for="IdRole" class="form-control" asp-items="ViewBag.Role">
+                                                        <option value="">Seleccione un rol</option>
+                                                    </select>
+                                                    <span asp-validation-for="IdRole" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6 col-sm-12">
+                                                <div class="mb-3">
+                                                    <label asp-for="Direccion" class="form-label">Dirección</label>
+                                                    <input asp-for="Direccion" class="form-control" placeholder="Ingrese la dirección del usuario" />
+                                                    <span asp-validation-for="Direccion" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                        </div>
 
-                <div class="form-group">
-                    <label asp-for="FechaNacimiento" class="form-label">Fecha de Nacimiento</label>
-                    <input asp-for="FechaNacimiento" class="form-control" type="date" />
-                    <span asp-validation-for="FechaNacimiento" class="text-danger"></span>
-                </div>
-
-                <div class="form-group">
-                    <label asp-for="TipoUsuario" class="form-label">Tipo de Usuario</label>
-                    <input asp-for="TipoUsuario" class="form-control" placeholder="Tipo de Usuario" />
-                    <span asp-validation-for="TipoUsuario" class="text-danger"></span>
-                </div>
-
-                <div class="form-group">
-                    <label asp-for="IdSeccion" class="form-label">Sección</label>
-                    <select asp-for="IdSeccion" class="form-control" asp-items="ViewBag.SeccionesDisponibles">
-                        <option value="">Seleccione una sección</option>
-                    </select>
-                    <span asp-validation-for="IdSeccion" class="text-danger"></span>
-                </div>
-
-                <div class="form-group">
-                    <label asp-for="IdRole" class="form-label">Rol</label>
-                    <select asp-for="IdRole" class="form-control" asp-items="ViewBag.Role">
-                        <option value="">Seleccione un rol</option>
-                    </select>
-                    <span asp-validation-for="IdRole" class="text-danger"></span>
-                </div>
-
-                <div class="form-group">
-                    <label asp-for="Direccion" class="form-label">Dirección</label>
-                    <input asp-for="Direccion" class="form-control" placeholder="Dirección" />
-                    <span asp-validation-for="Direccion" class="text-danger"></span>
-                </div>
-
-                <div class="form-group">
-                    <label asp-for="Correo" class="form-label">Correo Electrónico</label>
-                    <input asp-for="Correo" class="form-control" placeholder="Correo Electrónico" />
-                    <span asp-validation-for="Correo" class="text-danger"></span>
-                </div>
-
-                <div class="form-group">
-                    <label asp-for="NumeroTelefono" class="form-label">Teléfono</label>
-                    <input asp-for="NumeroTelefono" class="form-control" placeholder="Número de Teléfono" />
-                    <span asp-validation-for="NumeroTelefono" class="text-danger"></span>
-                </div>
-
-                <div class="form-group">
-                    <label asp-for="Contrasena" class="form-label">Contraseña</label>
-                    <input asp-for="Contrasena" class="form-control" type="password" placeholder="Contraseña" />
-                    <span asp-validation-for="Contrasena" class="text-danger"></span>
-                </div>
-
-                <div class="form-group mt-3">
-                    <input type="submit" value="Crear Usuario" class="btn btn-primary btn-sm-custom" />
-                    <a class="btn btn-danger btn-sm-custom" href="@Url.Action("Index", "Usuario")">Cancelar</a>
-                </div>
+                                        <div class="row">
+                                            <div class="col-lg-6 col-sm-12">
+                                                <div class="mb-3">
+                                                    <label asp-for="Correo" class="form-label">Correo Electrónico</label>
+                                                    <input asp-for="Correo" class="form-control" placeholder="Ingrese el correo electrónico del usuario" />
+                                                    <span asp-validation-for="Correo" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6 col-sm-12">
+                                                <div class="mb-3">
+                                                    <label asp-for="NumeroTelefono" class="form-label">Número de Teléfono</label>
+                                                    <input asp-for="NumeroTelefono" class="form-control" placeholder="Ingrese el número de teléfono del usuario" />
+                                                    <span asp-validation-for="NumeroTelefono" class="text-danger"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        </div>
+                                        <div class="col-lg-6 col-sm-12">
+                                            <div class="mb-3">
+                                            <label asp-for="Contrasena" class="form-label">ingrese Contraseña</label>
+                                            <input asp-for="Contrasena" type="password" class="form-control" placeholder="Contraseña " />
+                                            <span asp-validation-for="Contrasena" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="mb-3">
+                                                <button type="submit" class="btn btn-primary me-2">
+                                                    <i data-feather="save" class="me-2"></i>Guardar
+                                                </button>
+                                                <a asp-action="Index" class="btn btn-secondary">
+                                                    <i data-feather="x" class="me-2"></i>Cancelar
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <
+                                </div>
+                            </div>
+                        </div>
+                    </div>
             </form>
+                </div>
+            
+            <!-- Fin del formulario de creación de usuario -->
         </div>
-    </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
-    @section Scripts {
-        @await Html.PartialAsync("_ValidationScriptsPartial")
-    }
+      
 </body>
-</html>
