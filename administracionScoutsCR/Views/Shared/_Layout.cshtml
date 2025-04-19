@@ -185,7 +185,7 @@
 								<li><a asp-controller="Usuarios" asp-action="Create"><i data-feather="plus-circle"></i><span>Nuevo Usuario</span></a></li>
 							</ul>
 						</li>
-						@if (User.IsInRole("Receptor"))
+						@if (User.IsInRole("diego"))
 						{
 						<li class="submenu-open">
 							<h6 class="submenu-hdr">Roles</h6>
@@ -206,7 +206,7 @@
 							<h6 class="submenu-hdr">Etapas</h6>
 							<ul>
 								<li><a asp-controller="Etapas" asp-action="Index"><i data-feather="layers"></i><span>Lista de Etapas</span></a></li>
-								@if (User.IsInRole("Receptor"))
+								@if (User.IsInRole("diego"))
 								{
 									<li><a asp-controller="Etapas" asp-action="Create"><i data-feather="plus-circle"></i><span>Nueva Etapa</span></a></li>
 								}
@@ -216,7 +216,7 @@
 							<h6 class="submenu-hdr">Insignias</h6>
 							<ul>
 								<li><a asp-controller="Insignias" asp-action="Index"><i data-feather="award"></i><span>Lista de Insignias</span></a></li>
-								@if (User.IsInRole("Receptor"))
+								@if (User.IsInRole("diego"))
 								{
 									<li><a asp-controller="Insignias" asp-action="Create"><i data-feather="plus-circle"></i><span>Nueva Insignia</span></a></li>
 								}
@@ -226,13 +226,13 @@
 							<h6 class="submenu-hdr">Secciones</h6>
 							<ul>
 								<li><a asp-controller="Seccions" asp-action="Index"><i data-feather="grid"></i><span>Lista de Secciones</span></a></li>
-								@if (User.IsInRole("Receptor"))
+								@if (User.IsInRole("diego"))
 								{
 									<li><a asp-controller="Seccions" asp-action="Create"><i data-feather="plus-circle"></i><span>Nueva Seccion</span></a></li>
 								}
 							</ul>
 						</li>
-						@if (User.IsInRole("Receptor"))
+						@if (User.IsInRole("diego"))
 						{
 						<li class="submenu-open">
 							<h6 class="submenu-hdr">Contacto de Emergencia</h6>
