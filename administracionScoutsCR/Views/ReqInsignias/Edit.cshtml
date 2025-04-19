@@ -1,39 +1,64 @@
 ﻿@model administracionScoutsCR.Models.ReqInsignia
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Editar Requisito";
 }
 
-<h1>Edit</h1>
+<div class="container mt-4">
+    <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+            <h4>Editar Requisito</h4>
+            <a asp-action="Index" class="btn btn-light btn-sm">
+                <i data-feather="arrow-left"></i> Regresar a la Lista
+            </a>
+        </div>
 
-<h4>ReqInsignia</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="IdReqInsignia" />
-            <div class="form-group">
-                <label asp-for="Descripcion" class="control-label"></label>
-                <input asp-for="Descripcion" class="form-control" />
-                <span asp-validation-for="Descripcion" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="IdInsignias" class="control-label"></label>
-                <select asp-for="IdInsignias" class="form-control" asp-items="ViewBag.IdInsignias"></select>
-                <span asp-validation-for="IdInsignias" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+        <div class="card-body">
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="IdReqInsignia" />
+
+                <div class="accordion" id="editRequisitoAccordion">
+
+                    <!-- Información del Requisito -->
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="headingRequisito">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseRequisito">
+                                <i data-feather="file-text" class="me-2"></i> Información del Requisito
+                            </button>
+                        </h2>
+                        <div id="collapseRequisito" class="accordion-collapse collapse show" data-bs-parent="#editRequisitoAccordion">
+                            <div class="accordion-body">
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label asp-for="Descripcion" class="form-label">Descripción</label>
+                                        <input asp-for="Descripcion" class="form-control" />
+                                        <span asp-validation-for="Descripcion" class="text-danger"></span>
+                                    </div>
+
+                                    <div class="col-md-6 mb-3">
+                                        <label asp-for="IdInsignias" class="form-label">Insignia Asociada</label>
+                                        <select asp-for="IdInsignias" class="form-control" asp-items="ViewBag.IdInsignias"></select>
+                                        <span asp-validation-for="IdInsignias" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div> <!-- /accordion -->
+                <!-- Botones -->
+                <div class="mt-4 text-end">
+                    <a asp-action="Index" class="btn btn-outline-secondary me-2">Cancelar</a>
+                    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }
