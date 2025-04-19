@@ -1,161 +1,130 @@
-﻿@model administracionScoutsCR.Models.Usuario
+@model administracionScoutsCR.Models.Usuario
 
 @{
-    ViewData["Title"] = "Crear Usuario";
+    ViewData["Title"] = "Detalles del Usuario";
 }
 
+<style>
+    .rounded-card {
+        border-radius: 1.5rem !important;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12) !important;
+    }
 
+    .list-group-item {
+        border-radius: 0.75rem !important;
+        margin-bottom: 0.5rem;
+    }
 
-<body>
-        <div class="content">
-                
-          
-            <form asp-action="Create" method="post">
-                <div class="card">
-                    <div class="card-body add-product pb-0">
-                        <div class="accordion-card-one accordion" id="accordionExample">
-                            <div class="accordion-item">
-                                <div class="accordion-header" id="headingOne">
-                                    <div class="accordion-button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-controls="collapseOne">
-                                        <div class="addproduct-icon">
-                                            <h5>
-                                                <i data-feather="info" class="add-info"></i>
-                                                <span>Creacion de nuevo Usuario</span>
-                                            </h5>
-                                            <a href="javascript:void(0);">
-                                                <i data-feather="chevron-down" class="chevron-down-add"></i>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                                    <div class="accordion-body">
-                                        <div class="row">
-                                            <div class="col-lg-6 col-sm-12">
-                                                <div class="mb-3">
-                                                    <label asp-for="Nombre" class="form-label">Nombre</label>
-                                                    <input asp-for="Nombre" class="form-control" placeholder="Ingrese el nombre del usuario" />
-                                                    <span asp-validation-for="Nombre" class="text-danger"></span>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-6 col-sm-12">
-                                                <div class="mb-3">
-                                                    <label asp-for="Apellido1" class="form-label">Primer Apellido</label>
-                                                    <input asp-for="Apellido1" class="form-control" placeholder="Ingrese el primer apellido del usuario" />
-                                                    <span asp-validation-for="Apellido1" class="text-danger"></span>
-                                                </div>
-                                            </div>
-                                        </div>
+    .card-header {
+        border-top-left-radius: 1.5rem !important;
+        border-top-right-radius: 1.5rem !important;
+    }
 
-                                        <div class="row">
-                                            <div class="col-lg-6 col-sm-12">
-                                                <div class="mb-3">
-                                                    <label asp-for="Apellido2" class="form-label">Segundo Apellido</label>
-                                                    <input asp-for="Apellido2" class="form-control" placeholder="Ingrese el segundo apellido del usuario" />
-                                                    <span asp-validation-for="Apellido2" class="text-danger"></span>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-6 col-sm-12">
-                                                <div class="mb-3">
-                                                    <label asp-for="FechaNacimiento" class="form-label">Fecha de Nacimiento</label>
-                                                    <input asp-for="FechaNacimiento" type="date" class="form-control" placeholder="Seleccione la fecha de nacimiento del usuario" />
-                                                    <span asp-validation-for="FechaNacimiento" class="text-danger"></span>
-                                                </div>
-                                            </div>
-                                        </div>
+    .card-body {
+        border-bottom-left-radius: 1.5rem !important;
+        border-bottom-right-radius: 1.5rem !important;
+    }
+</style>
 
-                                        <div class="row">
-                                            <div class="col-lg-6 col-sm-12">
-                                                <div class="mb-3">
-                                                    <label asp-for="TipoUsuario" class="form-label">Tipo de Usuario</label>
-                                                    <input asp-for="TipoUsuario" class="form-control" placeholder="Ingrese el tipo de usuario" />
-                                                    <span asp-validation-for="TipoUsuario" class="text-danger"></span>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-6 col-sm-12">
-                                                <div class="mb-3">
-                                                    <label asp-for="IdSeccion" class="form-label">Sección</label>
-                                                    <select asp-for="IdSeccion" class="form-control" asp-items="ViewBag.SeccionesDisponibles">
-                                                        <option value="">Seleccione una sección</option>
-                                                    </select>
-                                                    <span asp-validation-for="IdSeccion" class="text-danger"></span>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="row">
-                                            <div class="col-lg-6 col-sm-12">
-                                                <div class="mb-3">
-                                                    <label asp-for="IdRole" class="form-label">Rol</label>
-                                                    <select asp-for="IdRole" class="form-control" asp-items="ViewBag.Role">
-                                                        <option value="">Seleccione un rol</option>
-                                                    </select>
-                                                    <span asp-validation-for="IdRole" class="text-danger"></span>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-6 col-sm-12">
-                                                <div class="mb-3">
-                                                    <label asp-for="Direccion" class="form-label">Dirección</label>
-                                                    <input asp-for="Direccion" class="form-control" placeholder="Ingrese la dirección del usuario" />
-                                                    <span asp-validation-for="Direccion" class="text-danger"></span>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="row">
-                                            <div class="col-lg-6 col-sm-12">
-                                                <div class="mb-3">
-                                                    <label asp-for="Correo" class="form-label">Correo Electrónico</label>
-                                                    <input asp-for="Correo" class="form-control" placeholder="Ingrese el correo electrónico del usuario" />
-                                                    <span asp-validation-for="Correo" class="text-danger"></span>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-6 col-sm-12">
-                                                <div class="mb-3">
-                                                    <label asp-for="NumeroTelefono" class="form-label">Número de Teléfono</label>
-                                                    <input asp-for="NumeroTelefono" class="form-control" placeholder="Ingrese el número de teléfono del usuario" />
-                                                    <span asp-validation-for="NumeroTelefono" class="text-danger"></span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        </div>
-                                        <div class="col-lg-6 col-sm-12">
-                                            <div class="mb-3">
-                                            <label asp-for="Contrasena" class="form-label">ingrese Contraseña</label>
-                                            <input asp-for="Contrasena" type="password" class="form-control" placeholder="Contraseña " />
-                                            <span asp-validation-for="Contrasena" class="text-danger"></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-12">
-                                            <div class="mb-3">
-                                                <button type="submit" class="btn btn-primary me-2">
-                                                    <i data-feather="save" class="me-2"></i>Guardar
-                                                </button>
-                                                <a asp-action="Index" class="btn btn-secondary">
-                                                    <i data-feather="x" class="me-2"></i>Cancelar
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                        <ul class="table-top-head">
-                            <li>
-                                <div class="page-btn">
-                                    <a asp-action="Index" class="btn btn-secondary">
-                                        <i data-feather="arrow-left" class="me-2"></i>Volver a la lista
-                                    </a>
-                                </div>
-                            </li>
-                        </ul>
-                                </div>
-                            </div>
+<div class="content">
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="card shadow-sm rounded-card">
+                <div class="card-header">
+                    <h2 class="fw-bold mb-0">👤 Perfil de Usuario</h2>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-4 col-sm-6 mb-3 d-none">
+                            <label class="form-label fw-bold">ID Usuario</label>
+                            <p class="form-control-plaintext fw-bold">&bull; @Model.IdUsuario</p>
+                        </div>
+                        <div class="col-lg-4 col-sm-6 mb-3">
+                            <label class="form-label fw-bold">Nombre Completo</label>
+                            <p class="form-control-plaintext fw-bold">&bull; @Model.Nombre @Model.Apellido1 @Model.Apellido2</p>
+                        </div>
+                        <div class="col-lg-4 col-sm-6 mb-3">
+                            <label class="form-label fw-bold">Fecha de Nacimiento</label>
+                            <p class="form-control-plaintext fw-bold">&bull; @Model.FechaNacimiento.ToString("dd/MM/yyyy")</p>
+                        </div>
+                        <div class="col-lg-4 col-sm-6 mb-3">
+                            <label class="form-label fw-bold">Tipo de Usuario</label>
+                            <p class="form-control-plaintext fw-bold">&bull; @Model.TipoUsuario</p>
+                        </div>
+                        <div class="col-lg-4 col-sm-6 mb-3">
+                            <label class="form-label fw-bold">Estado</label>
+                            <p class="form-control-plaintext fw-bold">&bull; @(Model.Estado ? "Activo" : "Inactivo")</p>
+                        </div>
+                        <div class="col-lg-4 col-sm-6 mb-3">
+                            <label class="form-label fw-bold">Sección</label>
+                            <p class="form-control-plaintext fw-bold">&bull; @(Model.IdSeccionNavigation != null ? Model.IdSeccionNavigation.Nombre : "N/A")</p>
+                        </div>
+                        <div class="col-lg-4 col-sm-6 mb-3">
+                            <label class="form-label fw-bold">Correo</label>
+                            <p class="form-control-plaintext fw-bold">&bull; @Model.Correo</p>
+                        </div>
+                        <div class="col-lg-4 col-sm-6 mb-3">
+                            <label class="form-label fw-bold">Teléfono</label>
+                            <p class="form-control-plaintext fw-bold">&bull; @Model.NumeroTelefono</p>
+                        </div>
+                        <div class="col-lg-4 col-sm-6 mb-3">
+                            <label class="form-label fw-bold">Rol</label>
+                            <p class="form-control-plaintext fw-bold">&bull; @(Model.IdRoleNavigation != null ? Model.IdRoleNavigation.Nombre : "N/A")</p>
+                        </div>
+                        <div class="col-12 mb-3">
+                            <label class="form-label fw-bold">Dirección</label>
+                            <p class="form-control-plaintext fw-bold">&bull; @Model.Direccion</p>
+                        </div>
+                        <div class="text-center mt-4">
+                            <a asp-action="Edit" asp-route-id="@Model?.IdUsuario" class="btn btn-warning me-2">
+                                <i data-feather="edit"></i> Editar
+                            </a>
+                            <a asp-action="Index" class="btn btn-secondary">
+                                <i data-feather="arrow-left-circle"></i> Volver a la lista
+                            </a>
                         </div>
                     </div>
-            </form>
                 </div>
-    </div>
-            <!-- Fin del formulario de creación de usuario -->
+            </div>
         </div>
-        </body>
-    
+
+        <div class="col-lg-4 mt-4 mt-lg-0">
+            <div class="card shadow-sm rounded-card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                    <h5 class="card-title fw-bold mb-0">Contactos de Emergencia</h5>
+                    <a asp-controller="ContactoEmergenciums" asp-action="Asignar" asp-route-idUsuario="@Model.IdUsuario" class="btn btn-sm btn-primary">
+                        <i data-feather="plus"></i>
+                    </a>
+                </div>
+                <div class="card-body">
+                    @if (Model.UsuarioxContactoEmergencia != null && Model.UsuarioxContactoEmergencia.Any())
+                    {
+                        <ul class="list-group">
+                            @foreach (var contacto in Model.UsuarioxContactoEmergencia)
+                            {
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <strong>@contacto.IdContactoEmergenciaNavigation?.Nombre</strong> -
+                                        <strong>@contacto.IdContactoEmergenciaNavigation?.Parentesco</strong><br />
+                                        <span class="text-muted small">@contacto.IdContactoEmergenciaNavigation?.NumeroContacto</span>
+                                    </div>
+                                    <a asp-controller="ContactoEmergenciums" asp-action="Details" asp-route-id="@contacto.IdContactoEmergencia" class="btn btn-sm btn-outline-primary">Ver</a>
+                                </li>
+                            }
+                        </ul>
+                    }
+                    else
+                    {
+                        <p class="text-muted">No hay contactos de emergencia registrados.</p>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        feather.replace();
+    </script>
+}
