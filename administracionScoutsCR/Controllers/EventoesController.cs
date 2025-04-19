@@ -172,19 +172,16 @@ namespace administracionScoutsCR.Controllers
             return View(evento);
         }
 
-        // POST: Eventoes/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
+        [HttpPost]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var evento = await _context.Eventos.FindAsync(id);
             if (evento != null)
             {
                 _context.Eventos.Remove(evento);
+                await _context.SaveChangesAsync();
             }
-
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return Ok();
         }
 
         private bool EventoExists(int id)
@@ -273,5 +270,6 @@ namespace administracionScoutsCR.Controllers
             // Opcional: log o manejo personalizado
             return null; // O lanzar excepción si es requerido
         }
+
     }
 }

@@ -13,29 +13,24 @@
                     <h6>Lista de contactos registrados</h6>
                 </div>
             </div>
-            <ul class="table-top-head" id="botonesExportar">
+            <ul class="table-top-head no-exportar" id="botonesExportar">
                 <li>
-                    <a href="javascript:void(0);" data-bs-toggle="tooltip" data-bs-placement="top" title="Print" onclick="printPage()"><i data-feather="printer" class="feather-rotate-ccw"></i></a>
-                </li>
-                <li>
-                    <a data-bs-toggle="tooltip" data-bs-placement="top" title="Excel"><img src="assets/img/icons/excel.svg" alt="img"></a>
-                </li>
-                <li>
-                    <a href="javascript:void(0);" onclick="exportarAPdf()" data-bs-toggle="tooltip" data-bs-placement="top" title="Exportar a PDF">
+                    <a href="javascript:void(0);" onclick="exportarAPdf('contenidoExportar', 'contactos-emergencia')" title="Exportar a PDF">
                         <img src="assets/img/icons/pdf.svg" alt="PDF" />
                     </a>
                 </li>
                 <li>
-                    <a data-bs-toggle="tooltip" data-bs-placement="top" title="Refresh"><i data-feather="rotate-ccw" class="feather-rotate-ccw"></i></a>
+                    <a href="javascript:void(0);" data-bs-toggle="tooltip" title="Refresh" onclick="location.reload();">
+                        <i data-feather="rotate-ccw"></i>
+                    </a>
                 </li>
-                <li>
-                    <a data-bs-toggle="tooltip" data-bs-placement="top" title="Collapse" id="collapse-header"><i data-feather="chevron-up" class="feather-chevron-up"></i></a>
-                </li>
+                <li><a data-bs-toggle="tooltip" title="Collapse" id="collapse-header"><i data-feather="chevron-up"></i></a></li>
                 <div class="page-btn">
                     <a class="btn btn-added" asp-controller="ContactoEmergenciums" asp-action="Create"><i data-feather="plus-circle" class="me-2"></i>Agregar Contacto</a>
                 </div>
             </ul>
         </div>
+
         <div class="card table-list-card">
             <div class="card-body pb-0">
                 <div class="table-responsive">
@@ -45,7 +40,7 @@
                                 <th>Nombre</th>
                                 <th>Parentesco</th>
                                 <th>Número de Contacto</th>
-                                <th class="col-acciones">Acciones</th>
+                                <th class="text-end no-exportar">Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -55,10 +50,18 @@
                                     <td>@item.Nombre</td>
                                     <td>@item.Parentesco</td>
                                     <td>@item.NumeroContacto</td>
-                                    <td class="col-acciones">
-                                        <a asp-action="Edit" asp-route-id="@item.IdContactoEmergencia" class="btn btn-sm btn-warning">Editar</a>
-                                        <a asp-action="Details" asp-route-id="@item.IdContactoEmergencia" class="btn btn-sm btn-info">Detalles</a>
-                                        <a asp-action="Delete" asp-route-id="@item.IdContactoEmergencia" class="btn btn-sm btn-danger">Eliminar</a>
+                                    <td class="action-table-data text-end no-exportar">
+                                        <div class="edit-delete-action">
+                                            <a class="me-2 edit-icon p-2" asp-action="Details" asp-route-id="@item.IdContactoEmergencia">
+                                                <i data-feather="eye" class="feather-eye"></i>
+                                            </a>
+                                            <a class="me-2 p-2" asp-action="Edit" asp-route-id="@item.IdContactoEmergencia">
+                                                <i data-feather="edit" class="feather-edit"></i>
+                                            </a>
+                                            <a class="confirm-text p-2" href="javascript:void(0);" onclick="confirmarBorradoContacto('@item.IdContactoEmergencia')">
+                                                <i data-feather="trash-2" class="feather-trash-2"></i>
+                                            </a>
+                                        </div>
                                     </td>
                                 </tr>
                             }
@@ -68,11 +71,46 @@
             </div>
         </div>
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-    <script src="~/js/site.js"></script>
-    <script>
-        function printPage() {
-            window.print();
-        }
-    </script>
+
 </body>
+
+@section Scripts {
+
+    <script>
+      
+
+        function confirmarBorradoContacto(id) {
+            Swal.fire({
+                title: '¿Estás seguro?',
+                text: "¡No podrás revertir esto!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#ff9f43',
+                cancelButtonColor: '#f63c3c',
+                confirmButtonText: 'Sí, eliminarlo',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    fetch(`/ContactoEmergenciums/DeleteConfirmed/${id}`, {
+                        method: 'POST',
+                        headers: {
+                            'RequestVerificationToken': $('input[name="__RequestVerificationToken"]').val()
+                        }
+                    }).then(response => {
+                        if (response.ok) {
+                            Swal.fire('Eliminado', 'El contacto fue eliminado.', 'success').then(() => {
+                                location.reload();
+                            });
+                        } else {
+                            Swal.fire('Error', 'No se pudo eliminar el contacto.', 'error');
+                        }
+                    });
+                }
+            });
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            feather.replace();
+        });
+    </script>
+}

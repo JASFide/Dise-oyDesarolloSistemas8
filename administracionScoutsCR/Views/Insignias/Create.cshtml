@@ -6,24 +6,6 @@
 
 <body>
     <div class="content">
-        <div class="page-header">
-            <div class="add-item d-flex">
-                <div class="page-title">
-                    <h4>Nueva Insignia</h4>
-                    <h6>Crear una nueva insignia</h6>
-                </div>
-            </div>
-            <ul class="table-top-head">
-                <li>
-                    <div class="page-btn">
-                        <a asp-action="Index" class="btn btn-secondary">
-                            <i data-feather="arrow-left" class="me-2"></i>Volver a la lista
-                        </a>
-                    </div>
-                </li>
-            </ul>
-        </div>
-
         <!-- Formulario de creación de insignia -->
         <form asp-action="Create" method="post">
             <div class="card">
@@ -33,7 +15,7 @@
                             <div class="accordion-header" id="headingOne">
                                 <div class="accordion-button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-controls="collapseOne">
                                     <div class="addproduct-icon">
-                                        <h5><i data-feather="info" class="add-info"></i><span>Información de la Insignia</span></h5>
+                                        <h5><i data-feather="info" class="add-info"></i><span>Crear una nueva insignia</span></h5>
                                         <a href="javascript:void(0);"><i data-feather="chevron-down" class="chevron-down-add"></i></a>
                                     </div>
                                 </div>
@@ -83,7 +65,15 @@
                                             </div>
                                         </div>
                                     </div>
-
+                                    <ul class="table-top-head">
+                                        <li>
+                                            <div class="page-btn">
+                                                <a asp-action="Index" class="btn btn-secondary">
+                                                    <i data-feather="arrow-left" class="me-2"></i>Volver a la lista
+                                                </a>
+                                            </div>
+                                        </li>
+                                    </ul>
                                 </div> <!-- /accordion-body -->
                             </div> <!-- /collapseOne -->
                         </div> <!-- /accordion-item -->

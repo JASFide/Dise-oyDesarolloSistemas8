@@ -3,8 +3,9 @@
 @{
     ViewData["Title"] = "Lista de Usuarios";
 }
-
+@Html.AntiForgeryToken()
 <body>
+
     <div class="content">
         <div class="page-header">
             <div class="add-item d-flex">
@@ -68,10 +69,18 @@
                                     <td>@item.TipoUsuario</td>
                                     <td>@item.Estado</td>
                                     <td>@(item.IdSeccionNavigation != null ? item.IdSeccionNavigation.Nombre : "Sin Sección")</td>
-                                    <td>
-                                        <a asp-action="Edit" asp-route-id="@item.IdUsuario" class="btn btn-sm btn-warning">Editar</a>
-                                        <a asp-action="Details" asp-route-id="@item.IdUsuario" class="btn btn-sm btn-info">Detalles</a>
-                                        <a asp-action="Delete" asp-route-id="@item.IdUsuario" class="btn btn-sm btn-danger">Eliminar</a>
+                                    <td class="action-table-data">
+                                        <div class="edit-delete-action">
+                                            <a class="me-2 edit-icon p-2" asp-action="Details" asp-route-id="@item.IdUsuario">
+                                                <i data-feather="eye" class="feather-eye"></i>
+                                            </a>
+                                            <a class="me-2 p-2" asp-action="Edit" asp-route-id="@item.IdUsuario">
+                                                <i data-feather="edit" class="feather-edit"></i>
+                                            </a>
+                                            <a class="confirm-text p-2" href="javascript:void(0);" onclick="confirmarBorrado('@item.IdUsuario')">
+                                                <i data-feather="trash-2" class="feather-trash-2"></i>
+                                            </a>
+                                        </div>
                                     </td>
                                 </tr>
                             }
@@ -98,8 +107,40 @@
                 rows[i].style.display = rowText.includes(input) ? "" : "none";
             }
         }
-            function printPage() {
-                window.print();
-            }
+
+        function printPage() {
+            window.print();
+        }
+
+        function confirmarBorrado(id) {
+            Swal.fire({
+                title: '¿Estás seguro?',
+                text: "¡No podrás revertir esto!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#ff9f43',
+                cancelButtonColor: '#f63c3c',
+                confirmButtonText: 'Sí, eliminarlo',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    fetch(`/Usuarios/DeleteConfirmed/${id}`, {
+                        method: 'POST',
+                        headers: {
+                            'RequestVerificationToken': $('input[name="__RequestVerificationToken"]').val()
+                        }
+                    })
+                        .then(response => {
+                            if (response.ok) {
+                                Swal.fire('Eliminado', 'El usuario fue eliminado.', 'success').then(() => {
+                                    location.reload();
+                                });
+                            } else {
+                                Swal.fire('Error', 'No se pudo eliminar el usuario.', 'error');
+                            }
+                        });
+                }
+            });
+        }
     </script>
 </body>

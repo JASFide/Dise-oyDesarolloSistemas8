@@ -1,0 +1,35 @@
+@using System.Security.Claims
+
+<!-- Menú Usuario (Mobile) -->
+@if (User.Identity != null && User.Identity.IsAuthenticated)
+{
+    <div class="dropdown mobile-user-menu">
+        <a href="javascript:void(0);" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="fa fa-ellipsis-v" style="color: purple;"></i>
+        </a>
+        <div class="dropdown-menu dropdown-menu-right">
+            <a class="dropdown-item" href="@Url.Action("Details", "Usuarios", new { id = User.FindFirst("IdUsuario")?.Value })">
+                <i class="me-2" data-feather="user"></i> Mi Perfil
+            </a>
+
+            @* ¡Esta es la forma correcta! *@
+            <form asp-controller="ControllerLogin" asp-action="LogOut" method="post" id="logoutform">
+                <button type="submit" class="dropdown-item logout pb-0">
+                    <img src="~/assets/img/icons/log-out.svg" class="me-2" alt="img" /> Cerrar sesión
+                </button>
+            </form>
+        </div>
+    </div>
+}
+else
+{
+    <div class="dropdown mobile-user-menu">
+        <a href="javascript:void(0);" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="fa fa-ellipsis-v" style="color: purple;"></i>
+        </a>
+        <div class="dropdown-menu dropdown-menu-right">
+            <a class="dropdown-item" asp-controller="ControllerLogin" asp-action="Login">Iniciar sesión</a>
+            <a class="dropdown-item" asp-controller="Usuarios" asp-action="Create">Registro</a>
+        </div>
+    </div>
+}

@@ -64,20 +64,24 @@
                                             @confirmados personas
                                         </span>
                                     </td>
-                                    <td>
-                                            <a asp-action="Details" asp-route-id="@item.IdEvento" class="btn btn-sm btn-info">Detalles</a>
-                                            <a asp-action="Edit" asp-route-id="@item.IdEvento" class="btn btn-sm btn-warning">Editar</a>
-
+                                    <td class="action-table-data text-end">
+                                        <div class="edit-delete-action d-flex align-items-center">
                                             <button id="btn-confirmar-@item.IdEvento"
-                                                    class="btn btn-sm @(usuarioConfirmado ? "btn-danger" : "btn-success")"
+                                                    class="btn btn-sm @(usuarioConfirmado ? "btn-danger" : "btn-success") me-3"
                                                     onclick="toggleAsistencia(@item.IdEvento, @(usuarioConfirmado.ToString().ToLower()))">
-                                            @(usuarioConfirmado ? "Cancelar Asistencia" : "Confirmar Asistencia")
+                                                @(usuarioConfirmado ? "Cancelar Asistencia" : "Confirmar Asistencia")
                                             </button>
-                                        </td>
-
-                                        <td class="text-end">
-    <a asp-action="Delete" asp-route-id="@item.IdEvento" class="btn btn-sm btn-danger">Eliminar</a>
-</td>
+                                            <a class="me-2 edit-icon p-2" asp-action="Details" asp-route-id="@item.IdEvento">
+                                                <i data-feather="eye" class="feather-eye"></i>
+                                            </a>
+                                            <a class="me-2 p-2" asp-action="Edit" asp-route-id="@item.IdEvento">
+                                                <i data-feather="edit" class="feather-edit"></i>
+                                            </a>
+                                            <a class="confirm-text p-2" href="javascript:void(0);" onclick="confirmarBorradoEvento('@item.IdEvento')">
+                                                <i data-feather="trash-2" class="feather-trash-2"></i>
+                                            </a>
+                                        </div>
+                                    </td>
 
                                 </tr>
                             }
@@ -88,7 +92,7 @@
         </div>
     </div>
 </body>
-
+@section Scripts {
 <script>
     function toggleAsistencia(idEvento, isConfirmed) {
         let action = isConfirmed ? "EliminarConfirmacion" : "ConfirmarAsistencia";
@@ -131,4 +135,37 @@
                 .catch(error => console.error("Error:", error));
         }
     }
+        function confirmarBorradoEvento(id) {
+            Swal.fire({
+                title: '¿Estás seguro?',
+                text: "¡Esto eliminará el evento permanentemente!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#ff9f43',
+                cancelButtonColor: '#f63c3c',
+                confirmButtonText: 'Sí, eliminarlo',
+                cancelButtonText: 'Cancelar'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    fetch(`/Eventoes/DeleteConfirmed/${id}`, {
+                        method: 'POST',
+                        headers: {
+                            'RequestVerificationToken': $('input[name="__RequestVerificationToken"]').val()
+                        }
+                    })
+                        .then(response => {
+                            if (response.ok) {
+                                Swal.fire('Eliminado', 'El evento ha sido eliminado.', 'success').then(() => {
+                                    location.reload();
+                                });
+                            } else {
+                                Swal.fire('Error', 'No se pudo eliminar el evento.', 'error');
+                            }
+                        });
+                }
+            });
+        }
+
+        feather.replace();
 </script>
+}

@@ -1578,6 +1578,7 @@ $(".chat-search .form-control").on("keyup", function() {
 	  
 
 });
+
 function toggleFullscreen(elem) {
 	elem = elem || document.documentElement;
 	if (!document.fullscreenElement && !document.mozFullScreenElement &&
