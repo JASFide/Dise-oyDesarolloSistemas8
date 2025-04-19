@@ -6,7 +6,7 @@
 @Html.AntiForgeryToken()
 <body>
 
-    <div class="content">
+    <div class="content" id="contenidoExportar">
         <div class="page-header">
             <div class="add-item d-flex">
                 <div class="page-title">
@@ -16,7 +16,7 @@
             </div>
             <ul class="table-top-head">
                 <li>
-                    <a href="javascript:void(0);" onclick="exportarAPdf('contenidoExportar', 'contactos-emergencia')" title="Exportar a PDF">
+                    <a href="javascript:void(0);" onclick="exportarAPdf('contenidoExportar', 'usuarios')" title="Exportar a PDF">
                         <img src="assets/img/icons/pdf.svg" alt="PDF" />
                     </a>
                 </li>
