@@ -125,20 +125,18 @@ namespace administracionScoutsCR.Controllers
             return View(etapa);
         }
 
-        // POST: Etapas/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
+        [HttpPost]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var etapa = await _context.Etapas.FindAsync(id);
             if (etapa != null)
             {
                 _context.Etapas.Remove(etapa);
+                await _context.SaveChangesAsync();
             }
-
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return Ok(); // para que funcione bien con fetch
         }
+
 
         private bool EtapaExists(int id)
         {

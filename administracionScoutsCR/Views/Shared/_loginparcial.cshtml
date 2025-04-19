@@ -1,66 +1,50 @@
 @using System.Security.Claims
+<!-- Menú Usuario (Desktop) -->
 @if (User.Identity != null && User.Identity.IsAuthenticated)
 {
-    <li class="nav-item dropdown has-arrow main-drop">
+    <li class="nav-item dropdown has-arrow main-drop d-none d-lg-block">
         <a href="javascript:void(0);" class="dropdown-toggle nav-link userset" data-bs-toggle="dropdown">
             <span class="user-info">
                 <span class="user-letter">
-                    <img src="~/assets/img/profiles/avatar1.jpg" alt="" class="img-fluid">
+                    <img src="~/assets/img/profiles/avatar1.jpg" alt="" class="img-fluid" />
                 </span>
                 <span class="user-detail">
                     <span class="user-name">@User.FindFirst("Name")?.Value</span>
-                    <span class="user-role">
-                        @(User.FindFirst(ClaimTypes.Role)?.Value ?? "Sin Rol")
-                    </span>
-                    <span class="user-id">ID: @User.FindFirst("IdUsuario")?.Value</span>
+                    <span class="user-role">@User.FindFirst(ClaimTypes.Role)?.Value</span>
                 </span>
             </span>
         </a>
         <div class="dropdown-menu menu-drop-user">
             <div class="profilename">
                 <div class="profileset">
-                    <span class="user-img">
-                        <img src="~/assets/img/profiles/avatar1.jpg" alt="">
-                        <span class="status online"></span>
-                    </span>
+                    <span class="user-img"><img src="~/assets/img/profiles/avatar1.jpg" alt=""><span class="status online"></span></span>
                     <div class="profilesets">
                         <h6>@User.FindFirst("Name")?.Value</h6>
-                        <h5>
-                            @(User.FindFirst(ClaimTypes.Role)?.Value ?? "Sin Rol")
-                        </h5>
+                        <h5>@User.FindFirst(ClaimTypes.Role)?.Value</h5>
                     </div>
                 </div>
             </div>
             <hr class="m-0">
-            <a class="dropdown-item" href="@Url.Action("Details", "Usuarios", new { id = User.FindFirst("IdUsuario")?.Value })">
-                <i class="me-2" data-feather="user"></i> Mi Perfil
-            </a>
-            <a class="dropdown-item" href="@Url.Action("Settings", "Usuarios")">
-                <i class="me-2" data-feather="settings"></i> Configuración
-            </a>
-            <a class="dropdown-item" asp-controller="Usuarios" asp-action="Edit" asp-route-id="@User.FindFirst("IdUsuario")?.Value">
-                <i data-feather="box"></i> Editar Usuario
-            </a>
+            <a class="dropdown-item" href="@Url.Action("Details", "Usuarios", new { id = User.FindFirst("IdUsuario")?.Value })"><i class="me-2" data-feather="user"></i> Mi Perfil</a>
+            <a class="dropdown-item" href="@Url.Action("Settings", "Usuarios")"><i class="me-2" data-feather="settings"></i> Configuración</a>
+            <a class="dropdown-item" asp-controller="Usuarios" asp-action="Edit" asp-route-id="@User.FindFirst("IdUsuario")?.Value"><i data-feather="box"></i> Editar Usuario</a>
             <hr class="m-0">
             <form asp-controller="ControllerLogin" asp-action="LogOut" method="post" id="logoutform">
-                <button type="submit" class="dropdown-item logout pb-0">
-                    <img src="~/assets/img/icons/log-out.svg" class="me-2" alt="img"> Cerrar sesión
-                </button>
+                <button type="submit" class="dropdown-item logout pb-0"><img src="~/assets/img/icons/log-out.svg" class="me-2" alt="img">Cerrar sesión</button>
             </form>
         </div>
     </li>
 }
 else
 {
-    <li>
+    <li class="d-none d-lg-block">
         <div class="page-btn">
             <a class="btn btn-secondary" asp-controller="ControllerLogin" asp-action="Login">
                 <i data-feather="log-in" class="me-2"></i>Iniciar sesión
             </a>
         </div>
     </li>
-
-    <li>
+    <li class="d-none d-lg-block">
         <div class="page-btn">
             <a class="btn btn-primary" asp-controller="Usuarios" asp-action="Create">
                 <i data-feather="user-plus" class="me-2"></i>Registrar

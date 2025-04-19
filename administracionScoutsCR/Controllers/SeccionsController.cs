@@ -33,6 +33,7 @@ namespace administracionScoutsCR.Controllers
             }
 
             var seccion = await _context.Seccions
+                .Include(s => s.Usuarios)
                 .FirstOrDefaultAsync(m => m.IdSeccion == id);
             if (seccion == null)
             {
@@ -140,22 +141,20 @@ namespace administracionScoutsCR.Controllers
             return View(seccion);
         }
 
-        // POST: Seccions/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var seccion = await _context.Seccions.FindAsync(id);
-            if (seccion != null)
-            {
-                _context.Seccions.Remove(seccion);
-            }
+		[HttpPost]
+		public async Task<IActionResult> DeleteConfirmed(int id)
+		{
+			var seccion = await _context.Seccions.FindAsync(id);
+			if (seccion != null)
+			{
+				_context.Seccions.Remove(seccion);
+				await _context.SaveChangesAsync();
+			}
+			return Ok();
+		}
 
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
 
-        private bool SeccionExists(int id)
+		private bool SeccionExists(int id)
         {
             return _context.Seccions.Any(e => e.IdSeccion == id);
         }

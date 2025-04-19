@@ -39,7 +39,10 @@ namespace administracionScoutsCR.Controllers
             var usuario = await _context.Usuarios
                 .Include(u => u.IdSeccionNavigation)
                 .Include(u => u.IdRoleNavigation)
+                .Include(u => u.UsuarioxContactoEmergencia) 
+                    .ThenInclude(uc => uc.IdContactoEmergenciaNavigation) 
                 .FirstOrDefaultAsync(m => m.IdUsuario == id);
+
             if (usuario == null)
             {
                 return NotFound();
@@ -162,7 +165,8 @@ namespace administracionScoutsCR.Controllers
         }
 
         // POST: Usuarios/Delete/5
-        [HttpPost, ActionName("Delete")]
+        [HttpPost]
+        [Route("Usuarios/DeleteConfirmed/{id}")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
@@ -170,11 +174,13 @@ namespace administracionScoutsCR.Controllers
             if (usuario != null)
             {
                 _context.Usuarios.Remove(usuario);
+                await _context.SaveChangesAsync();
+                return Ok(); // ✅ Devuelve 200 OK
             }
 
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return NotFound(); // ⚠️ Devuelve 404 si no se encontró
         }
+
 
         private bool UsuarioExists(int id)
         {

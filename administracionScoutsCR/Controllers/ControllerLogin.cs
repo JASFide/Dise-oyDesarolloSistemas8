@@ -48,7 +48,7 @@ namespace administracionScoutsCR.Controllers
                     var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
                     HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimsPrincipal);
 
-                    return RedirectToAction("SecurePage");
+                    return RedirectToAction("Panel", "Home");
                 }
                 else
                 {

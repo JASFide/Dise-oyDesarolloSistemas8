@@ -133,19 +133,16 @@ namespace administracionScoutsCR.Controllers
             return View(contactoEmergencium);
         }
 
-        // POST: ContactoEmergenciums/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
+        [HttpPost]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var contactoEmergencium = await _context.ContactoEmergencia.FindAsync(id);
-            if (contactoEmergencium != null)
+            var contacto = await _context.ContactoEmergencia.FindAsync(id);
+            if (contacto != null)
             {
-                _context.ContactoEmergencia.Remove(contactoEmergencium);
+                _context.ContactoEmergencia.Remove(contacto);
+                await _context.SaveChangesAsync();
             }
-
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return Ok();
         }
         // GET: UsuarioContactoEmergencia/Asignar
         public IActionResult Asignar(int? idContacto = null)

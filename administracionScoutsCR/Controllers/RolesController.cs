@@ -133,22 +133,23 @@ namespace administracionScoutsCR.Controllers
             return View(role);
         }
 
-        // POST: Roles/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var role = await _context.Role.FindAsync(id);
-            if (role != null)
-            {
-                _context.Role.Remove(role);
-            }
+		[HttpPost]
+		[ValidateAntiForgeryToken]
+		[Route("Roles/DeleteConfirmed/{id}")]
+		public async Task<IActionResult> DeleteConfirmed(int id)
+		{
+			var rol = await _context.Role.FindAsync(id);
+			if (rol != null)
+			{
+				_context.Role.Remove(rol);
+				await _context.SaveChangesAsync();
+				return Ok();
+			}
 
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
+			return NotFound();
+		}
 
-        private bool RoleExists(int id)
+		private bool RoleExists(int id)
         {
             return _context.Role.Any(e => e.Id == id);
         }

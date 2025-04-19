@@ -136,21 +136,17 @@ namespace administracionScoutsCR.Controllers
             return View(insignia);
         }
 
-        // POST: Insignias/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
+        [HttpPost]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var insignia = await _context.Insignias.FindAsync(id);
             if (insignia != null)
             {
                 _context.Insignias.Remove(insignia);
+                await _context.SaveChangesAsync();
             }
-
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return Ok(); // Importante para fetch
         }
-
 
 
         private bool InsigniaExists(int id)

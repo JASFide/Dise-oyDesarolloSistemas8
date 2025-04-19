@@ -20,6 +20,7 @@
 
 	<!-- Favicon -->
 	<link rel="shortcut icon" type="~/image/x-icon" href="~/assets/img/logo.png">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
 	<!-- Bootstrap CSS -->
 	<link rel="stylesheet" href="~/assets/css/bootstrap.min.css">
@@ -38,7 +39,7 @@
 	<link rel="stylesheet" href="~/assets/plugins/fontawesome/css/all.min.css">
 	<!-- Main CSS -->
 	<link rel="stylesheet" href="~/assets/css/style.css">
-
+	
 
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -94,6 +95,9 @@
 			padding-left: 0 !important;
 		}
     </style>  
+	<script>
+		const baseUrl = '@Url.Content("~/")';
+	</script>
 </head>
 
 <body>
@@ -139,45 +143,36 @@
 			
 				</li>
 				<!-- /Search -->
-				<!-- Select Store -->
-				<!-- /Select Store -->
-				<!-- Flag -->
-				
-				<!-- /Flag -->
-				
 
-				<!-- Notifications -->
-				
-					
-				<!-- /Notifications -->
-				
-		
 				<!-- Login-->
 				<li>
 					@await Html.PartialAsync("_loginparcial")
 
 				</li>
+				</ul>
 			<!-- /Header Menu -->
 			<!-- Mobile Menu -->
-			<div class="dropdown mobile-user-menu">
-				<a href="javascript:void(0);" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-v"></i></a>
-				<div class="dropdown-menu dropdown-menu-right">
-					<a class="dropdown-item" href="profile.html">My Profile</a>
-					<a class="dropdown-item" href="general-settings.html">Settings</a>
-					<a class="dropdown-item" href="signin.html">Logout</a>
-				</div>
-			</div>
+			@await Html.PartialAsync("_loginmenumobile")
+			
 			<!-- /Mobile Menu -->
 		</div>
 		<!-- /Header -->
 
 		<!-- Sidebar -->
 		<!-- Sidebar -->
+
 		<div class="sidebar" id="sidebar">
 			<div class="sidebar-inner slimscroll">
 				<div id="sidebar-menu" class="sidebar-menu">
 					<ul class="no-padding-list">
-						
+
+						<li class="submenu-open">
+							<h6 class="submenu-hdr"> Inicio</h6>
+							<ul>
+								<li><a asp-controller="Home" asp-action="Index"><i data-feather="plus-circle"></i><span>Pagina de Inicio </span></a></li>
+								<li><a asp-controller="Home" asp-action="Panel"><i data-feather="box"></i><span>Panel de Actividad</span></a></li>
+							</ul>
+						</li>
 						<li class="submenu-open">
 							<h6 class="submenu-hdr">Usuario</h6>
 							<ul>
@@ -257,38 +252,38 @@
 						<ul class="tab nav nav-tabs" id="myTab" role="tablist">
 							<li class="nav-item" role="presentation">
 								<a class="tablinks nav-link active" href="#home" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" role="tab" aria-selected="true">
-									<img src=""~/assets/img/icons/menu-icon.svg" alt="">
+									<img src="~/assets/img/icons/menu-icon.svg" alt="">
 								</a>
 							</li>
 							<li class="nav-item" role="presentation">
 								<a class="tablinks nav-link" href="#messages" id="messages-tab" data-bs-toggle="tab" data-bs-target="#product" role="tab" aria-selected="false">
-									<img src=""~/assets/img/icons/product.svg" alt="">
+									<img src="~/assets/img/icons/product.svg" alt="">
 								</a>
 							</li>
 							<li class="nav-item" role="presentation">
 								<a class="tablinks nav-link" href="#profile" id="profile-tab" data-bs-toggle="tab" data-bs-target="#sales" role="tab" aria-selected="false">
-									<img src=""~/assets/img/icons/sales1.svg" alt="">
+									<img src="~/assets/img/icons/sales1.svg" alt="">
 								</a>
 							</li>
 
 							<li class="nav-item" role="presentation">
 								<a class="tablinks nav-link" href="#report" id="report-tab" data-bs-toggle="tab" data-bs-target="#purchase" role="tab" aria-selected="true">
-									<img src=""~/assets/img/icons/purchase1.svg" alt="">
+									<img src="~/assets/img/icons/purchase1.svg" alt="">
 								</a>
 							</li>
 							<li class="nav-item" role="presentation">
 								<a class="tablinks nav-link" href="#set" id="set-tab" data-bs-toggle="tab" data-bs-target="#user" role="tab" aria-selected="true">
-									<img src=""~/assets/img/icons/users1.svg" alt="">
+									<img src="~/assets/img/icons/users1.svg" alt="">
 								</a>
 							</li>
 							<li class="nav-item" role="presentation">
 								<a class="tablinks nav-link" href="#set2" id="set-tab2" data-bs-toggle="tab" data-bs-target="#employee" role="tab" aria-selected="true">
-									<img src=""~/assets/img/icons/calendars.svg" alt="">
+									<img src="~/assets/img/icons/calendars.svg" alt="">
 								</a>
 							</li>
 							<li class="nav-item" role="presentation">
 								<a class="tablinks nav-link" href="#set3" id="set-tab3" data-bs-toggle="tab" data-bs-target="#report" role="tab" aria-selected="true">
-									<img src=""~/assets/img/icons/printer.svg" alt="">
+									<img src="~/assets/img/icons/printer.svg" alt="">
 								</a>
 							</li>
 							<li class="nav-item" role="presentation">
@@ -1166,48 +1161,46 @@
 		</div>
 
 	</div>
-	<!-- /Main Wrapper -->
 	<!-- jQuery -->
-	<script src="~/assets/js/jquery-3.7.1.min.js"></script>
+	<script src="@Url.Content("~/assets/js/jquery-3.7.1.min.js")"></script>
 
 	<!-- Feather Icon JS -->
-	<script src="~/assets/js/jquery-3.7.1.min.js"></script>
-
-	<!-- Feather Icon JS -->
-	<script src="~/assets/js/feather.min.js"></script>
+	<script src="@Url.Content("~/assets/js/feather.min.js")"></script>
 
 	<!-- Slimscroll JS -->
-	<script src="~/assets/js/jquery.slimscroll.min.js"></script>
+	<script src="@Url.Content("~/assets/js/jquery.slimscroll.min.js")"></script>
 
 	<!-- Datatable JS -->
-	<script src="~/assets/js/jquery.dataTables.min.js"></script>
-	<script src="~/assets/js/dataTables.bootstrap5.min.js"></script>
+	<script src="@Url.Content("~/assets/js/jquery.dataTables.min.js")"></script>
+	<script src="@Url.Content("~/assets/js/dataTables.bootstrap5.min.js")"></script>
 
 	<!-- Bootstrap Core JS -->
-	<script src="~/assets/js/bootstrap.bundle.min.js"></script>
+	<script src="@Url.Content("~/assets/js/bootstrap.bundle.min.js")"></script>
 
 	<!-- Select2 JS -->
-	<script src="~/assets/plugins/select2/js/select2.min.js"></script>
+	<script src="@Url.Content("~/assets/plugins/select2/js/select2.min.js")"></script>
 
 	<!-- Datetimepicker JS -->
-	<script src="~/assets/js/moment.min.js"></script>
-	<script src="~/assets/js/bootstrap-datetimepicker.min.js"></script>
+	<script src="@Url.Content("~/assets/js/moment.min.js")"></script>
+	<script src="@Url.Content("~/assets/js/bootstrap-datetimepicker.min.js")"></script>
 
 	<!-- Bootstrap Tagsinput JS -->
-	<script src="~/assets/plugins/bootstrap-tagsinput/bootstrap-tagsinput.js"></script>
+	<script src="@Url.Content("~/assets/plugins/bootstrap-tagsinput/bootstrap-tagsinput.js")"></script>
 
 	<!-- Sweetalert 2 -->
-	<script src="~/assets/plugins/sweetalert/sweetalert2.all.min.js"></script>
-	<script src="~/assets/plugins/sweetalert/sweetalerts.min.js"></script>
+	<!--<script src="@Url.Content("~/assets/plugins/sweetalert/sweetalert2.all.min.js")"></script>-->
+	<!--<script src="@Url.Content("~/assets/plugins/sweetalert/sweetalerts.min.js")"></script>-->
 
 	<!-- Custom JS -->
-	<script src="~/assets/js/theme-script.js"></script>
-	<script src="~/assets/js/script.js"></script>
-
+	<script src="@Url.Content("~/assets/js/theme-script.js")"></script>
+	<script src="@Url.Content("~/assets/js/script.js")"></script>
+	
 	<!-- Full Calendar JS -->
-	<script src="~/assets/js/jquery-ui.min.js"></script>
-	<script src="~/assets/plugins/fullcalendar/fullcalendar.min.js"></script>
-	<script src="~/assets/plugins/fullcalendar/jquery.fullcalendar.js"></script>
+	<script src="@Url.Content("~/assets/js/jquery-ui.min.js")"></script>
+	<script src="@Url.Content("~/assets/plugins/fullcalendar/fullcalendar.min.js")"></script>
+	<script src="@Url.Content("~/assets/plugins/fullcalendar/jquery.fullcalendar.js")"></script>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>]
+	<script src="~/assets/js/exportarPdf.js"></script>
 
 
 

@@ -5,7 +5,7 @@
 }
 
 <body>
-	<div class="content">
+	<div class="content" id="contenidoExportar">
 		<div class="page-header">
 			<div class="add-item d-flex">
 				<div class="page-title">
@@ -15,16 +15,14 @@
 			</div>
 			<ul class="table-top-head">
 				<li>
-					<a data-bs-toggle="tooltip" data-bs-placement="top" title="PDF"><img src="assets/img/icons/pdf.svg" alt="PDF"></a>
+					<a href="javascript:void(0);" onclick="exportarAPdf('contenidoExportar', 'contactos-emergencia')" title="Exportar a PDF">
+						<img src="assets/img/icons/pdf.svg" alt="PDF" />
+					</a>
 				</li>
 				<li>
-					<a data-bs-toggle="tooltip" data-bs-placement="top" title="Excel"><img src="assets/img/icons/excel.svg" alt="Excel"></a>
-				</li>
-				<li>
-					<a data-bs-toggle="tooltip" data-bs-placement="top" title="Imprimir"><i data-feather="printer"></i></a>
-				</li>
-				<li>
-					<a data-bs-toggle="tooltip" data-bs-placement="top" title="Actualizar"><i data-feather="rotate-ccw"></i></a>
+					<a href="javascript:void(0);" data-bs-toggle="tooltip" title="Refresh" onclick="location.reload();">
+						<i data-feather="rotate-ccw"></i>
+					</a>
 				</li>
 				<div class="page-btn">
 					<a class="btn btn-added" asp-action="Create">
@@ -34,7 +32,7 @@
 			</ul>
 		</div>
 
-		<!-- Table List -->
+		<!-- Tabla de Insignias -->
 		<div class="card table-list-card">
 			<div class="card-body pb-0">
 				<div class="table-responsive">
@@ -45,7 +43,7 @@
 								<th>Sección</th>
 								<th>Tipo</th>
 								<th>Estado</th>
-								<th>Acciones</th>
+								<th class="text-end">Acciones</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -55,11 +53,23 @@
 									<td>@item.Nombre</td>
 									<td>@item.Seccion</td>
 									<td>@item.Tipo</td>
-									<td>@item.Estado</td>
 									<td>
-										<a asp-action="Edit" asp-route-id="@item.IdInsignia" class="btn btn-sm btn-warning">Editar</a>
-										<a asp-action="Details" asp-route-id="@item.IdInsignia" class="btn btn-sm btn-info">Detalles</a>
-										<a asp-action="Delete" asp-route-id="@item.IdInsignia" class="btn btn-sm btn-danger">Eliminar</a>
+										<span class="badge @(item.Estado == "Activo" ? "bg-success" : "bg-danger")">
+											@item.Estado
+										</span>
+									</td>
+									<td class="action-table-data">
+										<div class="edit-delete-action">
+											<a class="me-2 edit-icon p-2" asp-action="Details" asp-route-id="@item.IdInsignia">
+												<i data-feather="eye" class="feather-eye"></i>
+											</a>
+											<a class="me-2 p-2" asp-action="Edit" asp-route-id="@item.IdInsignia">
+												<i data-feather="edit" class="feather-edit"></i>
+											</a>
+											<a class="confirm-text p-2" href="javascript:void(0);" onclick="confirmarBorradoInsignia('@item.IdInsignia')">
+												<i data-feather="trash-2" class="feather-trash-2"></i>
+											</a>
+										</div>
 									</td>
 								</tr>
 							}
@@ -70,3 +80,42 @@
 		</div>
 	</div>
 </body>
+
+@section Scripts {
+	<script>
+		function confirmarBorradoInsignia(id) {
+			Swal.fire({
+				title: '¿Estás seguro?',
+				text: "¡No podrás revertir esto!",
+				icon: 'warning',
+				showCancelButton: true,
+				confirmButtonColor: '#ff9f43',
+				cancelButtonColor: '#f63c3c',
+				confirmButtonText: 'Sí, eliminarlo',
+				cancelButtonText: 'Cancelar'
+			}).then((result) => {
+				if (result.isConfirmed) {
+					fetch(`/Insignias/DeleteConfirmed/${id}`, {
+						method: 'POST',
+						headers: {
+							'RequestVerificationToken': $('input[name="__RequestVerificationToken"]').val()
+						}
+					})
+						.then(response => {
+							if (response.ok) {
+								Swal.fire('Eliminado', 'La insignia fue eliminada.', 'success').then(() => {
+									location.reload();
+								});
+							} else {
+								Swal.fire('Error', 'No se pudo eliminar la insignia.', 'error');
+							}
+						});
+				}
+			});
+		}
+
+		document.addEventListener("DOMContentLoaded", function () {
+			feather.replace();
+		});
+	</script>
+}
