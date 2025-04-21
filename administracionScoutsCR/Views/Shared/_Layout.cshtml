@@ -1,4 +1,4 @@
-@{
+﻿@{
 	ViewData["Title"] = "Home Page";
 }
 @using Microsoft.AspNetCore.Authorization
@@ -47,34 +47,26 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/administracionScoutsCR.styles.css" asp-append-version="true" />
-    <style>
-        .navbar {
-            background-color: #4CAF50; /* Verde Scout */
-        }
+	<style>
+		.navbar {
+			background-color: #4CAF50; /* Verde Scout */
+		}
 
-        .navbar-brand, .nav-link {
-            color: white !important;
-        }
+		.navbar-brand, .nav-link {
+			color: white !important;
+		}
 
-        .footer {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px 0;
-            text-align: center;
-        }
-
-        .jumbotron {
-            background-image: url('https://via.placeholder.com/1500x500'); /* Cambia esta URL por una imagen relacionada con los Scouts */
-            background-size: cover;
-            background-position: center;
-            color: white;
-            text-shadow: 2px 2px 4px #000000;
-            padding: 5rem 2rem;
-            text-align: center;
-        }
+		.jumbotron {
+			background-image: url('https://via.placeholder.com/1500x500');
+			background-size: cover;
+			background-position: center;
+			color: white;
+			text-shadow: 2px 2px 4px #000000;
+			padding: 5rem 2rem;
+			text-align: center;
+		}
 
 		body {
-			background-image: url('/assets/img/scoutsbackground.jpg'); /* Reemplaza con la URL de tu imagen */
 			background-size: cover;
 			background-position: center;
 			background-attachment: fixed;
@@ -86,15 +78,15 @@
 			left: 0;
 			width: 100%;
 			height: 100%;
-			background: rgba(0, 0, 0, 0.3); /* Capa semitransparente para mejorar la visibilidad */
-			backdrop-filter: blur(8px); /* Aplica el desenfoque */
+			background: rgba(0, 0, 0, 0.3);
+			backdrop-filter: blur(8px);
 			z-index: -1;
 		}
 
 		.no-padding-list {
 			padding-left: 0 !important;
 		}
-    </style>  
+	</style>
 	<script>
 		const baseUrl = '@Url.Content("~/")';
 	</script>
@@ -180,7 +172,7 @@
 								<li><a asp-controller="Usuarios" asp-action="Create"><i data-feather="plus-circle"></i><span>Nuevo Usuario</span></a></li>
 							</ul>
 						</li>
-						@if (User.IsInRole("diego"))
+						@if (User.IsInRole("Facilitador"))
 						{
 						<li class="submenu-open">
 							<h6 class="submenu-hdr">Roles</h6>
@@ -201,7 +193,7 @@
 							<h6 class="submenu-hdr">Etapas</h6>
 							<ul>
 								<li><a asp-controller="Etapas" asp-action="Index"><i data-feather="layers"></i><span>Lista de Etapas</span></a></li>
-								@if (User.IsInRole("diego"))
+								@if (User.IsInRole("Facilitador"))
 								{
 									<li><a asp-controller="Etapas" asp-action="Create"><i data-feather="plus-circle"></i><span>Nueva Etapa</span></a></li>
 								}
@@ -211,7 +203,7 @@
 							<h6 class="submenu-hdr">Insignias</h6>
 							<ul>
 								<li><a asp-controller="Insignias" asp-action="Index"><i data-feather="award"></i><span>Lista de Insignias</span></a></li>
-								@if (User.IsInRole("diego"))
+								@if (User.IsInRole("Facilitador"))
 								{
 									<li><a asp-controller="Insignias" asp-action="Create"><i data-feather="plus-circle"></i><span>Nueva Insignia</span></a></li>
 								}
@@ -221,13 +213,13 @@
 							<h6 class="submenu-hdr">Secciones</h6>
 							<ul>
 								<li><a asp-controller="Seccions" asp-action="Index"><i data-feather="grid"></i><span>Lista de Secciones</span></a></li>
-								@if (User.IsInRole("diego"))
+								@if (User.IsInRole("Facilitador"))
 								{
 									<li><a asp-controller="Seccions" asp-action="Create"><i data-feather="plus-circle"></i><span>Nueva Seccion</span></a></li>
 								}
 							</ul>
 						</li>
-						@if (User.IsInRole("diego"))
+						@if (User.IsInRole("Facilitador"))
 						{
 						<li class="submenu-open">
 							<h6 class="submenu-hdr">Contacto de Emergencia</h6>
@@ -1199,7 +1191,7 @@
 	<script src="@Url.Content("~/assets/js/jquery-ui.min.js")"></script>
 	<script src="@Url.Content("~/assets/plugins/fullcalendar/fullcalendar.min.js")"></script>
 	<script src="@Url.Content("~/assets/plugins/fullcalendar/jquery.fullcalendar.js")"></script>
-	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>]
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 	<script src="~/assets/js/exportarPdf.js"></script>
 
 

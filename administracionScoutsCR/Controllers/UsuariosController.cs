@@ -105,16 +105,22 @@ namespace administracionScoutsCR.Controllers
             {
                 return NotFound();
             }
-            ViewData["IdSeccion"] = new SelectList(_context.Seccions, "IdSeccion", "IdSeccion", usuario.IdSeccion);
+
+            // ✅ Asegúrate de tener esta línea
+            ViewBag.Roles = new SelectList(_context.Role.ToList(), "IdRole", "Nombre", usuario.IdRole);
+            ViewBag.Roles = new SelectList(_context.Role.ToList(), "Id", "Nombre", usuario.IdRole);
             return View(usuario);
         }
+
+
 
         // POST: Usuarios/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdUsuario,Nombre,Apellido1,Apellido2,FechaNacimiento,TipoUsuario,Estado,IdSeccion,Direccion,Correo,NumeroTelefono,Contrasena")] Usuario usuario)
+        public async Task<IActionResult> Edit(int id, [Bind("IdUsuario,Nombre,Apellido1,Apellido2,FechaNacimiento,TipoUsuario,Estado,IdSeccion,Direccion,Correo,NumeroTelefono,Contrasena,IdRole")] Usuario usuario)
+
         {
             if (id != usuario.IdUsuario)
             {
