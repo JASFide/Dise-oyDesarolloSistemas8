@@ -34,6 +34,10 @@ namespace administracionScoutsCR.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+        public IActionResult AccesoDenegado()
+        {
+            return View();
+        }
 
         public async Task<IActionResult> Panel()
         {

@@ -52,6 +52,7 @@ namespace administracionScoutsCR.Controllers
         }
 
         // GET: Usuarios/Create
+        [Authorize(Roles = "Receptor")]
         public IActionResult Create()
 
         {
@@ -68,6 +69,7 @@ namespace administracionScoutsCR.Controllers
         // POST: Usuarios/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("IdUsuario,Nombre,Apellido1,Apellido2,FechaNacimiento,TipoUsuario,Estado,IdSeccion,Direccion,Correo,NumeroTelefono,Contrasena,IdRole")] Usuario usuario)
@@ -175,10 +177,10 @@ namespace administracionScoutsCR.Controllers
             {
                 _context.Usuarios.Remove(usuario);
                 await _context.SaveChangesAsync();
-                return Ok(); // ✅ Devuelve 200 OK
+                return Ok(); 
             }
 
-            return NotFound(); // ⚠️ Devuelve 404 si no se encontró
+            return NotFound(); 
         }
 
 

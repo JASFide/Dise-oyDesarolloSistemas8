@@ -3,6 +3,21 @@
 @{
     ViewData["Title"] = "Crear Etapa";
 }
+<style>
+    .card {
+        border-radius: 12px;
+    }
+
+    .form-control {
+        border-radius: 8px;
+    }
+
+    .accordion-button, .accordion-body {
+        border-radius: 8px;
+    }
+
+
+</style>
 
 <body>
     <div class="content"> 
@@ -55,11 +70,12 @@
                                     <div class="row">
                                         <div class="col-lg-12">
                                             <div class="btn-addproduct mb-4">
-                                                <a asp-action="Index" class="btn btn-secondary me-2">Cancelar</a>
+                                                <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
                                                 <button type="submit" class="btn btn-primary">Guardar Etapa</button>
                                             </div>
                                         </div>
                                     </div>
+
                                     <ul class="table-top-head">
                                         <li>
                                             <div class="page-btn">
