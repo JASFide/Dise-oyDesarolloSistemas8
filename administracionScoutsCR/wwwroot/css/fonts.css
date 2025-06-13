@@ -101,8 +101,8 @@ a.btn:not([href]):not([tabindex]),
 
 /*Footer*/
 #footer {
-	font-size: 14px;
-	font-weight: 400;
+	font-size: 5px;
+	font-weight: 4;
 	font-family: "Poppins", "Helvetica", "Arial", sans-serif;
 }
 
