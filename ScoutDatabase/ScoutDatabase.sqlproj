@@ -7,7 +7,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectVersion>4.1</ProjectVersion>
     <ProjectGuid>{6d53ff66-75c4-4a75-9ebe-c568c3f60604}</ProjectGuid>
-    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql160DatabaseSchemaProvider</DSP>
+    <DSP>Microsoft.Data.Tools.Schema.Sql.SqlAzureV12DatabaseSchemaProvider</DSP>
     <OutputType>Database</OutputType>
     <RootPath>
     </RootPath>
@@ -73,7 +73,6 @@
     <Build Include="dbo\Tables\UsuarioxContactoEmergencia.sql" />
     <Build Include="dbo\Tables\UsuarioxEtapa.sql" />
     <Build Include="dbo\Tables\UsuarioxInsignia.sql" />
-    <Build Include="dbo\Tables\Table1.sql" />
     <Build Include="dbo\Tables\Role.sql" />
   </ItemGroup>
 </Project>
