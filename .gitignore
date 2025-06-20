@@ -369,3 +369,4 @@ administracionScoutsCR/Models/DatabaseScoutContext.cs
 ScoutDatabase/ScoutDatabase.sqlproj
 
 *.sqlproj
+administracionScoutsCR/appsettings.json
