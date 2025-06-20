@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using administracionScoutsCR.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace administracionScoutsCR.Controllers
 {
@@ -45,6 +46,7 @@ namespace administracionScoutsCR.Controllers
         }
 
         // GET: ReqInsignias/Create
+        [Authorize(Roles = "Facilitador,Admin")]
         public IActionResult Create()
         {
             ViewBag.InsigniasDisponibles = new SelectList(_context.Insignias, "IdInsignia", "Nombre");

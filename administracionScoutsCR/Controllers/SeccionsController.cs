@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using administracionScoutsCR.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace administracionScoutsCR.Controllers
 {
@@ -44,6 +45,7 @@ namespace administracionScoutsCR.Controllers
         }
 
         // GET: Seccions/Create
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             ViewBag.Encargados = new SelectList(

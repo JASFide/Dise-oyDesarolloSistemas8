@@ -52,7 +52,7 @@ namespace administracionScoutsCR.Controllers
         }
 
         // GET: Usuarios/Create
-        [Authorize(Roles = "Receptor")]
+        [Authorize(Roles = "Receptor,Facilitador,Admin")]
         public IActionResult Create()
 
         {

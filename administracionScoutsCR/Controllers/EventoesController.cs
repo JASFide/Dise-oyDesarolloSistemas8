@@ -13,6 +13,7 @@ using Microsoft.Extensions.Configuration;
 using System.Net.Mail;
 using static administracionScoutsCR.Models.Evento;
 using System.Diagnostics.Metrics;
+using Microsoft.AspNetCore.Authorization;
 
 namespace administracionScoutsCR.Controllers
 {
@@ -81,6 +82,7 @@ namespace administracionScoutsCR.Controllers
 
         // GET: Eventoes/Create
         // GET: Eventoes1/Create
+        [Authorize(Roles = "Receptor,Facilitador,Admin")]
         public IActionResult Create()
         {
             return View();
