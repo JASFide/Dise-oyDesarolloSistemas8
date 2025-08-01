@@ -10,7 +10,14 @@
                 </span>
                 <span class="user-detail">
                     <span class="user-name">@User.FindFirst("Name")?.Value</span>
+<<<<<<< Updated upstream
                     <span class="user-role">@User.FindFirst(ClaimTypes.Role)?.Value</span>
+=======
+
+                   <span class="user-role">@User.FindFirst(ClaimTypes.Role)?.Value</span>
+      
+                    <span class="user-id">ID: @User.FindFirst("IdUsuario")?.Value</span>
+>>>>>>> Stashed changes
                 </span>
             </span>
         </a>
@@ -20,7 +27,11 @@
                     <span class="user-img"><img src="~/assets/img/profiles/avatar1.jpg" alt=""><span class="status online"></span></span>
                     <div class="profilesets">
                         <h6>@User.FindFirst("Name")?.Value</h6>
+<<<<<<< Updated upstream
                         <h5>@User.FindFirst(ClaimTypes.Role)?.Value</h5>
+=======
+                        <h5>@User.FindFirst(ClaimTypes.Role)?.Value Super</h5> @* Change role dynamically if needed *@
+>>>>>>> Stashed changes
                     </div>
                 </div>
             </div>
