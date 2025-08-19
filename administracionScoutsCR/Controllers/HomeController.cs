@@ -1,5 +1,6 @@
 // HomeController.cs
 using administracionScoutsCR.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
@@ -34,7 +35,11 @@ namespace administracionScoutsCR.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
-
+        public IActionResult AccesoDenegado()
+        {
+            return View();
+        }
+       
         public async Task<IActionResult> Panel()
         {
             int? usuarioId = int.TryParse(User.FindFirst("IdUsuario")?.Value, out var id) ? id : (int?)null;

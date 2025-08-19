@@ -3,18 +3,26 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 
-namespace administracionScoutsCR.Models;
-
-public partial class ConfirmacionEvento
+namespace administracionScoutsCR.Models
 {
-	public int IdConfirmacionEvento { get; set; }
-	public string Asistencia { get; set; } = null!;
+	public partial class ConfirmacionEvento
+	{
+		public int IdConfirmacionEvento { get; set; }
 
-    public int? IdEvento { get; set; }
+		[Required(ErrorMessage = "Debe especificar el estado de la asistencia.")]
+		[StringLength(50, ErrorMessage = "El campo Asistencia no puede tener más de 50 caracteres.")]
+		public string Asistencia { get; set; } = null!;
 
-    public int? IdUsuario { get; set; }
+		[Required(ErrorMessage = "Debe seleccionar un evento.")]
+		public int? IdEvento { get; set; }
 
-    public virtual Evento? IdEventoNavigation { get; set; } = null!;
+		[Required(ErrorMessage = "Debe especificar el usuario que confirma la asistencia.")]
+		public int? IdUsuario { get; set; }
 
-    public virtual Usuario? IdUsuarioNavigation { get; set; } = null!;
+		[ForeignKey("IdEvento")]
+		public virtual Evento? IdEventoNavigation { get; set; } = null!;
+
+		[ForeignKey("IdUsuario")]
+		public virtual Usuario? IdUsuarioNavigation { get; set; } = null!;
+	}
 }

@@ -21,12 +21,14 @@ namespace administracionScoutsCR.Controllers
 
       
         }
-        public IActionResult login()
+		[AllowAnonymous]
+		public IActionResult login()
         {
             return View();
         }
         [HttpPost]
-        public IActionResult login(LoginViewmodel model)
+		[AllowAnonymous]
+		public IActionResult login(LoginViewmodel model)
         {
             if (ModelState.IsValid)
             {
@@ -46,9 +48,9 @@ namespace administracionScoutsCR.Controllers
             };
                     var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                     var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
-                    HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimsPrincipal);
-
-                    return RedirectToAction("Panel", "Home");
+                    HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimsPrincipal,
+					new AuthenticationProperties { IsPersistent = true });
+					return RedirectToAction("Panel", "Home");
                 }
                 else
                 {
@@ -60,13 +62,13 @@ namespace administracionScoutsCR.Controllers
 
 
 
-        public IActionResult LogOut()
-        {
-            HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            return RedirectToAction("Index", "Home"); 
-        }
+		public async Task<IActionResult> LogOut()
+		{
+			await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+			return RedirectToAction("Login", "ControllerLogin");
+		}
 
-        [Authorize]
+		[Authorize]
         public IActionResult SecurePage()
         {
             ViewBag.Name = HttpContext.User.Identity.Name;

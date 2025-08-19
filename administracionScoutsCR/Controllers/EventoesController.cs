@@ -1,22 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 ﻿using administracionScoutsCR.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using administracionScoutsCR.Models;
-using SendGrid;
-using SendGrid.Helpers.Mail;
-using Microsoft.Extensions.Configuration;
-using System.Net.Mail;
-using static administracionScoutsCR.Models.Evento;
-using System.Diagnostics.Metrics;
+using Microsoft.AspNetCore.Authorization;
 
 namespace administracionScoutsCR.Controllers
 {
-    public class EventoesController : Controller
+	public class EventoesController : Controller
 	{
 		private readonly DatabaseScoutContext _context;
 		private readonly IConfiguration _configuration;
@@ -81,30 +70,49 @@ namespace administracionScoutsCR.Controllers
 
         // GET: Eventoes/Create
         // GET: Eventoes1/Create
+        [Authorize(Roles = "Receptor,Facilitador,Admin")]
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Eventoes1/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdEvento,Titulo,Fecha,Lugar,Descripcion,Encargado,ContactoEncargado")] Evento evento)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Add(evento);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(evento);
-        }
+		[ValidateAntiForgeryToken]
+		public async Task<IActionResult> Create(Evento evento)
+		{
+			if (ModelState.IsValid)
+			{
+				if (evento.ImagenEvento != null && evento.ImagenEvento.Length > 0)
+				{
+					// Crear carpeta si no existe
+					var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/eventos");
+					if (!Directory.Exists(uploadsFolder))
+						Directory.CreateDirectory(uploadsFolder);
+
+					// Generar nombre único
+					var uniqueFileName = Guid.NewGuid().ToString() + Path.GetExtension(evento.ImagenEvento.FileName);
+					var filePath = Path.Combine(uploadsFolder, uniqueFileName);
+
+					// Guardar imagen
+					using (var stream = new FileStream(filePath, FileMode.Create))
+					{
+						await evento.ImagenEvento.CopyToAsync(stream);
+					}
+
+					// Guardar ruta en modelo si tienes campo en la BD
+					evento.RutaImagen = "/images/eventos/" + uniqueFileName;
+				}
+
+				_context.Add(evento);
+				await _context.SaveChangesAsync();
+				return RedirectToAction(nameof(Index));
+			}
+			return View(evento);
+		}
 
 
-        // GET: Eventoes/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+		// GET: Eventoes/Edit/5
+		public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {
