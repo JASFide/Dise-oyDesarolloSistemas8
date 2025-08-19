@@ -1,7 +1,7 @@
 ﻿@model administracionScoutsCR.Models.LoginViewmodel
 @{
     ViewData["Title"] = "Iniciar sesión";
-    Layout = null; // Si quieres usar el layout, cámbialo a "_Layout"
+    Layout = null;
 }
 <!DOCTYPE html>
 <html lang="es">
@@ -9,37 +9,122 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"]</title>
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <style>
+        body {
+            background-color: #1a1c2d;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        .login-box {
+            background-color: #2b2e4a;
+            color: #fff;
+            border-radius: 12px;
+            padding: 30px;
+            max-width: 450px;
+            width: 100%;
+            box-shadow: 0 0 20px rgba(0,0,0,0.2);
+        }
+
+        .form-control {
+            background-color: #1f2235;
+            border: 1px solid #444;
+            color: white;
+        }
+
+            .form-control::placeholder {
+                color: #aaa;
+            }
+
+        .form-check-label {
+            color: #ccc;
+        }
+
+        .btn-login {
+            background-color: #ff9f43;
+            color: white;
+            border: none;
+        }
+
+            .btn-login:hover {
+                background-color: #ffa94d;
+            }
+
+        .forgot-link {
+            color: #ff6b6b;
+            font-size: 0.9rem;
+        }
+
+            .forgot-link:hover {
+                text-decoration: underline;
+            }
+
+        .social-buttons img {
+            width: 40px;
+            margin: 0 10px;
+            cursor: pointer;
+        }
+
+        .divider {
+            text-align: center;
+            color: #999;
+            margin: 15px 0;
+        }
+
+            .divider::before,
+            .divider::after {
+                content: '';
+                display: inline-block;
+                width: 30%;
+                height: 1px;
+                background-color: #555;
+                vertical-align: middle;
+                margin: 0 10px;
+            }
+
+        .logo-img {
+            max-height: 80px;
+            margin-bottom: 10px;
+        }
+    </style>
 </head>
-<body class="bg-light">
-    <div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
-        <div class="card shadow-lg p-4" style="max-width: 400px; width: 100%;">
-            <h3 class="text-center mb-4">Iniciar sesión</h3>
+<body>
+    <div class="d-flex justify-content-center align-items-center vh-100">
+        <div class="login-box text-white">
+            <div class="text-center mb-4">
+                <img src="~/assets/img/logo.png" alt="Logo Scouts" class="logo-img" />
+                <h3 class="mb-1">Iniciar sesión</h3>
+            </div>
             <form asp-action="Login" method="post">
                 <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
                 <div class="mb-3">
-                    <label asp-for="Correo" class="form-label"></label>
+                    <label asp-for="Correo" class="form-label">Correo electrónico</label>
                     <input asp-for="Correo" class="form-control" placeholder="correo@ejemplo.com" />
                     <span asp-validation-for="Correo" class="text-danger"></span>
                 </div>
                 <div class="mb-3">
-                    <label asp-for="Contrasena" class="form-label"></label>
-                    <input asp-for="Contrasena" class="form-control" type="password" placeholder="Contraseña" />
+                    <label asp-for="Contrasena" class="form-label">Contraseña</label>
+                    <input asp-for="Contrasena" class="form-control" type="password" placeholder="••••••••" />
                     <span asp-validation-for="Contrasena" class="text-danger"></span>
                 </div>
-                <button type="submit" class="btn btn-primary w-100">Ingresar</button>
-                <a href="/" class="btn btn-outline-secondary w-100 mt-2">Cancelar</a>
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="recordarme" />
+                        <label class="form-check-label" for="recordarme">Recordarme</label>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-login w-100">Iniciar sesión</button>
+             
+            
             </form>
+            <div class="text-center text-muted mt-4 small">
+                © 2025 ScoutsCR. Todos los derechos reservados
+            </div>
         </div>
     </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <partial name="_ValidationScriptsPartial" />
 </body>
 </html>
-
-
-@section Scripts {
-    <partial name="_ValidationScriptsPartial" />
-    <script>
-        feather.replace(); // Para que los íconos de Feather se muestren correctamente
-    </script>
-}
