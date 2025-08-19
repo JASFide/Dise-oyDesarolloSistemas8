@@ -171,10 +171,11 @@
 							<h6 class="submenu-hdr"> Inicio</h6>
 							<ul>
 								<li><a asp-controller="Home" asp-action="Index"><i data-feather="plus-circle"></i><span>Pagina de Inicio </span></a></li>
-								<li><a asp-controller="Home" asp-action="Panel"><i data-feather="box"></i><span>Panel de Actividad</span></a></li>
+								<li><a asp-controller="Home" asp-action="Panell"><i data-feather="box"></i><span>Panel de Actividad</span></a></li>
+
 							</ul>
 						</li>
-						@if (User.Identity.IsAuthenticated && User.IsInRole("Admin,Facilitador"))
+						@if (User.Identity.IsAuthenticated &&(User.IsInRole("Admin") || User.IsInRole("Facilitador")))
 						{
 							<li class="submenu-open">
 								<h6 class="submenu-hdr">Usuario</h6>
@@ -192,7 +193,7 @@
 								</ul>
 							</li>
 						}
-						@if (User.Identity.IsAuthenticated && User.IsInRole("Admin,Facilitador"))
+						@if (User.Identity.IsAuthenticated && (User.IsInRole("Admin")))
 						{
 							<li class="submenu-open">
 								<h6 class="submenu-hdr">Roles</h6>
@@ -214,17 +215,17 @@
 							<h6 class="submenu-hdr">Etapas</h6>
 							<ul>
 								<li><a asp-controller="Etapas" asp-action="Index"><i data-feather="layers"></i><span>Lista de Etapas</span></a></li>
-								
-								
-									<li><a asp-controller="Etapas" asp-action="Create"><i data-feather="plus-circle"></i><span>Nueva Etapa</span></a></li>
-								
+								@if (User.Identity.IsAuthenticated && (User.IsInRole("Admin") || User.IsInRole("Facilitador")))
+						{
+								<li><a asp-controller="Etapas" asp-action="Create"><i data-feather="plus-circle"></i><span>Nueva Etapa</span></a></li>	
+								}
 							</ul>
 						</li>
 						<li class="submenu-open">
 							<h6 class="submenu-hdr">Insignias</h6>
 							<ul>
 								<li><a asp-controller="Insignias" asp-action="Index"><i data-feather="award"></i><span>Lista de Insignias</span></a></li>
-								@if (User.Identity.IsAuthenticated && User.IsInRole("Admin,Facilitador"))
+								@if (User.Identity.IsAuthenticated && (User.IsInRole("Admin") || User.IsInRole("Facilitador")))
 						{
 									<li><a asp-controller="Insignias" asp-action="Create"><i data-feather="plus-circle"></i><span>Nueva Insignia</span></a></li>
 						}
@@ -234,7 +235,7 @@
 							<h6 class="submenu-hdr">Secciones</h6>
 							<ul>
 								<li><a asp-controller="Seccions" asp-action="Index"><i data-feather="grid"></i><span>Lista de Secciones</span></a></li>
-							@if (User.Identity.IsAuthenticated && User.IsInRole("Admin,Facilitador"))
+								@if (User.Identity.IsAuthenticated && (User.IsInRole("Admin") || User.IsInRole("Facilitador")))
 						{
 									<li><a asp-controller="Seccions" asp-action="Create"><i data-feather="plus-circle"></i><span>Nueva Seccion</span></a></li>
 						}
@@ -245,7 +246,10 @@
 							<h6 class="submenu-hdr">Contacto de Emergencia</h6>
 							<ul>
 								<li><a asp-controller="ContactoEmergenciums" asp-action="Index"><i data-feather="phone"></i><span>Lista de Contactos</span></a></li>
+								@if (User.Identity.IsAuthenticated && (User.IsInRole("Admin") || User.IsInRole("Facilitador")))
+								{
 								<li><a asp-controller="ContactoEmergenciums" asp-action="Create"><i data-feather="plus-circle"></i><span>Nuevo Contacto</span></a></li>
+								}
 							</ul>
 						</li>
 						
