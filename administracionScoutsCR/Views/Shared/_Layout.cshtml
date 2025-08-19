@@ -169,24 +169,9 @@
 
 						<li class="submenu-open">
 							<h6 class="submenu-hdr"> Inicio</h6>
-
 							<ul>
-								
-								<li><a asp-controller="Home" asp-action="Index">
-									<i data-feather="plus-circle">
-
-									</i>
-									<span>Pagina de Inicio </span>
-									</a>
-									</li>
+								<li><a asp-controller="Home" asp-action="Index"><i data-feather="plus-circle"></i><span>Pagina de Inicio </span></a></li>
 								<li><a asp-controller="Home" asp-action="Panell"><i data-feather="box"></i><span>Panel de Actividad</span></a></li>
-						
-								<li class="px-3 py-2 d-flex ">
-									<div class="form-check form-switch m-0">
-										<input class="form-check-input" type="checkbox" id="toggleDarkMode">
-										<span for="toggleDarkMode">Modo oscuro</span>
-									</div>
-								</li>
 
 							</ul>
 						</li>
@@ -1181,7 +1166,15 @@
 			
 		</div>
 		@RenderSection("Scripts", required: false) 
-
+		<div class="customizer-links" id="setdata">
+			<ul class="sticky-sidebar">
+				<li class="sidebar-icons">
+					<a href="#" class="navigation-add" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-original-title="Theme">
+						<i data-feather="settings" class="feather-five"></i>
+					</a>
+				</li>
+			</ul>
+		</div>
 
 	</div>
 	<!-- jQuery -->
@@ -1224,31 +1217,8 @@
 	<script src="@Url.Content("~/assets/plugins/fullcalendar/jquery.fullcalendar.js")"></script>
 	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>]
 	<script src="~/assets/js/exportarPdf.js"></script>
-	<script>
-		document.addEventListener("DOMContentLoaded", function () {
-			const htmlElement = document.getElementsByTagName("html")[0];
-			const darkModeToggle = document.getElementById("toggleDarkMode");
 
-			// Leer el modo guardado
-			const savedMode = localStorage.getItem("selectedColorValue") || "light_mode";
-			htmlElement.setAttribute("data-layout-mode", savedMode);
-			darkModeToggle.checked = savedMode === "dark_mode";
 
-			// Evento del interruptor
-			darkModeToggle.addEventListener("change", function () {
-				const newMode = this.checked ? "dark_mode" : "light_mode";
-				htmlElement.setAttribute("data-layout-mode", newMode);
-				localStorage.setItem("selectedColorValue", newMode);
-
-				// Simula el cambio de radio (si existen)
-				const radio = document.querySelector(`input[type="radio"][value="${newMode}"]`);
-				if (radio) {
-					radio.checked = true;
-					radio.dispatchEvent(new Event("change"));
-				}
-			});
-		});
-	</script>
 
 </body>
 
