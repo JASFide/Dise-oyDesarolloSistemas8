@@ -114,8 +114,6 @@ namespace administracionScoutsCR.Controllers
             {
                 return NotFound();
             }
-
-            // ✅ Asegúrate de tener esta línea
             ViewBag.Roles = new SelectList(_context.Role.ToList(), "IdRole", "Nombre", usuario.IdRole);
             ViewBag.Roles = new SelectList(_context.Role.ToList(), "Id", "Nombre", usuario.IdRole);
             return View(usuario);
