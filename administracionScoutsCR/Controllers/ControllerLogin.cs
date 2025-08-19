@@ -28,17 +28,21 @@ namespace administracionScoutsCR.Controllers
         }
         [HttpPost]
 		[AllowAnonymous]
-		public IActionResult login(LoginViewmodel model)
+	    public async Task<IActionResult> Login(LoginViewmodel model)
+    {
+        if (ModelState.IsValid)
         {
-            if (ModelState.IsValid)
-            {
-                var usuario = _context.Usuarios
-                    .Where(x => x.Correo == model.Correo && x.Contrasena == model.Contrasena)
-                    .FirstOrDefault();
+            var usuario = _context.Usuarios.FirstOrDefault(x => x.Correo == model.Correo);
 
-                if (usuario != null)
+            if (usuario != null)
+            {
+                var hasher = new PasswordHasher<Usuario>();
+                var result = hasher.VerifyHashedPassword(usuario, usuario.Contrasena, model.Contrasena);
+
+                if (result == PasswordVerificationResult.Success || result == PasswordVerificationResult.SuccessRehashNeeded)
                 {
                     var rol = _context.Role.FirstOrDefault(r => r.Id == usuario.IdRole);
+
                     var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.Name, usuario.Correo),
@@ -46,19 +50,21 @@ namespace administracionScoutsCR.Controllers
                 new Claim("IdUsuario", usuario.IdUsuario.ToString()),
                 new Claim(ClaimTypes.Role, rol != null ? rol.Nombre : string.Empty)
             };
+
                     var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                     var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
-                    HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimsPrincipal,
-					new AuthenticationProperties { IsPersistent = true });
-					return RedirectToAction("Panel", "Home");
-                }
-                else
-                {
-                    ModelState.AddModelError("", "Usuario o contraseña no coinciden");
+
+                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimsPrincipal);
+
+                    return RedirectToAction("Panel", "Home");
                 }
             }
-            return View();
+
+            ModelState.AddModelError("", "Usuario o contraseña no coinciden");
         }
+
+        return View(model);
+    }
 
 
 
@@ -76,3 +82,4 @@ namespace administracionScoutsCR.Controllers
         }
     }
 }
+
