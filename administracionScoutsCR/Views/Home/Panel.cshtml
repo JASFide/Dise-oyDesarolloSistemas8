@@ -7,8 +7,8 @@
 }
 
 <div class="content">
-
-    <!-- Encabezado del panel -->
+<<<<<<< Updated upstream
+=======
     <div class="page-header">
         <div class="page-title">
             <h4>Panel Personal</h4>
@@ -16,13 +16,18 @@
         </div>
     </div>
 
+>>>>>>> Stashed changes
     <!-- Sección de Información del Usuario -->
     <div class="row">
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-body">
                     <h5>Bienvenido, @usuario.Nombre @usuario.Apellido1</h5>
+<<<<<<< Updated upstream
+                    <p> @usuario.IdSeccionNavigation?.Nombre</p>
+=======
                     <p><strong>Sección:</strong> @usuario.IdSeccionNavigation?.Nombre</p>
+>>>>>>> Stashed changes
                 </div>
             </div>
         </div>
@@ -62,11 +67,28 @@
     </div>
 
     <!-- Etapas Actuales -->
-    <div class="row">
+<<<<<<< Updated upstream
+    <div class="row mt-4">
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-header">
                     <h5>Etapas Asignadas</h5>
+                </div>
+                <div class="card-body">
+                    @if (ViewBag.Etapas != null && ((List<Etapa>)ViewBag.Etapas).Count > 0)
+                    {
+                        <ul class="list-group">
+                            @foreach (var etapa in ViewBag.Etapas as List<Etapa>)
+                            {
+                                <li class="list-group-item">
+                                    <strong>@etapa.Nombre</strong> - Sección: @etapa.Seccion | Estado: @etapa.Estado
+                                </li>
+=======
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Etapas Actuales</h5>
                 </div>
                 <div class="card-body">
                     @if (etapas != null && etapas.Count > 0)
@@ -74,21 +96,28 @@
                         <ul class="list-group">
                             @foreach (var etapa in etapas)
                             {
-                                <li class="list-group-item">
-                                    <strong>@etapa.Nombre</strong> - Sección: @etapa.Seccion | Estado: @etapa.Estado
-                                </li>
+                                <li class="list-group-item">@etapa.Nombre</li>
+>>>>>>> Stashed changes
                             }
                         </ul>
                     }
                     else
                     {
+<<<<<<< Updated upstream
                         <p class="text-muted">Aún no se te ha asignado ninguna etapa.</p>
+=======
+                        <p class="text-muted">Aún no tienes etapas asignadas.</p>
+>>>>>>> Stashed changes
                     }
                 </div>
             </div>
         </div>
     </div>
 
+<<<<<<< Updated upstream
+
+=======
+>>>>>>> Stashed changes
     <!-- Insignias en Progreso -->
     <div class="row">
         <div class="col-lg-12">
@@ -116,5 +145,4 @@
             </div>
         </div>
     </div>
-
 </div>
