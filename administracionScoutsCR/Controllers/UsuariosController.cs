@@ -70,19 +70,25 @@ namespace administracionScoutsCR.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         
+      
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("IdUsuario,Nombre,Apellido1,Apellido2,FechaNacimiento,TipoUsuario,Estado,IdSeccion,Direccion,Correo,NumeroTelefono,Contrasena,IdRole")] Usuario usuario)
         {
             if (ModelState.IsValid)
             {
-                var usuarioExistente = await _context.Usuarios.FirstOrDefaultAsync(u => u.Correo == usuario.Correo);
+                var usuarioExistente = await _context.Usuarios
+                    .FirstOrDefaultAsync(u => u.Correo == usuario.Correo);
+
                 if (usuarioExistente != null)
                 {
                     ModelState.AddModelError("Correo", "El correo ya está en uso.");
                 }
                 else
                 {
+                    var hasher = new PasswordHasher<Usuario>();
+                    usuario.Contrasena = hasher.HashPassword(usuario, usuario.Contrasena);
+
                     _context.Add(usuario);
                     await _context.SaveChangesAsync();
                     return RedirectToAction(nameof(Index));
@@ -93,6 +99,7 @@ namespace administracionScoutsCR.Controllers
             ViewData["IdRole"] = new SelectList(_context.Role, "Id", "Nombre", usuario.IdRole);
             return View(usuario);
         }
+
 
         // GET: Usuarios/Edit/5
         public async Task<IActionResult> Edit(int? id)
