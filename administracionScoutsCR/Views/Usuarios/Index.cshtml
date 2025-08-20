@@ -47,7 +47,6 @@
                                 <th>Primer Apellido</th>
                                 <th>Segundo Apellido</th>
                                 <th>Fecha de Nacimiento</th>
-                                <th>Tipo de Usuario</th>
                                 <th>Estado</th>
                                 <th>Sección</th>
                                 <th>Acciones</th>
@@ -61,8 +60,9 @@
                                     <td>@item.Apellido1</td>
                                     <td>@item.Apellido2</td>
                                     <td>@item.FechaNacimiento.ToString("dd/MM/yyyy")</td>
-                                    <td>@item.TipoUsuario</td>
-                                    <td>@item.Estado</td>
+                                 
+                                    <td>@(item.Estado ? "Activo" : "Inactivo")</td>
+
                                     <td>@(item.IdSeccionNavigation != null ? item.IdSeccionNavigation.Nombre : "Sin Sección")</td>
                                     <td class="action-table-data">
                                         <div class="edit-delete-action">

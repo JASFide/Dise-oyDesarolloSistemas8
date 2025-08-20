@@ -53,21 +53,36 @@ namespace administracionScoutsCR.Controllers
             return View();
         }
 
-        // POST: Insignias/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdInsignia,Nombre,Seccion,Tipo,Estado")] Insignia insignia)
+        public async Task<IActionResult> Create([Bind("IdInsignia,Nombre,Seccion,Tipo,Estado")] Insignia insignia, IFormFile imagen)
         {
             if (ModelState.IsValid)
             {
+                if (imagen != null && imagen.Length > 0)
+                {
+                    var fileName = Guid.NewGuid().ToString() + Path.GetExtension(imagen.FileName);
+                    var imagePath = Path.Combine("wwwroot", "uploads", "insignias");
+
+                    if (!Directory.Exists(imagePath))
+                        Directory.CreateDirectory(imagePath);
+
+                    var fullPath = Path.Combine(imagePath, fileName);
+                    using (var stream = new FileStream(fullPath, FileMode.Create))
+                    {
+                        await imagen.CopyToAsync(stream);
+                    }
+
+                    insignia.ImagenRuta = "/uploads/insignias/" + fileName;
+                }
+
                 _context.Add(insignia);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
             return View(insignia);
         }
+
 
         // GET: Insignias/Edit/5
         public async Task<IActionResult> Edit(int? id)

@@ -23,8 +23,8 @@ namespace administracionScoutsCR.Models
 		[Required(ErrorMessage = "Debe indicar el estado de la insignia.")]
 		[RegularExpression("^(Activa|Inactiva)$", ErrorMessage = "El estado debe ser 'Activa' o 'Inactiva'.")]
 		public string Estado { get; set; } = null!;
-
-		public virtual ICollection<ReqInsignia> ReqInsignia { get; set; } = new List<ReqInsignia>();
+        public string? ImagenRuta { get; set; }
+        public virtual ICollection<ReqInsignia> ReqInsignia { get; set; } = new List<ReqInsignia>();
 
 		public virtual ICollection<UsuarioxInsignium> UsuarioxInsignia { get; set; } = new List<UsuarioxInsignium>();
 	}

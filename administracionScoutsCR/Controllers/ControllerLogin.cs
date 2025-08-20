@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System.Security.Claims;
@@ -26,24 +27,32 @@ namespace administracionScoutsCR.Controllers
         {
             return View();
         }
+        //Login sin hash 
+        /*
         [HttpPost]
 		[AllowAnonymous]
-	    public async Task<IActionResult> Login(LoginViewmodel model)
-    {
-        if (ModelState.IsValid)
+	 public IActionResult login(LoginViewmodel model)      {          if (ModelState.IsValid)          {              var usuario = _context.Usuarios                  .Where(x => x.Correo == model.Correo && x.Contrasena == model.Contrasena)                  .FirstOrDefault();              if (usuario != null)              {                  var rol = _context.Role.FirstOrDefault(r => r.Id == usuario.IdRole);                  var claims = new List<Claim>          {              new Claim(ClaimTypes.Name, usuario.Correo),              new Claim("Name", usuario.Nombre),              new Claim("IdUsuario", usuario.IdUsuario.ToString()),              new Claim(ClaimTypes.Role, rol != null ? rol.Nombre : string.Empty)          };                  var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);                  var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);                  HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimsPrincipal);                  return RedirectToAction("Panel", "Home");              }              else              {                  ModelState.AddModelError("", "Usuario o contraseña no coinciden");              }          }          return View();      }
+        */
+        //Loging con hash
+        
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<IActionResult> Login(LoginViewmodel model)
         {
-            var usuario = _context.Usuarios.FirstOrDefault(x => x.Correo == model.Correo);
-
-            if (usuario != null)
+            if (ModelState.IsValid)
             {
-                var hasher = new PasswordHasher<Usuario>();
-                var result = hasher.VerifyHashedPassword(usuario, usuario.Contrasena, model.Contrasena);
+                var usuario = _context.Usuarios.FirstOrDefault(x => x.Correo == model.Correo);
 
-                if (result == PasswordVerificationResult.Success || result == PasswordVerificationResult.SuccessRehashNeeded)
+                if (usuario != null)
                 {
-                    var rol = _context.Role.FirstOrDefault(r => r.Id == usuario.IdRole);
+                    var hasher = new PasswordHasher<Usuario>();
+                    var result = hasher.VerifyHashedPassword(usuario, usuario.Contrasena, model.Contrasena);
 
-                    var claims = new List<Claim>
+                    if (result == PasswordVerificationResult.Success || result == PasswordVerificationResult.SuccessRehashNeeded)
+                    {
+                        var rol = _context.Role.FirstOrDefault(r => r.Id == usuario.IdRole);
+
+                        var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.Name, usuario.Correo),
                 new Claim("Name", usuario.Nombre),
@@ -51,24 +60,23 @@ namespace administracionScoutsCR.Controllers
                 new Claim(ClaimTypes.Role, rol != null ? rol.Nombre : string.Empty)
             };
 
-                    var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-                    var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
+                        var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                        var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
 
-                    await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimsPrincipal);
+                        await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimsPrincipal);
 
-                    return RedirectToAction("Panel", "Home");
+                        return RedirectToAction("Panel", "Home");
+                    }
                 }
+
+                ModelState.AddModelError("", "Usuario o contraseña no coinciden");
             }
 
-            ModelState.AddModelError("", "Usuario o contraseña no coinciden");
+            return View(model);
         }
 
-        return View(model);
-    }
 
-
-
-		public async Task<IActionResult> LogOut()
+        public async Task<IActionResult> LogOut()
 		{
 			await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
 			return RedirectToAction("Login", "ControllerLogin");

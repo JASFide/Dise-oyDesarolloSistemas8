@@ -40,7 +40,6 @@ namespace administracionScoutsCR.Models
 
 		[NotMapped]
 		[DataType(DataType.Upload)]
-		[FileExtensions(Extensions = "jpg,jpeg,png", ErrorMessage = "El archivo debe ser una imagen en formato .jpg o .png.")]
 		public IFormFile? ImagenEvento { get; set; }
 	}
 }

@@ -85,7 +85,7 @@ namespace administracionScoutsCR.Controllers
 				if (evento.ImagenEvento != null && evento.ImagenEvento.Length > 0)
 				{
 					// Crear carpeta si no existe
-					var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/images/eventos");
+					var uploadsFolder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/uploads/eventos");
 					if (!Directory.Exists(uploadsFolder))
 						Directory.CreateDirectory(uploadsFolder);
 
@@ -100,7 +100,7 @@ namespace administracionScoutsCR.Controllers
 					}
 
 					// Guardar ruta en modelo si tienes campo en la BD
-					evento.RutaImagen = "/images/eventos/" + uniqueFileName;
+					evento.RutaImagen = "/uploads/eventos/" + uniqueFileName;
 				}
 
 				_context.Add(evento);
