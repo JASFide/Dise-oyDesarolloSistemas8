@@ -21,7 +21,7 @@
 <body>
     <div class="content">
         <!-- Formulario de creación de insignia -->
-        <form asp-action="Create" method="post">
+        <form asp-action="Create" enctype="multipart/form-data" method="post">
             <div class="card">
                 <div class="card-body add-product pb-0">
                     <div class="accordion-card-one accordion" id="accordionExample">
@@ -68,6 +68,10 @@
                                                 <span asp-validation-for="Estado" class="text-danger"></span>
                                             </div>
                                         </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Imagen de la insignia</label>
+                                        <input type="file" class="form-control" name="imagen" accept="image/*" />
                                     </div>
 
                                     <!-- Botones de acción -->

@@ -7,13 +7,22 @@
 }
 
 <div class="content">
+
+    <!-- Encabezado del panel -->
+    <div class="page-header">
+        <div class="page-title">
+            <h4>Panel Personal</h4>
+            <h6>Resumen de tu actividad como scout</h6>
+        </div>
+    </div>
+
     <!-- Sección de Información del Usuario -->
     <div class="row">
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-body">
                     <h5>Bienvenido, @usuario.Nombre @usuario.Apellido1</h5>
-                    <p> @usuario.IdSeccionNavigation?.Nombre</p>
+                    <p><strong>Sección:</strong> @usuario.IdSeccionNavigation?.Nombre</p>
                 </div>
             </div>
         </div>
@@ -53,17 +62,17 @@
     </div>
 
     <!-- Etapas Actuales -->
-    <div class="row mt-4">
+    <div class="row">
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-header">
                     <h5>Etapas Asignadas</h5>
                 </div>
                 <div class="card-body">
-                    @if (ViewBag.Etapas != null && ((List<Etapa>)ViewBag.Etapas).Count > 0)
+                    @if (etapas != null && etapas.Count > 0)
                     {
                         <ul class="list-group">
-                            @foreach (var etapa in ViewBag.Etapas as List<Etapa>)
+                            @foreach (var etapa in etapas)
                             {
                                 <li class="list-group-item">
                                     <strong>@etapa.Nombre</strong> - Sección: @etapa.Seccion | Estado: @etapa.Estado
@@ -79,7 +88,6 @@
             </div>
         </div>
     </div>
-
 
     <!-- Insignias en Progreso -->
     <div class="row">
@@ -108,4 +116,5 @@
             </div>
         </div>
     </div>
+
 </div>

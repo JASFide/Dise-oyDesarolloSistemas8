@@ -87,13 +87,12 @@
 
         <!-- Imagen -->
         <div class="col-lg-4 col-sm-12">
-            <div class="card">
-                <div class="card-body text-center">
-                    <div class="insignia-image">
-                        <img src="~/assets/img/insignias/insignia_default.jpg" alt="Imagen de la Insignia" class="img-fluid rounded">
-                        <h4>Imagen de la Insignia</h4>
-                    </div>
-                </div>
+            <div class="text-center">
+                <img src="@(string.IsNullOrEmpty(Model.ImagenRuta) ? Url.Content("~/uploads/insignias/insignias_default.jpg") : Url.Content(Model.ImagenRuta))"
+                     alt="Imagen de la Insignia"
+                     class="img-fluid rounded mb-2"
+                     style="max-height: 300px; object-fit: contain;" />
+                <h5>Imagen de la Insignia</h5>
             </div>
         </div>
     </div>
