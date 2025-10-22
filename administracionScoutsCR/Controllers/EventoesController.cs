@@ -15,18 +15,24 @@ namespace administracionScoutsCR.Controllers
             _context = context;
             _configuration = configuration;
         }
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int page = 1)
         {
+            int pageSize = 5; // cantidad de eventos por página
             int? usuarioId = ObtenerUsuarioId();
 
-            var eventos = await _context.Eventos
+            var query = _context.Eventos
                 .Include(e => e.ConfirmacionEventos)
+                .OrderByDescending(e => e.Fecha); 
+
+            int totalEventos = await query.CountAsync();
+
+            var eventos = await query
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
                 .ToListAsync();
 
-            // Contar confirmaciones por evento
             ViewBag.Confirmaciones = eventos.ToDictionary(e => e.IdEvento, e => e.ConfirmacionEventos.Count);
 
-            // Verificar si el usuario ha confirmado su asistencia
             ViewBag.UsuarioConfirmaciones = usuarioId == null
                 ? new Dictionary<int, bool>()
                 : eventos.ToDictionary(
@@ -34,8 +40,12 @@ namespace administracionScoutsCR.Controllers
                     e => e.ConfirmacionEventos.Any(c => c.IdUsuario == usuarioId.Value)
                 );
 
+            ViewBag.TotalPaginas = (int)Math.Ceiling((double)totalEventos / pageSize);
+            ViewBag.PaginaActual = page;
+
             return View(eventos);
         }
+
         public async Task<IActionResult> Calendar()
         {
             return View(await _context.Eventos.ToListAsync());

@@ -11,6 +11,7 @@ public partial class UsuarioxInsignium
 
     public string Estado { get; set; } = "En progreso"; // ✅ default value here
 
+    public string? ImagenRuta { get; set; }
     public virtual Usuario? IdUsuarioNavigation { get; set; } 
     public virtual Insignia? IdInsigniaNavigation { get; set; }
 }

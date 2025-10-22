@@ -75,11 +75,41 @@ namespace administracionScoutsCR.Controllers
             return View(model);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> KeepAlive()
+        {
+            var result = await HttpContext.AuthenticateAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+
+            if (result.Succeeded && result.Principal != null)
+            {
+                await HttpContext.SignInAsync(
+                    CookieAuthenticationDefaults.AuthenticationScheme,
+                    result.Principal,
+                    new AuthenticationProperties
+                    {
+                        IsPersistent = true,
+                        ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(2)
+                    });
+
+                return Ok(new { success = true });
+            }
+
+            return Unauthorized(new { success = false });
+        }
+
+
+
+
+
 
         public async Task<IActionResult> LogOut()
 		{
 			await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-			return RedirectToAction("Login", "ControllerLogin");
+
+            TempData["ToastMessage"] = "Sesión cerrada por inactividad";
+            TempData["ToastType"] = "warning"; 
+
+            return RedirectToAction("Login", "ControllerLogin");
 		}
 
 		[Authorize]

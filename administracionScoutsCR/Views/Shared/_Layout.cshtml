@@ -1,4 +1,4 @@
-@{
+﻿@{
 	ViewData["Title"] = "Home Page";
 }
 @using Microsoft.AspNetCore.Authorization
@@ -1249,6 +1249,101 @@
 			});
 		});
 	</script>
+	<div id="session-toast"
+		 class="toast align-items-center text-white position-fixed top-50 start-50 translate-middle shadow-lg border-0"
+		 role="alert" aria-live="assertive" aria-atomic="true">
+		<div class="toast-header bg-gradient bg-primary text-light" style="background: linear-gradient(90deg, #6a11cb, #2575fc);">
+			<strong class="me-auto">⚠️ Aviso de sesión</strong>
+			<button type="button" class="btn-close btn-close-white" data-bs-dismiss="toast" aria-label="Close"></button>
+		</div>
+		<div class="toast-body bg-dark text-light p-4 rounded-bottom" style="font-size: 1rem;">
+			<p class="mb-2">Tu sesión está a punto de expirar.</p>
+			<p><strong>Tiempo restante: <span id="time-remaining">--:--</span></strong></p>
+			<div class="mt-3 d-flex justify-content-center">
+				<button id="extendSessionBtn" type="button" class="btn btn-sm px-4"
+						style="background: linear-gradient(90deg, #6a11cb, #2575fc); color: white; border: none;">
+					Extender sesión
+				</button>
+			</div>
+		</div>
+	</div>
+
+	<script>
+		const sessionMinutes = 2;     // tiempo total por seccion tiene que ser igual al de programscs
+		const warningMinutes = 1;     //tiempo para el preaviso antes de desconectar
+		const warningTimeMs = (sessionMinutes - warningMinutes) * 60 * 1000;
+		const logoutTimeMs = sessionMinutes * 60 * 1000;
+
+		let warningTimeout;
+		let logoutTimeout;
+		let countdownInterval;
+		let remainingSeconds;
+		function updateCountdown() {
+			const timeDisplay = document.getElementById('time-remaining');
+			const minutes = Math.floor(remainingSeconds / 60);
+			const seconds = remainingSeconds % 60;
+			timeDisplay.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+
+			if (remainingSeconds <= 0) {
+				clearInterval(countdownInterval);
+			} else {
+				remainingSeconds--;
+			}
+		}
+
+		function showSessionWarning() {
+			const toastEl = document.getElementById('session-toast');
+			const toast = new bootstrap.Toast(toastEl, { autohide: false }); 
+			toast.show();
+			remainingSeconds = warningMinutes * 60;
+			updateCountdown();
+			countdownInterval = setInterval(updateCountdown, 1000);
+		}
+		function logoutUser() {
+			clearInterval(countdownInterval);
+			window.location.href = '/ControllerLogin/LogOut';
+		}
+
+		async function extendSession() {
+			try {
+				const response = await fetch('/ControllerLogin/KeepAlive', {
+					method: 'GET',
+					credentials: 'include'
+				});
+
+				if (response.ok) {
+					console.log("Sesión extendida.");
+
+					const toastEl = document.getElementById('session-toast');
+					const toast = bootstrap.Toast.getInstance(toastEl);
+					toast.hide();
+
+					restartSessionTimers();
+				}
+			} catch (err) {
+				console.error("Error al extender la sesión:", err);
+			}
+		}
+		function restartSessionTimers() {
+			clearTimeout(warningTimeout);
+			clearTimeout(logoutTimeout);
+			clearInterval(countdownInterval);
+
+			warningTimeout = setTimeout(showSessionWarning, warningTimeMs);
+			logoutTimeout = setTimeout(logoutUser, logoutTimeMs);
+
+			console.log("Temporizadores reiniciados.");
+		}
+
+		document.addEventListener('DOMContentLoaded', () => {
+			document.getElementById('extendSessionBtn').addEventListener('click', extendSession);
+			restartSessionTimers();
+		});
+	</script>
+
+
+
+
 
 </body>
 

@@ -52,7 +52,11 @@ namespace administracionScoutsCR.Models
 		[Required(ErrorMessage = "Debe seleccionar un rol.")]
 		public int? IdRole { get; set; }
 
-		public virtual ICollection<ConfirmacionEvento> ConfirmacionEventos { get; set; } = new List<ConfirmacionEvento>();
+        [Required(ErrorMessage = "La cédula es obligatoria.")]
+        [StringLength(12, ErrorMessage = "La cédula no puede superar los 12 caracteres.")]
+        public string Cedula { get; set; } = null!;
+
+        public virtual ICollection<ConfirmacionEvento> ConfirmacionEventos { get; set; } = new List<ConfirmacionEvento>();
 		public virtual Role? IdRoleNavigation { get; set; } = null!;
 		public virtual Seccion? IdSeccionNavigation { get; set; } = null!;
 		public virtual ICollection<UsuarioxContactoEmergencium> UsuarioxContactoEmergencia { get; set; } = new List<UsuarioxContactoEmergencium>();

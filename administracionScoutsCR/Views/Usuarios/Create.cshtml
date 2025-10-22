@@ -44,6 +44,13 @@
                                 <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                                     <div class="accordion-body">
                                         <div class="row">
+                                        <div class="col-lg-6 col-sm-12">
+                                            <div class="mb-3">
+                                                <label asp-for="Cedula" class="form-label">Cedula</label>
+                                                <input asp-for="Cedula" class="form-control" placeholder="Digite su cedula" />
+                                                <span asp-validation-for="Cedula" class="text-danger"></span>
+                                            </div>
+                                        </div>
                                             <div class="col-lg-6 col-sm-12">
                                                 <div class="mb-3">
                                                     <label asp-for="Nombre" class="form-label">Nombre</label>

@@ -43,6 +43,7 @@
                     <table class="table table-striped" id="usuariosTable">
                         <thead>
                             <tr>
+                                <th>Cedula</th>
                                 <th>Nombre</th>
                                 <th>Primer Apellido</th>
                                 <th>Segundo Apellido</th>
@@ -56,6 +57,7 @@
                             @foreach (var item in Model)
                             {
                                 <tr>
+                                    <td>@item.Cedula</td>
                                     <td>@item.Nombre</td>
                                     <td>@item.Apellido1</td>
                                     <td>@item.Apellido2</td>
@@ -84,6 +86,17 @@
                 </div>
             </div>
         </div>
+        <nav aria-label="Page navigation">
+            <ul class="pagination justify-content-center mt-3">
+                @for (int i = 1; i <= ViewBag.TotalPaginas; i++)
+                {
+                    <li class="page-item @(i == ViewBag.PaginaActual ? "active" : "")">
+                        <a class="page-link" asp-action="Index" asp-route-page="@i">@i</a>
+                    </li>
+                }
+            </ul>
+        </nav>
+
     </div>
 
     <!-- Script para la búsqueda en la tabla -->

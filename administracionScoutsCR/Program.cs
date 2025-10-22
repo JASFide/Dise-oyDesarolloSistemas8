@@ -23,11 +23,13 @@ builder.Services.AddHostedService<RecordatorioEventosService>();
 
 // Configuración de autenticación por cookies (solo UNA vez)
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-	.AddCookie(options =>
-	{
-		options.LoginPath = "/ControllerLogin/Login"; // Redirección al login si no está autenticado
-		options.AccessDeniedPath = "/Home/Index"; // Redirección si no tiene permisos
-	});
+    .AddCookie(options =>
+    {
+        options.LoginPath = "/ControllerLogin/Login"; // Redirección al login si no está autenticado
+        options.AccessDeniedPath = "/Home/Index";     // Redirección si no tiene permisos
+        options.ExpireTimeSpan = TimeSpan.FromMinutes(2); 
+        options.SlidingExpiration = true;
+    });
 
 // Autorización global: requiere login para toda la app por defecto
 builder.Services.AddControllersWithViews(options =>

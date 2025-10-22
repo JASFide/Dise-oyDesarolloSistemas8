@@ -21,12 +21,27 @@ namespace administracionScoutsCR.Controllers
         }
 
         // GET: Usuarios
-        
-        public async Task<IActionResult> Index()
-        {
-            var databaseScoutContext = _context.Usuarios.Include(u => u.IdSeccionNavigation).Include(u => u.IdRoleNavigation);
 
-            return View(await databaseScoutContext.ToListAsync());
+        public async Task<IActionResult> Index(int page = 1)
+        {
+            int pageSize = 5; // cantidad de elementos por pagina
+
+            var query = _context.Usuarios
+                .Include(u => u.IdSeccionNavigation)
+                .Include(u => u.IdRoleNavigation)
+                .OrderBy(u => u.Nombre);
+
+            int totalUsuarios = await query.CountAsync();
+
+            var usuarios = await query
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+
+            ViewBag.TotalPaginas = (int)Math.Ceiling((double)totalUsuarios / pageSize);
+            ViewBag.PaginaActual = page;
+
+            return View(usuarios);
         }
 
         // GET: Usuarios/Details/5
@@ -74,24 +89,36 @@ namespace administracionScoutsCR.Controllers
       
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdUsuario,Nombre,Apellido1,Apellido2,FechaNacimiento,TipoUsuario,Estado,IdSeccion,Direccion,Correo,NumeroTelefono,Contrasena,IdRole")] Usuario usuario)
+        public async Task<IActionResult> Create([Bind("IdUsuario,Nombre,Apellido1,Apellido2,FechaNacimiento,TipoUsuario,Estado,IdSeccion,Direccion,Correo,NumeroTelefono,Contrasena,Cedula,IdRole")] Usuario usuario)
         {
             if (ModelState.IsValid)
             {
+                // Validar si el correo ya existe
                 var usuarioExistente = await _context.Usuarios
                     .FirstOrDefaultAsync(u => u.Correo == usuario.Correo);
+
+                // Validar si la cédula ya existe
+                var usuarioExistenteCedula = await _context.Usuarios
+                    .FirstOrDefaultAsync(u => u.Cedula == usuario.Cedula);
 
                 if (usuarioExistente != null)
                 {
                     ModelState.AddModelError("Correo", "El correo ya está en uso.");
                 }
+                else if (usuarioExistenteCedula != null)
+                {
+                    ModelState.AddModelError("Cedula", "La cédula ya está registrada.");
+                }
                 else
                 {
+                    // Hashear la contraseña antes de guardar
                     var hasher = new PasswordHasher<Usuario>();
                     usuario.Contrasena = hasher.HashPassword(usuario, usuario.Contrasena);
 
+                    // Agregar el usuario
                     _context.Add(usuario);
                     await _context.SaveChangesAsync();
+
                     return RedirectToAction(nameof(Index));
                 }
             }

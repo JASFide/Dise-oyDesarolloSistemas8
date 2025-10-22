@@ -19,7 +19,9 @@ namespace administracionScoutsCR.Models
 		[Required(ErrorMessage = "Debe especificar el usuario que confirma la asistencia.")]
 		public int? IdUsuario { get; set; }
 
-		[ForeignKey("IdEvento")]
+        public string? ImagenRuta { get; set; }
+
+        [ForeignKey("IdEvento")]
 		public virtual Evento? IdEventoNavigation { get; set; } = null!;
 
 		[ForeignKey("IdUsuario")]
